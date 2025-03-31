@@ -1,0 +1,59 @@
+// 📌 Variables de Estilos
+$input-bg: #ffffff; // Fondo blanco para inputs
+$input-border: #d1d1d1; // Borde gris claro para inputs outline
+$btn-success: #28a745;
+$btn-danger: #dc3545;
+$btn-primary: #007bff;
+$border-radius: 8px;
+
+// 📌 Ajuste de Inputs con Fondo y Borde
+ion-input {
+  border-radius: $border-radius;
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+ion-input[fill="solid"] {
+  background-color: $input-bg;
+  border: 1px solid transparent;
+}
+
+ion-input[fill="outline"] {
+  background-color: transparent;
+  border: 1px solid $input-border;
+}
+
+// 📌 Ajuste para la Sección de Mascotas
+ion-card {
+  padding: 15px;
+  border-radius: $border-radius;
+}
+
+// 📌 Botones
+ion-button {
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+ion-button[color="success"] {
+  background-color: $btn-success;
+}
+
+ion-button[color="danger"] {
+  background-color: $btn-danger;
+}
+
+ion-button[color="primary"] {
+  background-color: $btn-primary;
+}
+
+// 📌 Ajuste Responsivo
+@media (max-width: 768px) {
+  ion-col {
+    width: 100%;
+  }
+}
+
+

@@ -1,0 +1,81 @@
+.card-actions {
+    display: flex;
+    justify-content: center; // Centra los botones horizontalmente
+    align-items: center;
+    padding: 10px 10px; // Ajusta el padding para centrar con el contenido
+    width: 100%; // Asegura que ocupe todo el ancho del card sin expandirse
+    text-align: center; // Asegura que los botones estén centrados
+  }
+  
+  .card-button {
+    font-size: 12px;
+    min-width: 5px; // Tamaño uniforme para los botones
+    text-align: center;
+    white-space: nowrap; // Evita que el texto se divida en varias líneas
+    margin-top: 8px; // Espacio entre los botones y el borde del card
+    margin-bottom: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 5px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .card-subtitle {
+    font-size: 14px;
+    color: #584283;
+  }
+
+  ion-card-content {
+    font-size: 14px;
+    color: #444;
+    padding-bottom: 10px;
+  }
+
+  ion-card {
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #a6a6a6
+  }
+
+
+  /* Ajuste para el botón "Leer más" */
+.see-more {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 5px;
+    display: inline-block;
+  }
+  
+  .see-more:hover {
+    color: darkblue;
+  }
+  
+  /* Ajustes para el Popover */
+  ion-popover {
+    --width: 250px; /* Ajusta el tamaño del popover */
+    --max-height: 200px;
+    text-align: center;
+  }
+  
+  .popover-content {
+    font-size: 14px;
+    text-align: justify;
+  }
+  
+  
+  

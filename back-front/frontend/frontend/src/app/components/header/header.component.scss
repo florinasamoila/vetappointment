@@ -1,0 +1,67 @@
+.logo {
+      width: 100%; // Ocupará todo el ancho de la columna
+  max-height: 150px; // Ajusta la altura según necesidad
+  object-fit: contain; // Evita deformaciones
+  display: block;
+  margin: 0 auto; // Centra la imagen si es más pequeña     
+  }
+  
+
+  .left-col {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center; 
+    padding-left: 50px;
+  }
+  
+  .right-col {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center; 
+    padding-right: 50px;
+  }
+
+  // Botones User y Help
+  .user-button {
+    background-color: #4CAF50; // Color verde (puedes cambiarlo)
+    color: white;
+    font-weight: bold;
+    border-radius: 8px; // Bordes redondeados
+ 
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  
+    ion-icon {
+      font-size: 1.2rem;
+    }
+  
+    &:hover {
+      background-color: #45a049; // Cambio de color al pasar el mouse
+    }
+  
+    &:active {
+      transform: scale(0.95); // Efecto de presión al hacer clic
+    }
+  }
+  
+  .help-button {
+    background-color: #007BFF; // Azul (puedes cambiarlo)
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  
+    ion-icon {
+      font-size: 1.2rem;
+    }
+  
+    &:hover {
+      background-color: #0069d9; // Cambio de color al pasar el mouse
+    }
+  
+    &:active {
+      transform: scale(0.95); // Efecto de presión al hacer clic
+    }
+  }
+  
+  

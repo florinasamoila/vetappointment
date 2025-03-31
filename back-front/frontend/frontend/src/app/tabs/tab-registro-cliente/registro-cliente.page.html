@@ -1,0 +1,78 @@
+<ion-header>
+  <app-header titulo="Registro de Cliente"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registrar Nuevo Cliente</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form [formGroup]="clienteForm">
+        <ion-grid>
+          <ion-row>
+            <!-- 📌 Columna Izquierda: Datos del Cliente -->
+            <ion-col size="6">
+              <ion-input label="Nombre" label-placement="floating" fill="solid" formControlName="nombre"></ion-input>
+              <br />
+              <ion-input label="Apellido" label-placement="floating" fill="solid" formControlName="apellido"></ion-input>
+              <br />
+              <ion-input label="Correo Electrónico" label-placement="floating" fill="solid" type="email" formControlName="email"></ion-input>
+              <br />
+              <ion-input label="Teléfono" label-placement="floating" fill="solid" type="tel" formControlName="telefono"></ion-input>
+              <br />
+              <ion-input label="Dirección" label-placement="floating" fill="solid" formControlName="direccion"></ion-input>
+            </ion-col>
+
+            <!-- 📌 Columna Derecha: Primera Mascota -->
+            <ion-col size="6">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Datos de la Mascota</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                  <div formArrayName="mascotas">
+                    <div *ngFor="let mascota of mascotas.controls; let i = index" [formGroupName]="i">
+                      <ion-input label="Nombre" label-placement="floating" fill="outline" formControlName="nombre"></ion-input>
+                      <br />
+                      <ion-input label="Especie" label-placement="floating" fill="outline" formControlName="especie"></ion-input>
+                      <br />
+                      <ion-input label="Raza" label-placement="floating" fill="outline" formControlName="raza"></ion-input>
+                      <br />
+                      <ion-item>
+                        <ion-label>Fecha de Nacimiento</ion-label>
+                        <ion-datetime display-format="YYYY-MM-DD" formControlName="fechaNacimiento"></ion-datetime>
+                      </ion-item>
+                      <br />
+                      <ion-input label="Peso (kg)" label-placement="floating" fill="outline" type="number" formControlName="peso"></ion-input>
+                      <br />
+                      <ion-textarea label="Características" label-placement="floating" fill="outline" formControlName="caracteristicas"></ion-textarea>
+                      <br />
+
+                      <ion-button color="danger" fill="outline" (click)="eliminarMascota(i)">Eliminar</ion-button>
+                      <br /><br />
+                    </div>
+                  </div>
+
+                  <ion-button color="tertiary" expand="block" (click)="abrirPopover($event)">
+                    + Añadir Otra Mascota
+                  </ion-button>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- 📌 Botones Finales -->
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color="success" (click)="crearCliente()">Crear Cliente</ion-button>
+            <ion-button expand="block" color="medium" (click)="cancelar()">Cancelar</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

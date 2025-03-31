@@ -1,0 +1,57 @@
+<ion-header>
+  <app-header titulo="Gestión de Citas"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="content-grid">
+    <ion-row align-items-center>
+      <!-- 📌 Calendario en la Izquierda -->
+      <ion-col size="5">
+        <full-calendar class="calendar-container" [options]="calendarOptions"></full-calendar>
+      </ion-col>
+
+      <!-- 📌 Formulario y Barra de Búsqueda en la Derecha -->
+      <ion-col size="7">
+        
+
+        <ion-card class="cita-card">
+          <ion-card-header>
+            <ion-searchbar placeholder="Buscar cliente..." (ionInput)="buscarCliente($event)"></ion-searchbar>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <!-- 📌 Columna Izquierda - Formulario -->
+                <ion-col size="6">
+                  <ion-input
+                    label="Nombre del Cliente"
+                    label-placement="floating"
+                    fill="solid"
+                    placeholder="Ingrese el nombre"
+                  ></ion-input>
+
+                  <ion-select label="Mascota" label-placement="floating" fill="outline">
+                    <ion-select-option value="nina">Nina</ion-select-option>
+                    <ion-select-option value="bella">Bella</ion-select-option>
+                  </ion-select>
+
+                  <ion-select label="Servicio" label-placement="floating" fill="outline">
+                    <ion-select-option value="consulta">Consulta</ion-select-option>
+                    <ion-select-option value="vacunacion">Vacunación</ion-select-option>
+                  </ion-select>
+                </ion-col>
+
+                <!-- 📌 Columna Derecha - Calendario -->
+                <ion-col size="6" class="calendar-column">
+                  <ion-label>Seleccionar Fecha y Hora</ion-label>
+                  <ion-datetime class="datetime-picker" [showDefaultButtons]="true" doneText="Confirmar" cancelText="Cancelar"></ion-datetime>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

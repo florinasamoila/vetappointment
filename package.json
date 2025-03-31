@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "class-validator": "^0.14.1",
+    "mongodb": "^6.13.1"
+  }
+}
