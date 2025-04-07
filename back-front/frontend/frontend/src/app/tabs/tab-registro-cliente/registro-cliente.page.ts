@@ -8,6 +8,8 @@ import { CalendarOptions } from '@fullcalendar/core';
 import { FormArray, FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PopoverMascotaPage } from 'src/app/pages/popover-mascota/popover-mascota.page';
+import { ModalController } from '@ionic/angular/standalone';
+
 
 
 
@@ -28,7 +30,7 @@ export class TabRegistroCliente {
 
   
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private popoverCtrl: PopoverController) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private modalCtrl: ModalController) {
     this.clienteForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -39,19 +41,17 @@ export class TabRegistroCliente {
     });
   }
 
-  async abrirPopover(event: Event) {
-    const popover = await this.popoverCtrl.create({
+  async abrirModalMascota() {
+    const modal = await this.modalCtrl.create({
       component: PopoverMascotaPage,
-      event,
-      translucent: true,
-      cssClass: 'popover-fullscreen', // 🔥 Clase que aplica el tamaño completo
-      showBackdrop: true,
+      cssClass: 'popover-mascota-alert',
+      showBackdrop: true
     });
   
-    await popover.present();
-    const { data } = await popover.onDidDismiss();
+    await modal.present();
   
-    // 📌 Si hay datos, añadirlos correctamente al FormArray
+    const { data } = await modal.onDidDismiss();
+  
     if (data) {
       const form = this.fb.group({
         nombre: [data.nombre || '', Validators.required],
@@ -64,10 +64,11 @@ export class TabRegistroCliente {
         caracteristicas: [data.caracteristicas || ''],
         fechaNacimiento: [data.fechaNacimiento || '']
       });
+  
       this.mascotas.push(form);
     }
-    
   }
+  
   
 
   get mascotas(): FormArray {

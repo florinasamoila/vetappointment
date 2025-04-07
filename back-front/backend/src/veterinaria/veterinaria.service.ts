@@ -42,6 +42,8 @@ export class VeterinariaService {
     ) {}
 
 //  CRUD para Clientes
+
+
   async createCliente(createClienteDto: CreateClienteDto): Promise<ClienteDto> {
     try {
       const cliente = await this.clienteModel.create({
@@ -87,6 +89,13 @@ export class VeterinariaService {
   async findAllClientes(): Promise<Cliente[]> {
     return this.clienteModel.find().exec();
   }
+
+  async findClientByName(nombre: string): Promise<Cliente[]> {
+    return this.clienteModel.find({
+      nombre: { $regex: nombre, $options: 'i' } // búsqueda insensible a mayúsculas
+    }).exec();
+  }
+  
 
   async findClienteById(id: string): Promise<ClienteDto> {
     const cliente = await this.clienteModel
@@ -135,6 +144,27 @@ export class VeterinariaService {
   }
 
 //  CRUD para Mascotas
+
+async findMascotaByNombre(nombre: string): Promise<Mascota[]> {
+  return this.buscarPorCampo(this.mascotaModel, ['nombre', 'especie', 'raza'], nombre);
+}
+
+async findMascotasByClienteId(clienteId: string): Promise<Mascota[]> {
+  const cliente = await this.clienteModel.findById(clienteId).exec();
+
+  if (!cliente) {
+    throw new NotFoundException('Cliente no encontrado');
+  }
+
+  const mascotas = await this.mascotaModel.find({
+    _id: { $in: cliente.mascotas }
+  }).exec();
+
+  return mascotas; // 👈 devuelve los objetos completos
+}
+
+
+
 async createMascota(createMascotaDto: CreateMascotaDto): Promise<Mascota> {
   const nuevaMascota = new this.mascotaModel(createMascotaDto);
 
@@ -178,6 +208,11 @@ async createMascota(createMascotaDto: CreateMascotaDto): Promise<Mascota> {
   }
 
 //  CRUD para Cita
+
+async findCitasByCampo(search: string): Promise<Cita[]> {
+  return this.buscarPorCampo(this.citaModel, ['motivo', 'observaciones'], search);
+}
+
    async createCita(createCitaDto: CreateCitaDto): Promise<Cita> {
     const nuevaCita = new this.citaModel(createCitaDto);
     return nuevaCita.save();
@@ -206,6 +241,10 @@ async createMascota(createMascotaDto: CreateMascotaDto): Promise<Mascota> {
   }
 
 //  CRUD para Facturacion
+
+async findFacturacionByConcepto(search: string): Promise<Facturacion[]> {
+  return this.buscarPorCampo(this.facturacionModel, ['concepto', 'detalle'], search);
+}
   async createFacturacion(createFacturacionDto: CreateFacturacionDto): Promise<Facturacion> {
     const nuevaFacturacion = new this.facturacionModel(createFacturacionDto);
     return nuevaFacturacion.save();
@@ -234,6 +273,10 @@ async createMascota(createMascotaDto: CreateMascotaDto): Promise<Mascota> {
   }
 
 //  CRUD para Historial Médico
+
+async findHistorialByDescripcion(texto: string): Promise<HistorialMedico[]> {
+  return this.buscarPorCampo(this.historialMedicoModel, ['descripcion'], texto);
+}
   async createHistorialMedico(createHistorialMedicoDto: CreateHistorialMedicoDto): Promise<HistorialMedico> {
     const nuevoHistorial = new this.historialMedicoModel(createHistorialMedicoDto);
     return nuevoHistorial.save();
@@ -262,6 +305,10 @@ async createMascota(createMascotaDto: CreateMascotaDto): Promise<Mascota> {
   }
 
 //  CRUD para Servicio Prestado
+
+async findServicioByNombre(titulo: string): Promise<ServicioPrestado[]> {
+  return this.buscarPorCampo(this.servicioPrestadoModel, ['titulo', 'descripcion'], titulo);
+}
   async createServicioPrestado(createServicioPrestadoDto: CreateServicioPrestadoDto): Promise<ServicioPrestado> {
     const nuevoServicio = new this.servicioPrestadoModel(createServicioPrestadoDto);
     return nuevoServicio.save();
@@ -290,6 +337,10 @@ async createMascota(createMascotaDto: CreateMascotaDto): Promise<Mascota> {
   }
 
 //  CRUD para Veterinario
+
+async findVeterinarioByNombre(nombre: string): Promise<Veterinario[]> {
+  return this.buscarPorCampo(this.veterinarioModel, ['nombre', 'apellido'], nombre);
+}
   async createVeterinario(createVeterinarioDto: CreateVeterinarioDto): Promise<Veterinario> {
     const nuevoVeterinario = new this.veterinarioModel(createVeterinarioDto);
     return nuevoVeterinario.save();
@@ -316,4 +367,18 @@ async createMascota(createMascotaDto: CreateMascotaDto): Promise<Mascota> {
     if (!veterinarioEliminado) throw new NotFoundException(`Veterinario con ID ${id} no encontrado`);
     return veterinarioEliminado;
   }
+
+  // Función genérica para búsqueda por nombre/título en cualquier colección
+private async buscarPorCampo(
+  model: Model<any>,
+  campos: string[],
+  search: string
+): Promise<any[]> {
+  const orConditions = campos.map(campo => ({
+    [campo]: { $regex: search, $options: 'i' },
+  }));
+
+  return model.find({ $or: orConditions }).exec();
+}
+
 }

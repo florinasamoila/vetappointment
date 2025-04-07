@@ -21,6 +21,17 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./tab-registro-cliente/registro-cliente.page').then((m) => m.TabRegistroCliente),
       },
+
+      {
+        path: 'consultas',
+        loadComponent: () =>
+          import('./tab-consultas/consultas.page').then((m) => m.TabConsultas), // Ensure the file exports TabConsultas
+      },
+      {
+        path: 'informes',
+        loadComponent: () =>
+          import('./tab-informes/informes.page').then((m) => m.TabInformes), // Ensure the file exports TabInformes
+      },
       {
         path: '',
         redirectTo: 'inicio',

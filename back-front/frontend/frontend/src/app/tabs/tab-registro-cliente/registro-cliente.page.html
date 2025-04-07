@@ -33,33 +33,12 @@
                 </ion-card-header>
 
                 <ion-card-content>
-                  <div formArrayName="mascotas">
-                    <div *ngFor="let mascota of mascotas.controls; let i = index" [formGroupName]="i">
-                      <ion-input label="Nombre" label-placement="floating" fill="outline" formControlName="nombre"></ion-input>
-                      <br />
-                      <ion-input label="Especie" label-placement="floating" fill="outline" formControlName="especie"></ion-input>
-                      <br />
-                      <ion-input label="Raza" label-placement="floating" fill="outline" formControlName="raza"></ion-input>
-                      <br />
-                      <ion-item>
-                        <ion-label>Fecha de Nacimiento</ion-label>
-                        <ion-datetime display-format="YYYY-MM-DD" formControlName="fechaNacimiento"></ion-datetime>
-                      </ion-item>
-                      <br />
-                      <ion-input label="Peso (kg)" label-placement="floating" fill="outline" type="number" formControlName="peso"></ion-input>
-                      <br />
-                      <ion-textarea label="Características" label-placement="floating" fill="outline" formControlName="caracteristicas"></ion-textarea>
-                      <br />
 
-                      <ion-button color="danger" fill="outline" (click)="eliminarMascota(i)">Eliminar</ion-button>
-                      <br /><br />
-                    </div>
-                  </div>
-
-                  <ion-button color="tertiary" expand="block" (click)="abrirPopover($event)">
-                    + Añadir Otra Mascota
-                  </ion-button>
+                  
                 </ion-card-content>
+                <ion-button color="tertiary" fill="clear"(click)="abrirModalMascota()">
+                  + Añadir Otra Mascota
+                </ion-button>
               </ion-card>
             </ion-col>
           </ion-row>
@@ -68,8 +47,8 @@
         <!-- 📌 Botones Finales -->
         <ion-row>
           <ion-col>
-            <ion-button expand="block" color="success" (click)="crearCliente()">Crear Cliente</ion-button>
-            <ion-button expand="block" color="medium" (click)="cancelar()">Cancelar</ion-button>
+            <ion-button fill="clear" color="success" (click)="abrirModalMascota()">Crear Cliente</ion-button>
+            <ion-button fill="clear" color="medium" (click)="cancelar()">Cancelar</ion-button>
           </ion-col>
         </ion-row>
       </form>

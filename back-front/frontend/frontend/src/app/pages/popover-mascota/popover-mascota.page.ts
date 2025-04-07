@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ExploreContainerComponent } from 'src/app/explore-container/explore-container.component';
+import { ModalController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-popover-mascota',
@@ -20,7 +21,7 @@ import { ExploreContainerComponent } from 'src/app/explore-container/explore-con
 export class PopoverMascotaPage implements OnInit {
   mascotaForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private popoverCtrl: PopoverController) {
+  constructor(private fb: FormBuilder, private modalCtrl: ModalController) {
     this.mascotaForm = this.fb.group({
       nombre: ['', Validators.required],
       especie: ['', Validators.required],
@@ -37,12 +38,12 @@ export class PopoverMascotaPage implements OnInit {
 
   guardarMascota() {
     if (this.mascotaForm.valid) {
-      this.popoverCtrl.dismiss(this.mascotaForm.value);
+      this.modalCtrl.dismiss(this.mascotaForm.value);
     }
   }
 
   cerrarPopover() {
-    this.popoverCtrl.dismiss();
+    this.modalCtrl.dismiss();
   }
 
   ngOnInit() {

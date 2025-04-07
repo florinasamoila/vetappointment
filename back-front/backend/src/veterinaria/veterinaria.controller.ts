@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { VeterinariaService } from './veterinaria.service';
 import { CreateClienteDto } from './dto-create/create-cliente.dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto-update/update-cliente.dto/update-cliente.dto';
@@ -29,6 +29,12 @@ export class VeterinariaController {
     return this.veterinariaService.createCliente(createClienteDto);
   }
 
+      @Get('clientes')
+    async findClientByName(@Query('search') search: string) {
+      return this.veterinariaService.findClientByName(search);
+    }
+
+
   @Get('/clientes')
   async findAllClientes() {
     return this.veterinariaService.findAllClientes();
@@ -51,6 +57,18 @@ export class VeterinariaController {
   }
 
 //  Rutas para Mascotas
+@Get('mascotas')
+async findMascotaByNombre(@Query('search') search: string) {
+  return this.veterinariaService.findMascotaByNombre(search);
+}
+
+@Get('clientes/:id/mascotas')
+async findMascotasByClienteId(@Param('id') id: string) {
+  return this.veterinariaService.findMascotasByClienteId(id);
+}
+
+
+
 @Post('mascotas')
 async createMascota(@Body() createMascotaDto: CreateMascotaDto): Promise<Mascota> {
   return this.veterinariaService.createMascota(createMascotaDto);
@@ -77,10 +95,17 @@ async createMascota(@Body() createMascotaDto: CreateMascotaDto): Promise<Mascota
   }
 
 //  Rutas para Cita
+
+@Get('/citas')
+async findCitasByCampo(@Query('search') search: string) {
+  return this.veterinariaService.findCitasByCampo(search);
+}
+
   @Post('/citas')
   async createCita(@Body() createCitaDto: CreateCitaDto) {
     return this.veterinariaService.createCita(createCitaDto);
   }
+
 
   @Get('/citas')
   async findAllCitas() {
@@ -103,6 +128,11 @@ async createMascota(@Body() createMascotaDto: CreateMascotaDto): Promise<Mascota
   }
 
 //  Rutas para facturacion
+
+@Get('facturacion')
+async findFacturacionByConcepto(@Query('search') search: string) {
+  return this.veterinariaService.findFacturacionByConcepto(search);
+}
    @Post('/facturacion')
    async createFacturacion(@Body() createFacturacionDto: CreateFacturacionDto) {
      return this.veterinariaService.createFacturacion(createFacturacionDto);
@@ -129,6 +159,11 @@ async createMascota(@Body() createMascotaDto: CreateMascotaDto): Promise<Mascota
    }
 
 //  Rutas para Historial Médico
+
+@Get('historial-medico')
+async findHistorialByDescripcion(@Query('search') search: string) {
+  return this.veterinariaService.findHistorialByDescripcion(search);
+}
   @Post('/historial-medico')
   async createHistorialMedico(@Body() createHistorialMedicoDto: CreateHistorialMedicoDto) {
     return this.veterinariaService.createHistorialMedico(createHistorialMedicoDto);
@@ -155,6 +190,10 @@ async createMascota(@Body() createMascotaDto: CreateMascotaDto): Promise<Mascota
   }
 
 //  Rutas para Servicio Prestado
+@Get('servicio-prestado')
+async findServicioByNombre(@Query('search') search: string) {
+  return this.veterinariaService.findServicioByNombre(search);
+}
     @Post('/servicio-prestado')
     async createServicioPrestado(@Body() createServicioPrestadoDto: CreateServicioPrestadoDto) {
     return this.veterinariaService.createServicioPrestado(createServicioPrestadoDto);
@@ -181,6 +220,11 @@ async createMascota(@Body() createMascotaDto: CreateMascotaDto): Promise<Mascota
     }
 
 //  Rutas para Veterinario
+
+@Get('veterinario')
+async findVeterinarioByNombre(@Query('search') search: string) {
+  return this.veterinariaService.findVeterinarioByNombre(search);
+}
   @Post('/veterinario')
   async createVeterinario(@Body() createVeterinarioDto: CreateVeterinarioDto) {
     return this.veterinariaService.createVeterinario(createVeterinarioDto);

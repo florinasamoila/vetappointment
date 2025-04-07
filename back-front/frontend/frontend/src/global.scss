@@ -36,15 +36,12 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
-.popover-fullscreen {
-    --width: 100vw ;
-    --height: 100vh ;
-    top: 0 ;
-    left: 0 ;
-    transform: none ;
-    border-radius: 0 ;
-    max-width: 100vw ;
-    max-height: 100vh ;
-    padding: 0;
-}
+/* ⚙️ Forzar ancho mayor del modal mascota */
+.popover-mascota-alert .modal-wrapper {
+    max-width: 520px !important;  /* Forzar el ancho */
+    width: 90% !important;
+    margin: auto;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
   

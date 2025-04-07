@@ -9,7 +9,12 @@ export class CitaDto {
   _id: string;
   fechaHora: Date;
   motivo: string;
-  estado: string;
+  estado: {
+    type: String,
+    enum: ['Programada', 'Confirmada', 'Cancelada', 'Completada'],
+    default: 'Programada'
+  }
+  
   cliente: ClienteDto;     
   mascota: MascotaDto;      
   veterinario: VeterinarioDto; 

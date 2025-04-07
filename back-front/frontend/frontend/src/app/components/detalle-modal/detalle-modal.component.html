@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="titulo-modal">Detalles</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="btn-cerrar" (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="detalle-container" *ngIf="datos">
+    <div *ngFor="let key of getKeys(datos)" class="detalle-item">
+      <div class="detalle-texto">
+        <div class="detalle-clave">{{ formatKey(key) }}</div>
+        <div class="detalle-valor">{{ datos[key] || '—' }}</div>
+      </div>
+
+      <!-- Copiar ID solo para el campo _id o id -->
+      <ion-button
+        fill="clear"
+        color="success"
+        size="small"
+        *ngIf="key === '_id' || key.toLowerCase() === 'id'"
+        (click)="copiarAlPortapapeles(datos[key])"
+      >
+        <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
