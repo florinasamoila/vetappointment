@@ -48,6 +48,7 @@
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.mascota"
+                    interface="popover"
                   >
                     <ion-select-option
                       *ngFor="let mascota of mascotasCliente"
@@ -63,6 +64,7 @@
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.servicio"
+                    interface="popover"
                   >
                     <ion-select-option
                       *ngFor="let servicio of servicios"
@@ -78,6 +80,8 @@
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.veterinario"
+                    interface="popover"
+                    (ionChange)="actualizarHorariosDisponibles()"
                   >
                     <ion-select-option
                       *ngFor="let vet of veterinarios"
@@ -86,6 +90,16 @@
                       {{ vet.nombre }}
                     </ion-select-option>
                   </ion-select>
+
+                  <!-- 📝 Observaciones -->
+                  <ion-textarea
+                    label="Observaciones"
+                    label-placement="floating"
+                    fill="solid"
+                    autoGrow="true"
+                    placeholder="Escribe cualquier detalle adicional..."
+                    [(ngModel)]="cita.observaciones">
+                  </ion-textarea>
                 </ion-col>
 
                 <!-- 📅 Fecha y Horario -->
@@ -94,10 +108,10 @@
                   <ion-datetime
                     class="datetime-picker"
                     presentation="date"
-                    [showDefaultButtons]="false"
-                    doneText="Confirmar"
-                    cancelText="Cancelar"
                     [(ngModel)]="cita.fecha"
+                    cancelText="Cancelar"
+                    doneText="Confirmar"
+                    (ionChange)="actualizarHorariosDisponibles()"
                   ></ion-datetime>
 
                   <ion-select
@@ -119,7 +133,12 @@
             </ion-grid>
 
             <!-- Botón para mostrar el resumen -->
-            <ion-button fill="clear" color="primary" (click)="mostrarResumenCita()">
+            <ion-button
+              expand="block"
+              fill="solid"
+              color="primary"
+              (click)="mostrarResumenCita()"
+            >
               Revisar y Confirmar
             </ion-button>
           </ion-card-content>
@@ -139,12 +158,23 @@
             <p><strong>Veterinario:</strong> {{ getNombreVeterinario(cita.veterinario) }}</p>
             <p><strong>Fecha:</strong> {{ cita.fecha | date:'fullDate' }}</p>
             <p><strong>Horario:</strong> {{ cita.hora }}</p>
+            <p><strong>Observaciones:</strong> {{ cita.observaciones || 'Sin observaciones' }}</p>
 
-            <ion-button fill="clear" color="success" (click)="confirmarCitaFinal()">
+            <ion-button
+              expand="block"
+              fill="solid"
+              color="success"
+              (click)="confirmarCitaFinal()"
+            >
               Confirmar Cita
             </ion-button>
 
-            <ion-button fill="clear" color="danger" (click)="cancelarResumen()">
+            <ion-button
+              expand="block"
+              fill="outline"
+              color="danger"
+              (click)="cancelarResumen()"
+            >
               Cancelar
             </ion-button>
           </ion-card-content>

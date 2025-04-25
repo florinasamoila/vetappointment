@@ -1,32 +1,111 @@
 <ion-header>
-  <ion-toolbar color="light">
-    <ion-title class="titulo-modal">Detalles</ion-title>
+  <ion-toolbar>
+    <ion-title>Detalle – {{ coleccion | titlecase }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button class="btn-cerrar" (click)="cerrar()">
-        <ion-icon name="close"></ion-icon>
+      <!-- Lápiz: sólo para clientes y mascotas -->
+      <ion-button
+        *ngIf="coleccion === 'clientes' || coleccion === 'mascotas'"
+        fill="clear"
+        (click)="editarRegistro()"
+      >
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
       </ion-button>
+      <ion-button (click)="cerrar()">Cerrar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="detalle-container" *ngIf="datos">
-    <div *ngFor="let key of getKeys(datos)" class="detalle-item">
-      <div class="detalle-texto">
-        <div class="detalle-clave">{{ formatKey(key) }}</div>
-        <div class="detalle-valor">{{ datos[key] || '—' }}</div>
-      </div>
 
-      <!-- Copiar ID solo para el campo _id o id -->
-      <ion-button
-        fill="clear"
-        color="success"
-        size="small"
-        *ngIf="key === '_id' || key.toLowerCase() === 'id'"
-        (click)="copiarAlPortapapeles(datos[key])"
-      >
-        <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
-      </ion-button>
+  <!-- 1) HISTORIAL MÉDICO -->
+  <ng-container *ngIf="coleccion === 'historial-medico'">
+    <div class="mascota-info">
+      <ion-icon name="paw" slot="start"></ion-icon>
+      <strong>Mascota:</strong> {{ datos.mascotaID?.nombre }}<br>
+      <strong>Especie:</strong> {{ datos.mascotaID?.especie }} –
+      <strong>Raza:</strong> {{ datos.mascotaID?.raza }}
     </div>
-  </div>
+    <h3>Entradas</h3>
+    <ion-list>
+      <ion-item *ngFor="let e of datos.entradas" button (click)="verEntrada(e)">
+        <ion-label>
+          <h4>{{ e.fecha | date:'dd/MM/yy H:mm' }}</h4>
+          <p><strong>Diagnóstico:</strong> {{ e.diagnosticos || '—' }}</p>
+        </ion-label>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <!-- 2) CITAS -->
+  <ng-container *ngIf="coleccion === 'citas'">
+    <!-- renderizamos solo fechaHora con formato dd/MM/yy H:mm -->
+    <ion-item lines="none">
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      <ion-label>
+        <strong>Fecha y Hora:</strong> {{ datos.fechaHora | date:'dd/MM/yy H:mm' }}
+      </ion-label>
+    </ion-item>
+    <!-- ahora el resto de campos sin fechaHora -->
+    <ng-container *ngFor="let key of getKeys(datos)">
+      <ion-item *ngIf="key !== 'fechaHora'" lines="none">
+        <ion-icon [name]="getIconoPorCampo(key)" slot="start"></ion-icon>
+        <ion-label>
+          <strong>{{ formatKey(key) }}:</strong> {{ datos[key] }}
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ng-container>
+
+  <!-- 3) CLIENTES -->
+  <ng-container *ngIf="coleccion === 'clientes'">
+    <ng-container *ngFor="let key of getKeys(datos)">
+      <ion-item lines="none">
+        <ion-icon [name]="getIconoPorCampo(key)" slot="start"></ion-icon>
+        <ion-label>
+          <strong>{{ formatKey(key) }}:</strong> {{ datos[key] }}
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ng-container>
+
+  <!-- 4) MASCOTAS -->
+  <ng-container *ngIf="coleccion === 'mascotas'">
+    <ng-container *ngFor="let key of getKeys(datos)">
+      <ion-item lines="none">
+        <ion-icon [name]="getIconoPorCampo(key)" slot="start"></ion-icon>
+        <ion-label>
+          <strong>{{ formatKey(key) }}:</strong>
+          <ng-container [ngSwitch]="key">
+            <ng-container *ngSwitchCase="'fechaNacimiento'">
+              {{ datos[key] | date:'dd/MM/yy' }}
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              {{ datos[key] }}
+            </ng-container>
+          </ng-container>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ng-container>
+
+  <!-- 5) RESTO DE COLECCIONES -->
+  <ng-container
+    *ngIf="
+      coleccion !== 'historial-medico' &&
+      coleccion !== 'citas' &&
+      coleccion !== 'clientes' &&
+      coleccion !== 'mascotas'
+    "
+  >
+    <ng-container *ngFor="let key of getKeys(datos)">
+      <ion-item lines="none">
+        <ion-icon [name]="getIconoPorCampo(key)" slot="start"></ion-icon>
+        <ion-label>
+          <strong>{{ formatKey(key) }}:</strong> {{ datos[key] }}
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ng-container>
+
 </ion-content>

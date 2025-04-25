@@ -2,25 +2,26 @@
   <ion-toolbar>
     <ion-grid>
       <ion-row class="ion-align-items-center">
-        <!-- Columna izquierda: Usuario Conectado -->
+        <!-- Usuario Conectado -->
         <ion-col size="2" class="left-col">
           <ion-buttons>
-            <ion-button  class="user-button">
+            <ion-button (click)="openUserMenu()">
               <ion-icon slot="start" name="person-circle"></ion-icon>
-              Usuario Conectado
+              {{ userEmail || 'Invitado' }}
             </ion-button>
           </ion-buttons>
         </ion-col>
 
-        <!-- Columna central: Logo -->
+        <!-- Logo y Título -->
         <ion-col size="8" class="ion-text-center">
-          <img src="assets/logo/complete-logo.svg" alt="VetAppointment Logo" class="logo">
+          <img src="assets/logo/complete-logo.svg" alt="Logo" class="logo" />
+          <h1>{{ titulo }}</h1>
         </ion-col>
 
-        <!-- Columna derecha: Botón de Ayuda -->
+        <!-- Ayuda -->
         <ion-col size="2" class="right-col">
           <ion-buttons>
-            <ion-button  class="help-button">
+            <ion-button>
               Ayuda
               <ion-icon slot="end" name="help-circle"></ion-icon>
             </ion-button>
@@ -30,5 +31,3 @@
     </ion-grid>
   </ion-toolbar>
 </ion-header>
-
-

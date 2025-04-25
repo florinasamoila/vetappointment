@@ -1,0 +1,149 @@
+<ion-header>
+  <app-header titulo="Gestión de Historial Médico"></app-header>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- 1) Segment -->
+  <ion-segment [(ngModel)]="vista">
+    <ion-segment-button value="gestion">Gestión</ion-segment-button>
+    <ion-segment-button value="entrada" [disabled]="!entradaDetalle">Entrada</ion-segment-button>
+  </ion-segment>
+
+  <!-- 2) VISTA GESTIÓN -->
+  <ng-container *ngIf="vista === 'gestion'">
+    <!-- Buscar cliente -->
+    <ion-searchbar
+      [(ngModel)]="busquedaCliente"
+      (ionInput)="buscarClientes()"
+      placeholder="Buscar cliente"
+      debounce="300"
+    ></ion-searchbar>
+
+    <!-- Lista de clientes -->
+    <ion-list>
+      <ion-item *ngFor="let c of clientesFiltrados" (click)="seleccionarCliente(c)">
+        {{ c.nombre }} {{ c.apellido }}
+      </ion-item>
+    </ion-list>
+
+    <!-- Selector de mascota -->
+    <ion-item *ngIf="clienteSeleccionado">
+      <ion-label>Selecciona la mascota</ion-label>
+      <ion-select
+        [(ngModel)]="mascotaSeleccionada"
+        (ionChange)="cargarHistorial()"
+        placeholder="Elige mascota"
+      >
+        <ion-select-option *ngFor="let m of mascotasDelCliente" [value]="m">
+          {{ m.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Filtro por mes -->
+    <ion-item *ngIf="historialMedico?.entradas?.length">
+      <ion-label>Filtrar mes</ion-label>
+      <ion-select
+        [(ngModel)]="mesSeleccionado"
+        (ionChange)="filtrarPorMes()"
+        placeholder="Todos"
+      >
+        <ion-select-option value="">Todos</ion-select-option>
+        <ion-select-option *ngFor="let mes of mesesDisponibles" [value]="mes">
+          {{ mes < 10 ? '0' + mes : mes }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Lista de entradas filtradas -->
+    <ion-list *ngIf="historialMedico && mascotaSeleccionada">
+      <ion-item
+        *ngFor="let e of entradasFiltradas"
+        button
+        (click)="abrirDetalleEntrada(e)"
+      >
+        <ion-label>
+          <h2>
+            {{ e.fecha | date:'dd/MM/yy' }}
+            — {{ e.fecha | date:'HH:mm' }}
+          </h2>
+          <p>🐾 {{ mascotaSeleccionada.nombre }}</p>
+        </ion-label>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <!-- Botón para agregar nueva entrada -->
+    <ion-button
+      expand="full"
+      color="primary"
+      *ngIf="mascotaSeleccionada"
+      (click)="abrirFormularioEntrada()"
+    >
+      Agregar nueva entrada
+    </ion-button>
+  </ng-container>
+
+  <!-- 3) VISTA DETALLE DE ENTRADA -->
+  <ng-container *ngIf="vista === 'entrada' && entradaDetalle">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Detalle de Entrada</ion-card-title>
+        <ion-card-subtitle>
+          Mascota: {{ entradaDetalle.mascota.nombre }}<br />
+          Cliente:
+          {{ entradaDetalle.mascota.cliente.nombre }}
+          {{ entradaDetalle.mascota.cliente.apellido }}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          <strong>Fecha Entrada:</strong>
+          {{ entradaDetalle.fecha | date:'dd/MM/yy HH:mm' }}
+        </p>
+        <p>
+          <strong>Diagnósticos:</strong>
+          {{ entradaDetalle.diagnosticos || '—' }}
+        </p>
+        <p>
+          <strong>Tratamientos:</strong>
+          {{ entradaDetalle.tratamientos || '—' }}
+        </p>
+        <p>
+          <strong>Observaciones:</strong>
+          {{ entradaDetalle.observaciones || '—' }}
+        </p>
+
+        <ion-item lines="none">
+          <ion-label>
+            <strong>Cita asociada:</strong><br />
+            Fecha:
+            {{ entradaDetalle.cita.fechaHora | date:'dd/MM/yy HH:mm' }}
+            <br />
+            Motivo: {{ entradaDetalle.cita.motivo }}<br />
+            Estado: {{ entradaDetalle.cita.estado }}
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>
+            <strong>Veterinario:</strong><br />
+            {{ entradaDetalle.cita.veterinario.nombre }}
+            {{ entradaDetalle.cita.veterinario.apellido }}
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>
+            <strong>Servicio:</strong><br />
+            {{ entradaDetalle.cita.servicioPrestado?.nombre || '—' }}
+          </ion-label>
+        </ion-item>
+
+        <ion-button expand="block" (click)="vista='gestion'">
+          ← Volver a Gestión
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+</ion-content>

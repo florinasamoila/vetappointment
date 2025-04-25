@@ -12,10 +12,10 @@
           [(ngModel)]="coleccionSeleccionada"
           interface="popover"
           placeholder="Selecciona una colección"
-          (ionChange)="limpiarBusqueda()"
+          (ionChange)="onColeccionChange()"
         >
-          <ion-select-option *ngFor="let coleccion of colecciones" [value]="coleccion.valor">
-            {{ coleccion.nombre }}
+          <ion-select-option *ngFor="let c of colecciones" [value]="c.valor">
+            {{ c.nombre }}
           </ion-select-option>
         </ion-select>
       </div>
@@ -25,38 +25,54 @@
         <ion-input
           id="termino"
           [(ngModel)]="terminoBusqueda"
-          (ionInput)="onInputChange()"
+          (ionInput)="buscarDatos()"
           clearInput
           placeholder="Escribe aquí..."
         ></ion-input>
-
-        <!-- 🔽 Lista de sugerencias -->
-        <ul *ngIf="mostrarSugerencias && sugerencias.length" class="sugerencias-list">
-          <li *ngFor="let item of sugerencias" (click)="seleccionarSugerencia(item)">
-            {{ item.nombre || item.titulo || item.descripcion || item._id }}
-          </li>
-        </ul>
       </div>
     </div>
   </div>
 
-  <div class="resultados-container">
-    <ion-card *ngFor="let item of resultados" class="resultado-card">
-      <ion-card-header>
-        <ion-card-title>{{ item.nombre || item.titulo || 'Sin nombre' }}</ion-card-title>
-        <ion-card-subtitle>{{ getSubtitulo(item) }}</ion-card-subtitle>
-      </ion-card-header>
+  <div class="resultados-container" *ngIf="coleccionSeleccionada">
+    <ion-item>
+      <ion-label>
+        <ion-checkbox
+          slot="start"
+          [checked]="clientesSeleccionados.size === resultados.length && resultados.length>0"
+          (ionChange)="toggleSeleccionTodos($event)"
+        ></ion-checkbox>
+        Seleccionar todos
+      </ion-label>
+    </ion-item>
 
-      <ion-card-content>
-        <ion-button expand="block" fill="outline" color="primary" (click)="verDetalles(item)">
-          <ion-icon name="eye" slot="start"></ion-icon>
-          Ver Detalles
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
+    <ion-button
+      *ngIf="clientesSeleccionados.size > 0"
+      expand="block"
+      color="danger"
+      (click)="borrarElementosSeleccionados()"
+    >
+      Borrar Seleccionados
+    </ion-button>
+
+    <ion-list>
+      <ion-item *ngFor="let item of resultados" button (click)="verDetalles(item)">
+        <ion-checkbox
+          slot="start"
+          [checked]="clientesSeleccionados.has(item._id)"
+          (ionChange)="toggleClienteSeleccionado(item._id); $event.stopPropagation()"
+        ></ion-checkbox>
+        <ion-label>
+          <h2>{{ obtenerNombreVisible(item) }}</h2>
+          <p>{{ getSubtitulo(item) }}</p>
+        </ion-label>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
 
     <ion-text color="medium" *ngIf="resultados.length === 0 && terminoBusqueda">
-      <p class="no-result-text">No se encontraron resultados para "{{ terminoBusqueda }}"</p>
+      <p class="no-result-text">
+        No se encontraron resultados para "{{ terminoBusqueda }}"
+      </p>
     </ion-text>
   </div>
 </ion-content>

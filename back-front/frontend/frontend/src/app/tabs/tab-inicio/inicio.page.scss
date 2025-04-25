@@ -1,81 +1,254 @@
-.card-actions {
+/* src/app/tabs/tab-inicio/inicio.page.scss */
+
+/* --- Cabeceras de sección (título + descripción) --- */
+.titulo_leyenda,
+.info-text {
+  background: #f5f5f5;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.titulo_leyenda {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.info-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 2rem;
+}
+
+/* --- Filtrar por Estado (sección) --- */
+.estado-leyenda {
+  background: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.leyenda-item {
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: transform 0.2s, opacity 0.2s;
+
+  &.todos      { background-color: #999; }
+  &.confirmada { background-color: #007bff; }
+  &.programada { background-color: #f4c430; color: #333; }
+  &.completada { background-color: #28a745; }
+  &.cancelada  { background-color: #dc3545; }
+
+  &:hover {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* --- Contenedor Principal --- */
+.main-container {
+  display: flex;
+  gap: 3rem;
+  padding: 0 1rem 3rem;
+}
+
+/* --- Panel Izquierdo (Calendario + Horario) --- */
+.left-panel {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Selector de Fecha */
+.date-selector {
+  background: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  ion-datetime {
+    width: 100%;
+    --padding: 8px;
+    --border-radius: 8px;
+    --background: #fafafa;
+    --placeholder-color: #888;
+  }
+}
+
+/* Horario del Día */
+.schedule-container {
+  background: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Columnas de Horas */
+.schedule-times {
+  background: #f7f7f7;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  .hour {
+    height: 60px;
     display: flex;
-    justify-content: center; // Centra los botones horizontalmente
     align-items: center;
-    padding: 10px 10px; // Ajusta el padding para centrar con el contenido
-    width: 100%; // Asegura que ocupe todo el ancho del card sin expandirse
-    text-align: center; // Asegura que los botones estén centrados
+    justify-content: center;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.85rem;
+    color: #555;
   }
-  
-  .card-button {
-    font-size: 12px;
-    min-width: 5px; // Tamaño uniforme para los botones
-    text-align: center;
-    white-space: nowrap; // Evita que el texto se divida en varias líneas
-    margin-top: 8px; // Espacio entre los botones y el borde del card
-    margin-bottom: 8px;
-    margin-left: 8px;
-    margin-right: 8px;
-  }
+}
 
-
-  .card-header {
+/* Grid de Veterinarios */
+.schedule-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(120px, 1fr);
+  .vet-column {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-bottom: 5px;
-  }
+    border-left: 1px solid #e0e0e0;
 
-  .card-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-  }
+    /* Nombre del veterinario en la primera celda */
+    .cell.cita:first-child {
+      background: transparent;
+      border: none;
+      font-weight: bold;
+      color: #333;
+    }
 
-  .card-subtitle {
-    font-size: 14px;
-    color: #584283;
-  }
+    .cell {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 0.8rem;
 
-  ion-card-content {
-    font-size: 14px;
-    color: #444;
-    padding-bottom: 10px;
+      &.cita {
+        background-color: rgba(0, 123, 255, 0.1);
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        padding: 4px;
+      }
+    }
   }
+}
 
-  ion-card {
-    margin: 10px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #a6a6a6
-  }
+/* --- Panel Derecho (Acordeón de Citas) --- */
+.right-panel {
+  flex: 1;
+  background: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+}
 
+/* --- Acordeón y Tarjetas --- */
+ion-accordion {
+  margin-bottom: 1.5rem;
+}
 
-  /* Ajuste para el botón "Leer más" */
-.see-more {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 12px;
-    margin-left: 5px;
-    display: inline-block;
+ion-item[slot="header"] {
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+ion-icon.chevron-down {
+  margin-right: 8px;
+}
+
+ion-accordion[expanded] ion-icon.chevron-down {
+  transform: rotate(180deg);
+}
+
+ion-card {
+  margin: 0 0 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+ion-card-header {
+  padding: 1rem;
+}
+
+ion-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+ion-card-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+ion-card-content {
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0.75rem 1rem 1rem;
+}
+
+ion-button {
+  flex: 1 1 auto;
+  font-size: 0.85rem;
+}
+
+/* Bordes laterales según estado */
+.confirmada { border-left: 4px solid #007bff !important; }
+.programada { border-left: 4px solid #f4c430 !important; }
+.completada { border-left: 4px solid #28a745 !important; }
+.cancelada  { border-left: 4px solid #dc3545 !important; }
+
+/* --- Responsive --- */
+@media (max-width: 800px) {
+  .main-container {
+    flex-direction: column;
   }
-  
-  .see-more:hover {
-    color: darkblue;
+  .left-panel,
+  .right-panel {
+    flex: none;
+    max-height: none;
+    overflow: visible;
   }
-  
-  /* Ajustes para el Popover */
-  ion-popover {
-    --width: 250px; /* Ajusta el tamaño del popover */
-    --max-height: 200px;
-    text-align: center;
-  }
-  
-  .popover-content {
-    font-size: 14px;
-    text-align: justify;
-  }
-  
-  
-  
+}
+
+/* Indicaciones / cabeceras de sección */
+.section-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.section-info {
+  font-size: 0.9rem;
+  color: #666;
+}

@@ -7,5 +7,6 @@ export interface Cita {
     mascota: string;
     veterinario: string;
     servicioPrestado: string;
+    observaciones?: string;
   }
   

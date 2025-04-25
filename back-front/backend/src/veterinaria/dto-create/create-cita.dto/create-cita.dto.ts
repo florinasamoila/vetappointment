@@ -13,4 +13,5 @@ export class CreateCitaDto {
     mascota: string;         
     veterinario: string;      
     servicioPrestado: string; 
+    observaciones?: string; // Agregado por compatibilidad con el esquema
   }

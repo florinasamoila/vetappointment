@@ -1,0 +1,120 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  
+    ion-content {
+      flex: 1;
+      --padding-start: 16px;
+      --padding-end:   16px;
+      --padding-top:   16px;
+      --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+    }
+  
+    /***** BARRA DE BÚSQUEDA *****/
+    ion-searchbar {
+      --background: var(--ion-color-light-tint);
+      --border-radius: 8px;
+      --padding-start: 12px;
+      --padding-end:   12px;
+      margin: 0 16px 16px;
+    }
+  
+    /***** LISTAS TRANSPARENTES *****/
+    ion-list {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+      margin-bottom: 16px;
+    }
+  
+    ion-item {
+      --background: transparent;
+      --inner-padding-start: 12px;
+      --inner-padding-end:   12px;
+      border: none;
+      border-bottom: 1px solid var(--ion-color-light);
+      transition: background 0.2s ease;
+  
+      &:hover {
+        background: rgba(var(--ion-color-primary-rgb), 0.03);
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  
+    /***** SELECT UNIFICADO *****/
+    ion-select {
+      --background: transparent;
+      --padding-top:    0.66em;
+      --padding-bottom: 0.66em;
+      --padding-start:  0.8em;
+      --padding-end:    0.8em;
+  
+      --color:               var(--ion-color-dark);
+      --placeholder-color:   var(--ion-color-medium);
+      --placeholder-opacity: 0.6;
+  
+      --border-width: 1px;
+      --border-style: solid;
+      --border-color: var(--ion-color-light);
+      border-radius: 8px;
+      margin: 0 16px 20px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  
+      &:focus-within {
+        --border-color: var(--ion-color-primary);
+        box-shadow: 0 2px 6px rgba(var(--ion-color-primary-rgb), 0.15);
+      }
+      &.ng-touched.ng-invalid:not(:focus-within) {
+        --border-color: var(--ion-color-danger);
+      }
+      &:disabled {
+        --border-color: var(--ion-color-medium);
+        opacity: 0.6;
+      }
+    }
+  
+    ion-item ion-select {
+      margin: 0; /* hace que el select llene el item */
+    }
+  
+    /***** COLUMNAS HISTORIAL & BOTONES *****/
+    ion-row {
+      margin: 0 16px;
+    }
+    ion-col {
+      padding: 0;
+    }
+    ion-button {
+      --background: var(--ion-color-primary);
+      --color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(var(--ion-color-primary-rgb), 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin: 16px;
+  
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.4);
+      }
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(var(--ion-color-primary-rgb), 0.2);
+      }
+    }
+  
+    /***** ENTRADAS DE HISTORIAL *****/
+    .ion-list ion-item {
+      align-items: flex-start;
+    }
+    .ion-list ion-item ion-label {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      strong {
+        color: var(--ion-color-dark);
+      }
+    }
+  }
+  

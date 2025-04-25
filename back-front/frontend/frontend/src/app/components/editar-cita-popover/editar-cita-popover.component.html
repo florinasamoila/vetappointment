@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Editar Cita</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-accordion-group multiple="true">
+
+    <!-- 📅 DATOS DE LA CITA -->
+    <ion-accordion value="cita">
+      <ion-item slot="header">
+        <ion-label>Datos de la Cita</ion-label>
+      </ion-item>
+      <ion-item slot="content">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Fecha</ion-label>
+                <ion-datetime [(ngModel)]="cita.fechaHora" presentation="date"></ion-datetime>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label position="stacked">Hora</ion-label>
+                <ion-datetime [(ngModel)]="cita.fechaHora" presentation="time"></ion-datetime>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Estado</ion-label>
+                <ion-select [(ngModel)]="cita.estado">
+                  <ion-select-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Observaciones</ion-label>
+                <ion-textarea [(ngModel)]="cita.observaciones" autoGrow="true"></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-accordion>
+
+    <!-- 👤 CLIENTE (solo lectura) -->
+    <ion-accordion value="cliente">
+      <ion-item slot="header">
+        <ion-label>Cliente</ion-label>
+      </ion-item>
+      <ion-item slot="content">
+        <ion-item>
+          <ion-label>Nombre</ion-label>
+          <ion-note slot="end">{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Teléfono</ion-label>
+          <ion-note slot="end">{{ cita.cliente.telefono }}</ion-note>
+        </ion-item>
+      </ion-item>
+    </ion-accordion>
+
+    <!-- 🐾 MASCOTA -->
+    <ion-accordion value="mascota">
+      <ion-item slot="header">
+        <ion-label>Mascota</ion-label>
+      </ion-item>
+      <ion-item slot="content">
+        <ion-item>
+          <ion-label position="stacked">Seleccionar Mascota</ion-label>
+          <ion-select [(ngModel)]="cita.mascota">
+            <ion-select-option *ngFor="let mascota of mascotasCliente" [value]="mascota">
+              {{ mascota.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Especie</ion-label>
+          <ion-input [(ngModel)]="cita.mascota.especie"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Raza</ion-label>
+          <ion-input [(ngModel)]="cita.mascota.raza"></ion-input>
+        </ion-item>
+      </ion-item>
+    </ion-accordion>
+
+    <!-- 💉 SERVICIO -->
+    <ion-accordion value="servicio">
+      <ion-item slot="header">
+        <ion-label>Servicio</ion-label>
+      </ion-item>
+      <ion-item slot="content">
+        <ion-item>
+          <ion-label position="stacked">Nombre del Servicio</ion-label>
+          <ion-input [(ngModel)]="cita.servicioPrestado.nombre"></ion-input>
+        </ion-item>
+      </ion-item>
+    </ion-accordion>
+
+    <!-- 👨‍⚕️ VETERINARIO -->
+    <ion-accordion value="veterinario">
+      <ion-item slot="header">
+        <ion-label>Veterinario</ion-label>
+      </ion-item>
+      <ion-item slot="content">
+        <ion-item>
+          <ion-label position="stacked">Seleccionar Veterinario</ion-label>
+          <ion-select [(ngModel)]="cita.veterinario">
+            <ion-select-option *ngFor="let vet of veterinarios" [value]="vet">
+              {{ vet.nombre }} {{ vet.apellido }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-item>
+    </ion-accordion>
+
+  </ion-accordion-group>
+
+  <!-- BOTONES -->
+  <ion-button expand="block" color="success" (click)="guardar()">Guardar Cambios</ion-button>
+  <ion-button expand="block" color="medium" (click)="cerrar()">Cerrar</ion-button>
+</ion-content>

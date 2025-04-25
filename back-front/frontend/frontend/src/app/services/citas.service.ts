@@ -12,4 +12,13 @@ export class CitaService {
   crearCita(cita: any) {
     return this.http.post(this.apiUrl, cita);
   }
+
+  getAllCitas() {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  updateCita(id: string, cita: any) {
+    return this.http.put(`http://localhost:3000/veterinaria/citas/${id}`, cita);
+  }
+  
 }

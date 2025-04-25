@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Entrada al Historial</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Mostrar los datos de la cita -->
+  <ion-card *ngIf="citaSeleccionada">
+    <ion-card-header>
+      <ion-card-title>Datos de la Cita</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Fecha de la Cita:</strong> {{ citaSeleccionada.fechaHora | date:'short' }}</p>
+      <p><strong>Motivo:</strong> {{ citaSeleccionada.motivo }}</p>
+      <p><strong>Veterinario:</strong> {{ citaSeleccionada.veterinario?.nombre }} {{ citaSeleccionada.veterinario?.apellido }}</p>
+      <p><strong>Observaciones:</strong> {{ citaSeleccionada.observaciones || 'No disponible' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Formulario de entrada -->
+  <form (ngSubmit)="guardar()">
+    <ion-item>
+      <ion-label position="floating">Diagnóstico</ion-label>
+      <ion-input [(ngModel)]="entrada.diagnosticos" name="diagnosticos" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Tratamientos</ion-label>
+      <ion-input [(ngModel)]="entrada.tratamientos" name="tratamientos" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Observaciones</ion-label>
+      <ion-input [(ngModel)]="entrada.observaciones" name="observaciones" required></ion-input>
+    </ion-item>
+
+    <!-- El botón solo se habilita cuando los campos son válidos -->
+    <ion-button expand="full" type="submit" [disabled]="!entrada.diagnosticos || !entrada.tratamientos || !entrada.observaciones">
+      Guardar Entrada
+    </ion-button>
+  </form>
+</ion-content>

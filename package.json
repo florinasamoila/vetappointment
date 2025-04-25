@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "@angular/fire": "^19.1.0",
     "class-validator": "^0.14.1",
-    "mongodb": "^6.13.1"
+    "firebase": "^11.6.0",
+    "mongodb": "^6.13.1",
+    "zone.js": "^0.15.0"
   }
 }

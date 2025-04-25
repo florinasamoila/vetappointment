@@ -1,3 +1,5 @@
+import { HistorialMedico } from "../historial-medico/historial-medico.interface";
+
 export interface Mascota {
     _id: string;
     nombre: string;
@@ -7,5 +9,6 @@ export interface Mascota {
     peso: number;
     caracteristicas: string;
     cliente: string;
+    historialMedico?: HistorialMedico;
   }
   

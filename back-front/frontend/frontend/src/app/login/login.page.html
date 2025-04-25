@@ -1,0 +1,36 @@
+<ion-content class="login-page">
+  <!-- 1) Overlay semitransparente -->
+  <div class="bg-overlay"></div>
+
+  <!-- 2) Contenedor que sitúa la tarjeta sobre el overlay -->
+  <div class="login-container">
+    <div class="login-card">
+      <ion-card-header>
+        <ion-card-title>Iniciar Sesión</ion-card-title>
+        <ion-card-subtitle>Por favor, introduce tu correo y contraseña para acceder a tu cuenta de VetAppointment.</ion-card-subtitle>
+      </ion-card-header>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+        <div *ngIf="loginForm.get('email')?.touched" class="error-messages">
+          <small *ngIf="loginForm.get('email')?.errors?.['required']">Email requerido</small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']">Formato inválido</small>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+        <div *ngIf="loginForm.get('password')?.touched" class="error-messages">
+          <small *ngIf="loginForm.get('password')?.errors?.['required']">Contraseña requerida</small>
+          <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</small>
+        </div>
+
+        <ion-button  type="submit">Entrar</ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

@@ -1,234 +1,89 @@
+<!-- src/app/tabs/tab-inicio/inicio.page.html -->
 <ion-header>
-  <app-header titulo = "Inicio"></app-header>
+  <app-header></app-header>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!--Primer Grid-->
-    <ion-grid >
-      <ion-row class="ion-padding">
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card>
-            <ion-card-header class="card-header">
-              <ion-card-title class="card-title">🐶 Mascota: Nina</ion-card-title>
-              <ion-card-subtitle class="card-subtitle">👤 Dueño: Dan Anitei</ion-card-subtitle>
-            </ion-card-header>
-          
-          
-            <ion-card-content>
-              <p><strong>📅 Fecha:</strong> 28 de Febrero, 2025</p>
-              <p><strong>⏰ Hora:</strong> 10:30 AM</p>
-              <p><strong>🩺 Tipo de consulta:</strong> Vacunación</p>
-              <p><strong>📌 Estado:</strong> Confirmada ✅</p>
-              <p><strong>📝 Notas:</strong> Llevar historial médico y evitar que coma 2 horas antes.</p>
-            </ion-card-content>
-          
-            <!-- Botones alineados y centrados dentro del ion-card -->
-            <div class="card-actions">
-              <ion-button fill="solid" color="danger" class="card-button">Anular</ion-button>
-              <ion-button fill="solid" color="warning" class="card-button">Ver más</ion-button>
-              <ion-button fill="solid" color="success" class="card-button">Finalizada</ion-button>
-            </div>
-          </ion-card>
-          
-        </ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card>
-            <ion-card-header class="card-header">
-              <ion-card-title class="card-title">🐶 Mascota: Bella</ion-card-title>
-              <ion-card-subtitle class="card-subtitle">👤 Dueño: Florina Samoila</ion-card-subtitle>
-            </ion-card-header>
-          
-          
-            <ion-card-content>
-              <p><strong>📅 Fecha:</strong> 28 de Febrero, 2025</p>
-              <p><strong>⏰ Hora:</strong> 10:30 AM</p>
-              <p><strong>🩺 Tipo de consulta:</strong> Psicología Felina</p>
-              <p><strong>📌 Estado:</strong> Confirmada ✅</p>
-              <p><strong>📝 Notas:</strong> Llevar historial médico y medicar.</p>
-            </ion-card-content>
-          
-            <!-- Botones alineados y centrados dentro del ion-card -->
-            <div class="card-actions">
-              <ion-button fill="solid" color="danger" class="card-button">Anular</ion-button>
-              <ion-button fill="solid" color="warning" class="card-button">Ver más</ion-button>
-              <ion-button fill="solid" color="success" class="card-button">Finalizada</ion-button>
-            </div>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card>
-            <ion-card-header class="card-header">
-              <ion-card-title class="card-title">🐶 Mascota: Lola</ion-card-title>
-              <ion-card-subtitle class="card-subtitle">👤 Dueño: Dan Anitei</ion-card-subtitle>
-            </ion-card-header>
-          
-          
-            <ion-card-content>
-              <p><strong>📅 Fecha:</strong> 28 de Febrero, 2025</p>
-              <p><strong>⏰ Hora:</strong> 10:30 AM</p>
-              <p><strong>🩺 Consulta:</strong> Intervención Quirúrgica</p>
-              <p><strong>📌 Estado:</strong> Confirmada ✅</p>
-              <p class="notes">
-                <strong>📝 Notas:</strong>
-                <span>{{ longText | slice:0:50 }}...
-                  <a id="ver-mas-trigger" class="see-more">Leer más</a>
-                </span>
-                
-              </p>
-            </ion-card-content>
 
-            <!-- Popover que se activa al hacer clic en "Ver más" -->
-              <ion-popover trigger="ver-mas-trigger" triggerAction="click">
-                <ng-template>
-                  <ion-content class="ion-padding popover-content">
-                    <p>{{ longText }}</p>
-                  </ion-content>
-                </ng-template>
-              </ion-popover>
-          
-            <!-- Botones alineados y centrados dentro del ion-card -->
-            <div class="card-actions">
-              <ion-button fill="solid" color="danger" class="card-button">Anular</ion-button>
-              <ion-button fill="solid" color="warning" class="card-button">Ver más</ion-button>
-              <ion-button fill="solid" color="success" class="card-button">Finalizada</ion-button>
-            </div>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card>
-            <ion-card-header class="card-header">
-              <ion-card-title class="card-title">🐶 Mascota: Lola</ion-card-title>
-              <ion-card-subtitle class="card-subtitle">👤 Dueño: Dan Anitei</ion-card-subtitle>
-            </ion-card-header>
-          
-          
-            <ion-card-content>
-              <p><strong>📅 Fecha:</strong> 28 de Febrero, 2025</p>
-              <p><strong>⏰ Hora:</strong> 10:30 AM</p>
-              <p><strong>🩺 Consulta:</strong> Intervención Quirúrgica</p>
-              <p><strong>📌 Estado:</strong> Confirmada ✅</p>
-              <p class="notes">
-                <strong>📝 Notas:</strong>
-                <span>{{ longText | slice:0:50 }}...
-                  <a id="ver-mas-trigger" class="see-more">Leer más</a>
-                </span>
-                
-              </p>
-            </ion-card-content>
+  <!-- ► Filtrar por Estado -->
+  <div class="section-header">
+    <div class="section-title">Filtrar por estado de cita</div>
+    <div class="section-info">Haz clic en un estado para ver únicamente las citas con ese estado.</div>
+  </div>
+  <div class="estado-leyenda">
+    <span
+      *ngFor="let estado of estados"
+      class="leyenda-item"
+      [class.todos]="estado === 'Todos'"
+      [ngClass]="getEstadoClase(estado)"
+      (click)="filtrarCitasPorEstado(estado)">
+      {{ estado }}
+    </span>
+  </div>
 
-            <!-- Popover que se activa al hacer clic en "Ver más" -->
-              
-          
-            <!-- Botones alineados y centrados dentro del ion-card -->
-            <div class="card-actions">
-              <ion-button fill="solid" color="danger" class="card-button">Anular</ion-button>
-              <ion-button fill="solid" color="warning" class="card-button">Ver más</ion-button>
-              <ion-button fill="solid" color="success" class="card-button">Finalizada</ion-button>
-            </div>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card>
-            <ion-card-header class="card-header">
-              <ion-card-title class="card-title">🐶 Mascota: Lola</ion-card-title>
-              <ion-card-subtitle class="card-subtitle">👤 Dueño: Dan Anitei</ion-card-subtitle>
-            </ion-card-header>
-          
-          
-            <ion-card-content>
-              <p><strong>📅 Fecha:</strong> 28 de Febrero, 2025</p>
-              <p><strong>⏰ Hora:</strong> 10:30 AM</p>
-              <p><strong>🩺 Consulta:</strong> Intervención Quirúrgica</p>
-              <p><strong>📌 Estado:</strong> Confirmada ✅</p>
-              <p class="notes">
-                <strong>📝 Notas:</strong>
-                <span>{{ longText | slice:0:50 }}...
-                  <a id="ver-mas-trigger" class="see-more">Leer más</a>
-                </span>
-                
-              </p>
-            </ion-card-content>
+  <div class="main-container">
+    <!-- IZQUIERDA: Selector de Fecha -->
+    <div class="left-panel">
+      <div class="section-header">
+        <div class="section-title">Selecciona un día</div>
+        <div class="section-info">El calendario muestra las citas programadas para la fecha elegida.</div>
+      </div>
+      <div class="date-selector">
+        <ion-datetime
+          presentation="date"
+          [(ngModel)]="selectedDateStr"
+          (ionChange)="cargarCitasPorFecha()">
+        </ion-datetime>
+      </div>
+    </div>
 
-            <!-- Popover que se activa al hacer clic en "Ver más" -->
-             
-          
-            <!-- Botones alineados y centrados dentro del ion-card -->
-            <div class="card-actions">
-              <ion-button fill="solid" color="danger" class="card-button">Anular</ion-button>
-              <ion-button fill="solid" color="warning" class="card-button">Ver más</ion-button>
-              <ion-button fill="solid" color="success" class="card-button">Finalizada</ion-button>
-            </div>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card>
-            <ion-card-header class="card-header">
-              <ion-card-title class="card-title">🐶 Mascota: Lola</ion-card-title>
-              <ion-card-subtitle class="card-subtitle">👤 Dueño: Dan Anitei</ion-card-subtitle>
-            </ion-card-header>
-          
-          
-            <ion-card-content>
-              <p><strong>📅 Fecha:</strong> 28 de Febrero, 2025</p>
-              <p><strong>⏰ Hora:</strong> 10:30 AM</p>
-              <p><strong>🩺 Consulta:</strong> Intervención Quirúrgica</p>
-              <p><strong>📌 Estado:</strong> Confirmada ✅</p>
-              <p class="notes">
-                <strong>📝 Notas:</strong>
-                <span>{{ longText | slice:0:50 }}...
-                  <a id="ver-mas-trigger" class="see-more">Leer más</a>
-                </span>
-                
-              </p>
-            </ion-card-content>
+    <!-- DERECHA: Listado de Citas filtradas -->
+    <div class="right-panel">
+      <div class="section-header">
+        <div class="section-title">Citas programadas</div>
+        <div class="section-info">Despliega cada cita para ver detalles y acciones disponibles.</div>
+      </div>
+      <ion-accordion-group multiple="true">
+        <ion-accordion *ngFor="let cita of citas">
+          <ion-item slot="header" [ngClass]="getEstadoClase(cita.estado)">
+            <ion-icon slot="start" name="chevron-down" class="chevron-down"></ion-icon>
+            <ion-label>🐶 Mascota: {{ cita.mascota.nombre }}</ion-label>
+          </ion-item>
+          <ion-item slot="content">
+            <ion-card [ngClass]="getEstadoClase(cita.estado)">
+              <ion-card-header>
+                <ion-card-title>🐶 {{ cita.mascota.nombre }}</ion-card-title>
+                <ion-card-subtitle>
+                  👤 {{ cita.cliente.nombre }} {{ cita.cliente.apellido }}
+                </ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                <p><strong>📅 Fecha:</strong> {{ cita.fechaHora | date:'longDate' }}</p>
+                <p><strong>⏰ Hora:</strong> {{ cita.fechaHora | date:'shortTime' }}</p>
+                <p><strong>🩺 Servicio:</strong> {{ cita.servicioPrestado.nombre }}</p>
+                <p><strong>👨‍⚕️ Vet:</strong> {{ cita.veterinario.nombre }} {{ cita.veterinario.apellido }}</p>
+                <p><strong>📌 Estado:</strong> {{ cita.estado }}</p>
+                <p><strong>📝 Obs.:</strong> {{ cita.observaciones || '—' }}</p>
+              </ion-card-content>
+              <div class="card-actions">
+                <ion-button fill="solid" color="danger"
+                            (click)="confirmarCambioEstado(cita,'Cancelada'); $event.stopPropagation()">
+                  Anular
+                </ion-button>
+                <ion-button fill="solid" color="warning"
+                            (click)="abrirModalEditarCita(cita)">
+                  Editar
+                </ion-button>
+                <ion-button fill="solid" color="success"
+                            (click)="confirmarCambioEstado(cita,'Completada'); $event.stopPropagation()">
+                  Finalizada
+                </ion-button>
+              </div>
+            </ion-card>
+          </ion-item>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+  </div>
 
-            <!-- Popover que se activa al hacer clic en "Ver más" -->
-              
-          
-            <!-- Botones alineados y centrados dentro del ion-card -->
-            <div class="card-actions">
-              <ion-button fill="solid" color="danger" class="card-button">Anular</ion-button>
-              <ion-button fill="solid" color="warning" class="card-button">Ver más</ion-button>
-              <ion-button fill="solid" color="success" class="card-button">Finalizada</ion-button>
-            </div>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <!--Primer Grid-->
-
-    <!--Segundo Grid-->
-    <ion-grid >
-      <ion-row class="ion-padding">
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card >  <!-- Reemplazar por @for -->
-            <ion-card-header>
-              <ion-card-title>Card Title</ion-card-title>
-              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
-          
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing more, nothing less.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">
-          <ion-card >
-            <ion-card-header>
-              <ion-card-title>Card Title</ion-card-title>
-              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-            </ion-card-header>
-          
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing more, nothing less.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">3</ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">4</ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">5</ion-col>
-        <ion-col size="6" size-md="4" size-lg="2">6</ion-col>
-      </ion-row>
-    </ion-grid>
-    <!--Segundo Grid-->
 </ion-content>

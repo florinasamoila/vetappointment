@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber, Min, IsDateString, IsMongoId } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsNumber, Min, IsDateString, IsMongoId, IsInt } from 'class-validator';
 
 export class MascotaDto {
   @IsOptional()
@@ -17,9 +17,9 @@ export class MascotaDto {
   @IsNotEmpty()
   readonly raza: string;
 
-  @IsNumber()
+  @IsInt()
   @Min(0)
-  readonly edad: number;
+  readonly edad: number;  // Ensure edad is an integer
 
   @IsString()
   @IsNotEmpty()
@@ -43,5 +43,5 @@ export class MascotaDto {
 
   @IsMongoId()
   @IsNotEmpty()
-  readonly cliente: string;
+  readonly cliente: string;  // The client ID must be valid and not empty
 }

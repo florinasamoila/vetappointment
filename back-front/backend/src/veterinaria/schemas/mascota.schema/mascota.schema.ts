@@ -7,5 +7,6 @@ export const MascotaSchema = new Schema({
   fechaNacimiento: { type: Date, required: false, default: null },
   peso: { type: Number, required: true },
   caracteristicas: { type: String, default: null },
-  cliente: { type: Schema.Types.ObjectId, ref: "Cliente", required: true }
+  cliente: { type: Schema.Types.ObjectId, ref: "Cliente", required: true },
+  historialMedico: { type: Schema.Types.ObjectId, ref: "HistorialMedico" }
 }, { versionKey: false });

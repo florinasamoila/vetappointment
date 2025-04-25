@@ -1,0 +1,88 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  
+    ion-content {
+      flex: 1;
+      --padding-start: 16px;
+      --padding-end:   16px;
+      --padding-top:   16px;
+      --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+    }
+  
+    /***** CARD TRANSPARENTE *****/
+    ion-card {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+      margin-bottom: 24px;
+    }
+    ion-card-header {
+      --background: transparent;
+      padding-bottom: 4px;
+    }
+    ion-card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--ion-color-dark);
+    }
+    ion-card-content {
+      p {
+        margin: 8px 0;
+        font-size: 0.95rem;
+        color: var(--ion-color-medium);
+        strong {
+          color: var(--ion-color-dark);
+        }
+      }
+      h3 {
+        margin: 16px 0 8px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--ion-color-dark);
+      }
+      div {
+        p {
+          margin-left: 12px;
+        }
+      }
+    }
+  
+    /***** BOTONES CENTRADOS & “LIFT” *****/
+    ion-row {
+      margin-top: 16px;
+    }
+    ion-col.ion-text-center {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    ion-button {
+      --background: var(--ion-color-primary);
+      --color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(var(--ion-color-primary-rgb), 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.4);
+      }
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(var(--ion-color-primary-rgb), 0.2);
+      }
+    }
+    ion-button[fill="outline"] {
+      --border-color: var(--ion-color-medium);
+      --color: var(--ion-color-medium);
+      background: transparent;
+  
+      &:hover {
+        background: rgba(var(--ion-color-medium-rgb), 0.1);
+      }
+    }
+  }
+  

@@ -1,8 +1,15 @@
-import { Schema } from "mongoose";
+import { Schema } from 'mongoose';
 
 export const HistorialMedicoSchema = new Schema({
-  cita: { type: Schema.Types.ObjectId, ref: "cita", required: true },
-  diagnosticos: { type: String, required: true },
-  tratamientos: { type: String, required: true },
-  observaciones: { type: String, default: null }
+  mascotaID: { type: Schema.Types.ObjectId, ref: 'Mascota', required: true },
+  entradas: [
+    {
+      cita: { type: Schema.Types.ObjectId, ref: 'Cita' },
+      veterinario: { type: Schema.Types.ObjectId, ref: 'Veterinario' },
+      fecha: { type: Date },
+      diagnosticos: { type: String },
+      tratamientos: { type: String },
+      observaciones: { type: String }
+    }
+  ]
 }, { versionKey: false });

@@ -3,55 +3,162 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Registrar Nuevo Cliente</ion-card-title>
-    </ion-card-header>
 
-    <ion-card-content>
-      <form [formGroup]="clienteForm">
-        <ion-grid>
-          <ion-row>
-            <!-- 📌 Columna Izquierda: Datos del Cliente -->
-            <ion-col size="6">
-              <ion-input label="Nombre" label-placement="floating" fill="solid" formControlName="nombre"></ion-input>
-              <br />
-              <ion-input label="Apellido" label-placement="floating" fill="solid" formControlName="apellido"></ion-input>
-              <br />
-              <ion-input label="Correo Electrónico" label-placement="floating" fill="solid" type="email" formControlName="email"></ion-input>
-              <br />
-              <ion-input label="Teléfono" label-placement="floating" fill="solid" type="tel" formControlName="telefono"></ion-input>
-              <br />
-              <ion-input label="Dirección" label-placement="floating" fill="solid" formControlName="direccion"></ion-input>
-            </ion-col>
+  <!-- 1) Selector de Modo -->
+  <ion-segment [(ngModel)]="modoCliente" class="ion-margin">
+    <!-- Nuevo Cliente deshabilitado en edición cliente o edición mascota -->
+    <ion-segment-button
+      value="nuevo"
+      [disabled]="modoCliente === 'editar' || modoCliente === 'editar-mascota'"
+    >
+      <ion-label>Nuevo Cliente</ion-label>
+    </ion-segment-button>
 
-            <!-- 📌 Columna Derecha: Primera Mascota -->
-            <ion-col size="6">
-              <ion-card>
-                <ion-card-header>
-                  <ion-card-title>Datos de la Mascota</ion-card-title>
-                </ion-card-header>
+    <!-- Cliente Existente deshabilitado en edición cliente o edición mascota -->
+    <ion-segment-button
+      value="existente"
+      [disabled]="modoCliente === 'editar' || modoCliente === 'editar-mascota'"
+    >
+      <ion-label>Cliente Existente</ion-label>
+    </ion-segment-button>
 
-                <ion-card-content>
+    <!-- Editar Cliente sólo si hay clienteId y no estamos en editar-mascota -->
+    <ion-segment-button
+      value="editar"
+      [disabled]="!clienteIdParam || modoCliente === 'editar-mascota'"
+    >
+      <ion-label>Editar Cliente</ion-label>
+    </ion-segment-button>
 
-                  
-                </ion-card-content>
-                <ion-button color="tertiary" fill="clear"(click)="abrirModalMascota()">
-                  + Añadir Otra Mascota
-                </ion-button>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <!-- Editar Mascota sólo si hay mascotaId; permanece activo aun en editar-mascota -->
+    <ion-segment-button
+      value="editar-mascota"
+      [disabled]="!mascotaIdParam"
+    >
+      <ion-label>Editar Mascota</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-        <!-- 📌 Botones Finales -->
+  <form [formGroup]="clienteForm">
+
+    <!-- Modo EXISTENTE -->
+    <ng-container *ngIf="modoCliente==='existente'">
+      <ion-input
+        formControlName="clienteBusqueda"
+        placeholder="Buscar Cliente"
+        fill="outline"
+        shape="round"
+        clearInput
+        (ionInput)="buscarCliente()"
+      ></ion-input>
+
+      <ion-list *ngIf="clientesFiltrados.length">
+        <ion-item
+          *ngFor="let c of clientesFiltrados"
+          button
+          (click)="selectClienteExistente(c)"
+        >
+          {{ c.nombre }} {{ c.apellido }} – {{ c.email }}
+        </ion-item>
+      </ion-list>
+
+      <ion-card *ngIf="clienteSeleccionado" class="ion-margin-top">
+        <ion-card-header>
+          <ion-card-title>Cliente Seleccionado</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p><strong>Nombre:</strong> {{ clienteSeleccionado.nombre }} {{ clienteSeleccionado.apellido }}</p>
+          <p><strong>Email:</strong> {{ clienteSeleccionado.email }}</p>
+          <p><strong>Teléfono:</strong> {{ clienteSeleccionado.telefono }}</p>
+          <p><strong>Dirección:</strong> {{ clienteSeleccionado.direccion }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <!-- Modo NUEVO -->
+    <ng-container *ngIf="modoCliente==='nuevo'">
+     
+      <ion-grid>
         <ion-row>
-          <ion-col>
-            <ion-button fill="clear" color="success" (click)="abrirModalMascota()">Crear Cliente</ion-button>
-            <ion-button fill="clear" color="medium" (click)="cancelar()">Cancelar</ion-button>
+          <ion-col size="6">
+            <h3>Datos del Cliente</h3>
+            <ion-input formControlName="nombre"      placeholder="Nombre"      fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="apellido"    placeholder="Apellido"    fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="email"       placeholder="ejemplo@correo.com" type="email" fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="telefono"    placeholder="+34 600 123 456" type="tel"   fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="direccion"   placeholder="Calle, número, piso"    fill="outline" shape="round"></ion-input>
+          </ion-col>
+          <ion-col size="6">
+            <h3>Datos de la Mascota</h3>
+            <ion-input formControlName="mascotaNombre"           placeholder="Nombre de la mascota" fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaEspecie"          placeholder="Perro, Gato…"           fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaRaza"             placeholder="Raza"                   fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaFechaNacimiento"  type="date" fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaPeso"             type="number" placeholder="kg" fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaCaracteristicas"  placeholder="Color, marca, notas" fill="outline" shape="round"></ion-input>
           </ion-col>
         </ion-row>
-      </form>
-    </ion-card-content>
-  </ion-card>
+
+        <!-- Mascotas Adicionales -->
+        <ion-row *ngIf="modoCliente==='nuevo'" class="ion-margin-top">
+          <ion-col size="12">
+            <ion-button fill="clear" (click)="openMascotaPopover($event)">+ Añadir Otra Mascota</ion-button>
+            <div *ngIf="mascotas.length" formArrayName="mascotas">
+              <div *ngFor="let m of mascotas.controls; let i = index" [formGroupName]="i">
+                <ion-input formControlName="nombre" placeholder="Nombre Mascota {{ i+2 }}" fill="outline" shape="round"></ion-input>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <!-- Botones -->
+        <ion-row class="ion-padding-top action-buttons">
+          <ion-button expand="block" color="primary" (click)="revisarCliente()">Revisar Cliente</ion-button>
+          <ion-button expand="block" fill="outline" color="medium" (click)="cancelar()">Cancelar</ion-button>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+
+    <!-- Modo EDITAR CLIENTE -->
+    <ng-container *ngIf="modoCliente==='editar'">
+      <h2 class="ion-margin-top">Editar Datos del Cliente</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-input formControlName="nombre"      placeholder="Nombre"      fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="apellido"    placeholder="Apellido"    fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="email"       placeholder="ejemplo@correo.com" type="email" fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="telefono"    placeholder="+34 600 123 456" type="tel"   fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="direccion"   placeholder="Calle, número, piso"    fill="outline" shape="round"></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top action-buttons">
+          <ion-button expand="block" color="tertiary" (click)="confirmarEdicion()">Confirmar Cambios Cliente</ion-button>
+          <ion-button expand="block" fill="outline" color="medium" (click)="cancelar()">Cancelar</ion-button>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+
+    <!-- Modo EDITAR MASCOTA -->
+    <ng-container *ngIf="modoCliente==='editar-mascota'">
+      <h2 class="ion-margin-top">Editar Datos de la Mascota</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-input formControlName="mascotaNombre"          placeholder="Nombre de la mascota"      fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaEspecie"         placeholder="Especie"                  fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaRaza"            placeholder="Raza"                     fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaFechaNacimiento" type="date"                    fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaPeso"            type="number" placeholder="Peso (kg)"          fill="outline" shape="round"></ion-input>
+            <ion-input formControlName="mascotaCaracteristicas" placeholder="Características"       fill="outline" shape="round"></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top action-buttons">
+          <ion-button expand="block" color="tertiary" (click)="confirmarEdicionMascota()">Confirmar Cambios Mascota</ion-button>
+          <ion-button expand="block" fill="outline" color="medium" (click)="cancelar()">Cancelar</ion-button>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+
+  </form>
 </ion-content>

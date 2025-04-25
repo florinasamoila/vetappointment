@@ -1,0 +1,60 @@
+/* src/app/login/login.page.scss */
+
+/* 1) El propio ion-content sirve como lienzo para el logo en mosaico */
+ion-content.login-page {
+    position: relative; /* para contener nuestro overlay y contenedor */
+    --background: url('/assets/logo/complete-logo.svg') center center / 300px 150px repeat;
+  }
+  
+  /* 2) Overlay semitransparente que cubre TODO el contenido */
+  .login-page .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.885);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  /* 3) Contenedor centrado con z-index sobre el overlay */
+  .login-page .login-container {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  /* 4) Tarjeta del login, por encima de todo, sin ningún fade */
+  .login-page .login-card {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 360px;
+    background-color: #e6fff0;    /* verde muy clarito */
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    padding: 1.5rem;
+  }
+  
+  /* 5) Ajustes de los ítems y mensajes de error */
+  ion-item {
+    --background: transparent;
+    margin-bottom: 1rem;
+  }
+  
+  .error-messages {
+    margin: -0.5rem 0 1rem;
+    small {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--ion-color-danger);
+    }
+  }
+  
+  /* 6) Botón al final */
+  ion-button {
+    margin-top: 1rem;
+  }
+  

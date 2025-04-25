@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Resumen Cliente</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ cliente.nombre }} {{ cliente.apellido }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Email: {{ cliente.email }}</p>
+      <p>Teléfono: {{ cliente.telefono }}</p>
+      <p>Dirección: {{ cliente.direccion }}</p>
+
+      <h3>Primera Mascota</h3>
+      <p>Nombre: {{ cliente.mascotaNombre }}</p>
+      <p>Especie: {{ cliente.mascotaEspecie }}</p>
+      <p>Raza: {{ cliente.mascotaRaza }}</p>
+      <p>Peso: {{ cliente.mascotaPeso }} kg</p>
+      <p>Características: {{ cliente.mascotaCaracteristicas }}</p>
+
+      <h3>Otras Mascotas</h3>
+      <div *ngFor="let mascota of cliente.mascotas">
+        <p>{{ mascota.nombre }} ({{ mascota.especie }})</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row class="ion-padding-top">
+    <ion-col size="12" class="ion-text-center">
+      <ion-button fill="solid" color="primary" (click)="confirmar()">Confirmar</ion-button>
+      <ion-button fill="outline" color="medium" (click)="cerrar()">Cancelar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
