@@ -14,6 +14,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPage {
   loginForm: FormGroup;
+  private attempts = 0;
+  private readonly maxAttempts = 3;
 
   constructor(
     private fb: FormBuilder,
@@ -22,22 +24,71 @@ export class LoginPage {
     private toastCtrl: ToastController
   ) {
     this.loginForm = this.fb.group({
-      email:    ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          // Sólo permitimos este email exacto
+          Validators.pattern('^admin@vetappointment\\.com$')
+        ]
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          // Sólo permitimos esta contraseña exacta
+          Validators.pattern('^vetAPPointment01$')
+        ]
+      ],
     });
   }
 
+  get emailControl() {
+    return this.loginForm.get('email');
+  }
+
+  get passwordControl() {
+    return this.loginForm.get('password');
+  }
+
   async onSubmit() {
-    if (this.loginForm.invalid) {
-      const warning = await this.toastCtrl.create({
-        message: 'Por favor completa todos los campos correctamente',
+    // Primero validamos el email
+    if (this.emailControl?.hasError('pattern')) {
+      const toast = await this.toastCtrl.create({
+        message: 'El email debe ser admin@vetappointment.com',
         color: 'warning',
-        duration: 2000
+        duration: 3000
       });
-      await warning.present();
+      await toast.present();
       return;
     }
 
+    // Ahora manejamos intentos de contraseña
+    if (this.passwordControl?.hasError('pattern')) {
+      this.attempts++;
+      if (this.attempts >= this.maxAttempts) {
+        const toast = await this.toastCtrl.create({
+          message: 'Demasiados intentos fallidos. Contacta con soporte.',
+          color: 'danger',
+          duration: 4000
+        });
+        await toast.present();
+        // Opcional: deshabilitar el formulario tras demasiados intentos
+        this.loginForm.disable();
+      } else {
+        const restante = this.maxAttempts - this.attempts;
+        const toast = await this.toastCtrl.create({
+          message: `Contraseña incorrecta. Te quedan ${restante} intento(s).`,
+          color: 'warning',
+          duration: 3000
+        });
+        await toast.present();
+      }
+      return;
+    }
+
+    // Si llegamos aquí, email y contraseña cumplen patrón exacto
     const { email, password } = this.loginForm.value;
 
     this.auth.login(email, password).subscribe(async ok => {
@@ -51,7 +102,7 @@ export class LoginPage {
         this.navCtrl.navigateRoot('/tabs', { replaceUrl: true });
       } else {
         const error = await this.toastCtrl.create({
-          message: 'Credenciales inválidas. Para recuperar tu contraseña, contacta a soporte.',
+          message: 'Error inesperado al iniciar sesión.',
           color: 'danger',
           duration: 2000
         });

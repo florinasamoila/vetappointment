@@ -5,6 +5,11 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly STORAGE_KEY = 'vetapp_user';
+
+  // Credenciales fijas
+  private readonly expectedEmail    = 'admin@vetappointment.com';
+  private readonly expectedPassword = 'vetAPPointment01';
+
   private _isLoggedIn = new BehaviorSubject<boolean>(this.hasStoredUser());
   private _userEmail  = new BehaviorSubject<string|null>(this.getStoredEmail());
 
@@ -16,9 +21,12 @@ export class AuthService {
     return this._userEmail.asObservable();
   }
 
-  /** Simula un login “exitoso” con email/password y lo persiste */
+  /**
+   * Sóla “loguea” si email y password coinciden con los esperados.
+   * Persiste el email en localStorage al hacer login exitoso.
+   */
   login(email: string, password: string): Observable<boolean> {
-    if (email && password) {
+    if (email === this.expectedEmail && password === this.expectedPassword) {
       localStorage.setItem(this.STORAGE_KEY, email);
       this._userEmail.next(email);
       this._isLoggedIn.next(true);
