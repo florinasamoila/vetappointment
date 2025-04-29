@@ -62,6 +62,15 @@
     &:active {
       transform: scale(0.95); // Efecto de presión al hacer clic
     }
+
+    
+  }
+
+  .titulo {
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    text-emphasis: bold !important;
+    color: black !important;
   }
   
   

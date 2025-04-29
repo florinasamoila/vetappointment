@@ -204,17 +204,35 @@ async findClientByName(search: string): Promise<Cliente[]> {
 
   // Add this method to your VeterinariaService class
   async deleteMultipleClientes(ids: string[]): Promise<Cliente[]> {
-    // Find and return the clients before deleting them
+    // 1) Obtener los clientes a eliminar
     const clientesToDelete = await this.clienteModel.find({ _id: { $in: ids } }).exec();
-  
-    if (clientesToDelete.length === 0) {
-      throw new NotFoundException('No clients found to delete.');
+    if (!clientesToDelete.length) {
+      throw new NotFoundException('No se encontraron clientes para eliminar.');
     }
-  
-    // Perform the deletion
+
+    // 2) Obtener las mascotas de esos clientes
+    const mascotas = await this.mascotaModel.find({ cliente: { $in: ids } }).exec();
+    const mascotaIds = mascotas.map(m => m._id);
+
+    // 3) Borrar todas las citas vinculadas a esos clientes O a esas mascotas
+    await this.citaModel.deleteMany({
+      $or: [
+        { cliente: { $in: ids } },
+        { mascota: { $in: mascotaIds } }
+      ]
+    }).exec();
+
+    // 4) Borrar historiales médicos de esas mascotas
+    await this.historialMedicoModel.deleteMany({ mascotaID: { $in: mascotaIds } }).exec();
+
+    // 5) Borrar las mascotas mismas
+    await this.mascotaModel.deleteMany({ cliente: { $in: ids } }).exec();
+
+    // 6) Por último, borrar los clientes
     await this.clienteModel.deleteMany({ _id: { $in: ids } }).exec();
-  
-    return clientesToDelete;  // Return the array of deleted clients
+
+    // 7) Devolver los clientes que efectivamente fueron eliminados
+    return clientesToDelete;
   }
   
 

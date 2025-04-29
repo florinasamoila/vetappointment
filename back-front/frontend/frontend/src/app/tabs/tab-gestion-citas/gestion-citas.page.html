@@ -1,3 +1,4 @@
+<!-- src/app/tabs/tab-citas/cita-gestion.page.html -->
 <ion-header>
   <app-header titulo="Gestión de Citas"></app-header>
 </ion-header>
@@ -5,12 +6,18 @@
 <ion-content>
   <ion-grid class="content-grid">
     <ion-row align-items-start>
-
+      
       <!-- 📌 Columna Izquierda - Formulario -->
-      <ion-col size="7">
+      <!-- 12 cols en xs, 7 cols en md+ -->
+      <ion-col size="12" size-md="7">
         <ion-card class="cita-card">
           <ion-card-header>
+            <ion-label class="titulos">
+              Introduce el nombre del dueño de la mascota para crear una cita
+            </ion-label>
             <ion-searchbar
+              
+              animated="true"
               placeholder="Buscar cliente..."
               [(ngModel)]="busquedaCliente"
               (ionInput)="filtrarClientes()"
@@ -23,8 +30,7 @@
             <ion-item
               button
               *ngFor="let cliente of clientesFiltrados"
-              (click)="seleccionarCliente(cliente)"
-            >
+              (click)="seleccionarCliente(cliente)">
               {{ cliente.nombre }}
             </ion-item>
           </ion-list>
@@ -32,8 +38,9 @@
           <ion-card-content>
             <ion-grid>
               <ion-row>
-                <!-- 📋 Formulario -->
-                <ion-col size="6">
+                <!-- 📋 Formulario Interno -->
+                <!-- xs:12, sm:6 -->
+                <ion-col size="12" size-sm="6">
                   <ion-input
                     label="Nombre del Cliente"
                     label-placement="floating"
@@ -42,56 +49,46 @@
                     readonly
                   ></ion-input>
 
-                  <!-- 🐶 Mascotas -->
                   <ion-select
                     label="Mascota"
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.mascota"
-                    interface="popover"
-                  >
+                    interface="popover">
                     <ion-select-option
                       *ngFor="let mascota of mascotasCliente"
-                      [value]="mascota._id"
-                    >
+                      [value]="mascota._id">
                       {{ mascota.nombre }}
                     </ion-select-option>
                   </ion-select>
 
-                  <!-- 💉 Servicios -->
                   <ion-select
                     label="Servicio"
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.servicio"
-                    interface="popover"
-                  >
+                    interface="popover">
                     <ion-select-option
                       *ngFor="let servicio of servicios"
-                      [value]="servicio._id"
-                    >
+                      [value]="servicio._id">
                       {{ servicio.nombre }}
                     </ion-select-option>
                   </ion-select>
 
-                  <!-- 🩺 Veterinario -->
                   <ion-select
                     label="Veterinario"
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.veterinario"
                     interface="popover"
-                    (ionChange)="actualizarHorariosDisponibles()"
-                  >
+                    (ionChange)="actualizarHorariosDisponibles()">
                     <ion-select-option
                       *ngFor="let vet of veterinarios"
-                      [value]="vet._id"
-                    >
+                      [value]="vet._id">
                       {{ vet.nombre }}
                     </ion-select-option>
                   </ion-select>
 
-                  <!-- 📝 Observaciones -->
                   <ion-textarea
                     label="Observaciones"
                     label-placement="floating"
@@ -103,28 +100,27 @@
                 </ion-col>
 
                 <!-- 📅 Fecha y Horario -->
-                <ion-col size="6" class="calendar-column">
-                  <ion-label>Seleccionar Fecha</ion-label>
+                <!-- xs:12, sm:6 -->
+                <ion-col size="12" size-sm="6" class="calendar-column">
+                  <ion-label class="titulos">Seleccionar Fecha</ion-label>
                   <ion-datetime
                     class="datetime-picker"
                     presentation="date"
                     [(ngModel)]="cita.fecha"
                     cancelText="Cancelar"
                     doneText="Confirmar"
-                    (ionChange)="actualizarHorariosDisponibles()"
-                  ></ion-datetime>
+                    (ionChange)="actualizarHorariosDisponibles()">
+                  </ion-datetime>
 
                   <ion-select
                     label="Horario"
                     label-placement="floating"
                     fill="outline"
                     interface="alert"
-                    [(ngModel)]="cita.hora"
-                  >
+                    [(ngModel)]="cita.hora">
                     <ion-select-option
                       *ngFor="let horario of horariosDisponibles"
-                      [value]="horario"
-                    >
+                      [value]="horario">
                       {{ horario }}
                     </ion-select-option>
                   </ion-select>
@@ -132,13 +128,11 @@
               </ion-row>
             </ion-grid>
 
-            <!-- Botón para mostrar el resumen -->
             <ion-button
-              expand="block"
+             
               fill="solid"
               color="primary"
-              (click)="mostrarResumenCita()"
-            >
+              (click)="mostrarResumenCita()">
               Revisar y Confirmar
             </ion-button>
           </ion-card-content>
@@ -146,7 +140,8 @@
       </ion-col>
 
       <!-- 📌 Columna Derecha - Resumen -->
-      <ion-col size="5" *ngIf="mostrarResumen">
+      <!-- xs:12, md:5 -->
+      <ion-col size="12" size-md="5" *ngIf="mostrarResumen">
         <ion-card class="resumen-cita-card">
           <ion-card-header>
             <ion-card-title>Resumen de la Cita</ion-card-title>
@@ -164,8 +159,7 @@
               expand="block"
               fill="solid"
               color="success"
-              (click)="confirmarCitaFinal()"
-            >
+              (click)="confirmarCitaFinal()">
               Confirmar Cita
             </ion-button>
 
@@ -173,8 +167,7 @@
               expand="block"
               fill="outline"
               color="danger"
-              (click)="cancelarResumen()"
-            >
+              (click)="cancelarResumen()">
               Cancelar
             </ion-button>
           </ion-card-content>

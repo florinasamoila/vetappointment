@@ -28,6 +28,7 @@ export class TabInicio implements OnInit {
 
   // Horario de 8:00 a 18:00
   horas = Array.from({ length: 11 }, (_, i) => `${8 + i}:00`);
+  selectedHour: string | null = null;
 
   // Fecha seleccionada (para ion-datetime)
   selectedDate: Date = new Date();
@@ -46,7 +47,7 @@ export class TabInicio implements OnInit {
     this.citaService.getAllCitas().subscribe({
       next: data => {
         this.allCitas = data;
-        // Extraer veterinarios únicos
+        // Extraer veterinarios únicos (si se usa en futuro)
         this.veterinarios = Array.from(new Map(
           data.map(c => [c.veterinario._id, c.veterinario])
         ).values());
@@ -59,31 +60,56 @@ export class TabInicio implements OnInit {
     });
   }
 
-  /** Filtra todas las citas para la fecha seleccionada, luego muestra toast si no hay */
-  cargarCitasPorFecha() {
-    const sel = new Date(this.selectedDateStr);
-    this.citas = this.allCitas.filter(c => {
+  /** Aplica filtros de fecha, estado y hora, y ordena ascendente por hora */
+  applyFilters(showNoResultsToast = false) {
+    const selDate = new Date(this.selectedDateStr);
+    let filtered = this.allCitas.filter(c => {
       const cDate = new Date(c.fechaHora);
-      return cDate.toDateString() === sel.toDateString();
+      return cDate.toDateString() === selDate.toDateString();
     });
 
-    if (this.citas.length === 0) {
-      this.presentToast('No hay citas programadas para esta fecha', 'warning');
+    if (this.selectedEstado !== 'Todos') {
+      filtered = filtered.filter(c => c.estado === this.selectedEstado);
     }
 
-    // Al cambiar de fecha, resetear filtro de estado
-    this.selectedEstado = 'Todos';
+    if (this.selectedHour) {
+      const targetHour = parseInt(this.selectedHour, 10);
+      filtered = filtered.filter(c => {
+        const cHour = new Date(c.fechaHora).getHours();
+        return cHour === targetHour;
+      });
+    }
+
+    // Ordenar ascendente por fechaHora
+    filtered.sort((a, b) =>
+      new Date(a.fechaHora).getTime() - new Date(b.fechaHora).getTime()
+    );
+
+    this.citas = filtered;
+
+    if (showNoResultsToast && filtered.length === 0) {
+      this.presentToast('No hay citas que cumplan esos filtros', 'warning');
+    }
   }
 
-  /** Filtra las citas ya cargadas según el estado seleccionado */
+  /** Filtra todas las citas para la fecha seleccionada */
+  cargarCitasPorFecha() {
+    // Al cambiar de fecha, resetear filtros
+    this.selectedEstado = 'Todos';
+    this.selectedHour = null;
+    this.applyFilters(true);
+  }
+
+  /** Filtra las citas según el estado seleccionado */
   filtrarCitasPorEstado(estado: string) {
     this.selectedEstado = estado;
-    if (estado === 'Todos') {
-      // recargar todas las de la fecha actual
-      this.cargarCitasPorFecha();
-    } else {
-      this.citas = this.citas.filter(c => c.estado === estado);
-    }
+    this.applyFilters();
+  }
+
+  /** Limpia el filtro de hora */
+  clearHourFilter() {
+    this.selectedHour = null;
+    this.applyFilters();
   }
 
   getEstadoClase(estado: string): string {
@@ -108,7 +134,7 @@ export class TabInicio implements OnInit {
     if (updated) {
       const idx = this.allCitas.findIndex(c => c._id === updated._id);
       if (idx > -1) this.allCitas[idx] = updated;
-      this.cargarCitasPorFecha();
+      this.applyFilters();
       this.presentToast('Cita actualizada correctamente', 'success');
     }
   }
@@ -126,7 +152,7 @@ export class TabInicio implements OnInit {
             cita.estado = nuevoEstado;
             const idx = this.allCitas.findIndex(c => c._id === cita._id);
             if (idx > -1) this.allCitas[idx].estado = nuevoEstado;
-            this.cargarCitasPorFecha();
+            this.applyFilters();
             this.presentToast(`Estado cambiado a ${nuevoEstado}`, 'success');
           }
         },

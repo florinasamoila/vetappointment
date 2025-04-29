@@ -141,3 +141,28 @@
   }
 }
 
+.titulos {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: black;
+}
+
+/* src/app/tabs/tab-citas/cita-gestion.page.scss */
+:host {
+  /* … tu código existente … */
+
+  /* espacio extra entre columnas */
+  .content-grid {
+    --ion-grid-column-gap: 32px;  /* aumenta o disminuye según necesites */
+  }
+
+  /* si quieres un padding aún mayor en la columna de calendario */
+  .calendar-column {
+    padding-left: 180px;
+  }
+
+  /* … resto de tus estilos … */
+}
+
+

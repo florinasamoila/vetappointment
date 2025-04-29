@@ -15,6 +15,7 @@ import { Cliente } from '../../common/cliente';
 import { CitaService } from '../../services/citas.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+// Removed duplicate import of IonSearchbar
 
 @Component({
   selector: 'app-tab2',
@@ -27,7 +28,8 @@ import { IonicModule } from '@ionic/angular';
     FormsModule,
     FullCalendarModule,
     HeaderComponent,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
 })
 export class TabGestionCitas implements OnInit {

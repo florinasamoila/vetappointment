@@ -1,6 +1,6 @@
 <!-- src/app/tabs/tab-inicio/inicio.page.html -->
-<ion-header>
-  <app-header></app-header>
+<ion-header class="titulo-header" collapse="fade">
+  <app-header titulo="Vista General" ></app-header>
 </ion-header>
 
 <ion-content class="ion-padding">
@@ -43,6 +43,29 @@
         <div class="section-title">Citas programadas</div>
         <div class="section-info">Despliega cada cita para ver detalles y acciones disponibles.</div>
       </div>
+
+      <!-- ▷ FILTRO POR HORA -->
+      <div class="time-filter ion-padding-horizontal">
+        <ion-item lines="none">
+          <ion-label>Filtrar por hora</ion-label>
+          <ion-select
+            placeholder="Selecciona hora"
+            [(ngModel)]="selectedHour"
+            (ionChange)="applyFilters()">
+            <ion-select-option *ngFor="let h of horas" [value]="h">
+              {{ h }}
+            </ion-select-option>
+          </ion-select>
+          <ion-button
+            *ngIf="selectedHour"
+            fill="clear"
+            size="small"
+            (click)="clearHourFilter()">
+            Limpiar
+          </ion-button>
+        </ion-item>
+      </div>
+
       <ion-accordion-group multiple="true">
         <ion-accordion *ngFor="let cita of citas">
           <ion-item slot="header" [ngClass]="getEstadoClase(cita.estado)">
@@ -66,16 +89,22 @@
                 <p><strong>📝 Obs.:</strong> {{ cita.observaciones || '—' }}</p>
               </ion-card-content>
               <div class="card-actions">
-                <ion-button fill="solid" color="danger"
-                            (click)="confirmarCambioEstado(cita,'Cancelada'); $event.stopPropagation()">
+                <ion-button
+                  fill="solid"
+                  color="danger"
+                  (click)="confirmarCambioEstado(cita,'Cancelada'); $event.stopPropagation()">
                   Anular
                 </ion-button>
-                <ion-button fill="solid" color="warning"
-                            (click)="abrirModalEditarCita(cita)">
+                <ion-button
+                  fill="solid"
+                  color="warning"
+                  (click)="abrirModalEditarCita(cita)">
                   Editar
                 </ion-button>
-                <ion-button fill="solid" color="success"
-                            (click)="confirmarCambioEstado(cita,'Completada'); $event.stopPropagation()">
+                <ion-button
+                  fill="solid"
+                  color="success"
+                  (click)="confirmarCambioEstado(cita,'Completada'); $event.stopPropagation()">
                   Finalizada
                 </ion-button>
               </div>
