@@ -1,3 +1,4 @@
+<!-- src/app/consultas/consultas.page.html -->
 <ion-header>
   <app-header titulo="Consultas"></app-header>
 </ion-header>
@@ -62,6 +63,7 @@
           (ionChange)="toggleClienteSeleccionado(item._id); $event.stopPropagation()"
         ></ion-checkbox>
         <ion-label>
+          <!-- Aquí usamos obtenerNombreVisible() -->
           <h2>{{ obtenerNombreVisible(item) }}</h2>
           <p>{{ getSubtitulo(item) }}</p>
         </ion-label>

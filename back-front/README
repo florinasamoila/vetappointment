@@ -1,18 +1,28 @@
 # README
-# 1. Descripción
-# - Este proyecto es una aplicación web que permite a los usuarios (administrativos veterinarios) gestionar la información de los animales en una clínica veterinaria.
-#   Los usuarios pueden añadir, editar y eliminar información sobre los animales, así como gestionar sus citas y tratamientos.
-# - La aplicación está dividida en dos partes: el backend (servidor) y el frontend (interfaz de usuario). 
-#   El backend se encarga de la lógica de negocio y la gestión de datos, mientras que el frontend se encarga de la presentación y la interacción con el usuario.
-# 2. Requisitos
-# - Node.js: 18.16.0 o superior
-# - npm: 9.5.0 o superior
-# - MongoDB: 6.0.0 o superior
+#
+#   1. DESCRIPCIÓN DEL PROYECTO
+#    - Este proyecto es una aplicación web que permite a los usuarios (administrativos veterinarios) gestionar la información de los animales en una clínica veterinaria.
+#    Los usuarios pueden añadir, editar y eliminar información sobre los animales, así como gestionar sus citas y tratamientos.
+#    - La aplicación está dividida en dos partes: el backend (servidor) y el frontend (interfaz de usuario). 
+#    El backend se encarga de la lógica de negocio y la gestión de datos, mientras que el frontend se encarga de la presentación y la interacción con el usuario.
+#    2. REQUISITOS DEL SISTEMA
+#    - El proyecto está desarrollado en JavaScript y utiliza las siguientes tecnologías:
+#    - Node.js: 18.16.0 o superior
+#    - npm: 9.5.0 o superior
+#    - MongoDB: 6.0.0 o superior
+#    - Express: 4.18.2 o superior
+#   
 
 
 
-#     LANZAR LOCALMENTE
-# 1. Instalar dependencias
-#  - Ejecutar el siguiente comando en la terminal: npm install
-# 2. Crear un archivo .env con las variables de entorno necesarias
-#  - Archivo .env se añade a la carpeta back-front con las variables de entorno necesarias para el funcionamiento de la aplicación.
+#    2. LANZAR LOCALMENTE 
+#     2.1. Instalar dependencias
+#     - Ejecutar el siguiente comando en la terminal: npm install
+#     3.2. Crear un archivo .env con las variables de entorno necesarias
+#     - Archivo .env se añade a la carpeta back con las variables de entorno necesarias para el funcionamiento del servidor.
+
+#     3.3. Ejecutar el servidor
+#     - Ejecutar el siguiente comando en la terminal: npm start
+#     - El servidor se ejecutará en el puerto 3000 por defecto. Puedes cambiar el puerto en el archivo .env.
+#     - Acceder a la aplicación en el navegador: http://localhost:3000
+#    

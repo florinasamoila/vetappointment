@@ -64,8 +64,7 @@
       >
         <ion-label>
           <h2>
-            {{ e.fecha | date:'dd/MM/yy' }}
-            — {{ e.fecha | date:'HH:mm' }}
+            {{ e.fecha | date:'dd/MM/yy' }} — {{ e.fecha | date:'HH:mm' }}
           </h2>
           <p>🐾 {{ mascotaSeleccionada.nombre }}</p>
         </ion-label>
@@ -75,7 +74,7 @@
 
     <!-- Botón para agregar nueva entrada -->
     <ion-button
-      expand="full"
+      
       color="primary"
       *ngIf="mascotaSeleccionada"
       (click)="abrirFormularioEntrada()"
@@ -88,61 +87,105 @@
   <ng-container *ngIf="vista === 'entrada' && entradaDetalle">
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Detalle de Entrada</ion-card-title>
+        <!-- Flex container para título + botón -->
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <ion-card-title>Detalle de Entrada</ion-card-title>
+          <ion-button
+            *ngIf="!editMode"
+            fill="clear"
+            size="small"
+            (click)="enableEdit()"
+          >
+            <ion-icon slot="start" name="create-outline"></ion-icon>
+            Editar
+          </ion-button>
+        </div>
         <ion-card-subtitle>
-          Mascota: {{ entradaDetalle.mascota.nombre }}<br />
+          Mascota: {{ entradaDetalle.mascota.nombre }}<br/>
           Cliente:
           {{ entradaDetalle.mascota.cliente.nombre }}
           {{ entradaDetalle.mascota.cliente.apellido }}
         </ion-card-subtitle>
       </ion-card-header>
-      <ion-card-content>
-        <p>
-          <strong>Fecha Entrada:</strong>
-          {{ entradaDetalle.fecha | date:'dd/MM/yy HH:mm' }}
-        </p>
-        <p>
-          <strong>Diagnósticos:</strong>
-          {{ entradaDetalle.diagnosticos || '—' }}
-        </p>
-        <p>
-          <strong>Tratamientos:</strong>
-          {{ entradaDetalle.tratamientos || '—' }}
-        </p>
-        <p>
-          <strong>Observaciones:</strong>
-          {{ entradaDetalle.observaciones || '—' }}
-        </p>
 
+      <ion-card-content>
+        <!-- Fecha -->
+        <ion-item lines="none">
+          
+          <ion-datetime
+          
+            *ngIf="editMode"
+            display-format="dd/MM/yy HH:mm"
+            [(ngModel)]="editableEntrada.fecha"
+          ><ion-label>Fecha Entrada:</ion-label></ion-datetime>
+          <span *ngIf="!editMode">
+            {{ entradaDetalle.fecha | date:'dd/MM/yy HH:mm' }}
+          </span>
+        </ion-item>
+
+        <!-- Diagnósticos -->
+        <ion-item lines="none">
+          <ion-label position="stacked"><strong>Diagnósticos:</strong></ion-label>
+          <ng-container *ngIf="!editMode">
+            <p>{{ entradaDetalle.diagnosticos || '—' }}</p>
+          </ng-container>
+          <ion-textarea
+            *ngIf="editMode"
+            auto-grow
+            [(ngModel)]="editableEntrada.diagnosticos"
+          ></ion-textarea>
+        </ion-item>
+
+        <!-- Tratamientos -->
+        <ion-item lines="none">
+          <ion-label position="stacked"><strong>Tratamientos:</strong></ion-label>
+          <ng-container *ngIf="!editMode">
+            <p>{{ entradaDetalle.tratamientos || '—' }}</p>
+          </ng-container>
+          <ion-textarea
+            *ngIf="editMode"
+            auto-grow
+            [(ngModel)]="editableEntrada.tratamientos"
+          ></ion-textarea>
+        </ion-item>
+
+        <!-- Observaciones -->
+        <ion-item lines="none">
+          <ion-label position="stacked"><strong>Observaciones:</strong></ion-label>
+          <ng-container *ngIf="!editMode">
+            <p>{{ entradaDetalle.observaciones || '—' }}</p>
+          </ng-container>
+          <ion-textarea
+            *ngIf="editMode"
+            auto-grow
+            [(ngModel)]="editableEntrada.observaciones"
+          ></ion-textarea>
+        </ion-item>
+
+        <!-- Datos de la cita asociada (solo lectura) -->
         <ion-item lines="none">
           <ion-label>
-            <strong>Cita asociada:</strong><br />
-            Fecha:
-            {{ entradaDetalle.cita.fechaHora | date:'dd/MM/yy HH:mm' }}
-            <br />
-            Motivo: {{ entradaDetalle.cita.motivo }}<br />
+            <strong>Cita asociada:</strong><br/>
+            Fecha: {{ entradaDetalle.cita.fechaHora | date:'dd/MM/yy HH:mm' }}<br/>
+            Motivo: {{ entradaDetalle.cita.motivo }}<br/>
             Estado: {{ entradaDetalle.cita.estado }}
           </ion-label>
         </ion-item>
 
-        <ion-item lines="none">
-          <ion-label>
-            <strong>Veterinario:</strong><br />
-            {{ entradaDetalle.cita.veterinario.nombre }}
-            {{ entradaDetalle.cita.veterinario.apellido }}
-          </ion-label>
-        </ion-item>
-
-        <ion-item lines="none">
-          <ion-label>
-            <strong>Servicio:</strong><br />
-            {{ entradaDetalle.cita.servicioPrestado?.nombre || '—' }}
-          </ion-label>
-        </ion-item>
-
-        <ion-button expand="block" (click)="vista='gestion'">
-          ← Volver a Gestión
-        </ion-button>
+        <!-- Botones -->
+        <div *ngIf="!editMode">
+          <ion-button  (click)="vista='gestion'">
+            ← Volver a Gestión
+          </ion-button>
+        </div>
+        <div *ngIf="editMode">
+          <ion-button  color="warning" (click)="cancelEdit()">
+            Cancelar
+          </ion-button>
+          <ion-button  color="success" (click)="saveEdit()">
+            Guardar Cambios
+          </ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
   </ng-container>

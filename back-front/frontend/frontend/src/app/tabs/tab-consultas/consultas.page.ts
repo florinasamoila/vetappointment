@@ -130,7 +130,8 @@ export class TabConsultas implements OnInit {
       return `${cli} — ${mas}`;
     }
     if (this.coleccionSeleccionada === 'historial-medico') {
-      return item.mascotaID?.nombre || 'Historial';
+      const nombreMascota = item.mascotaID?.nombre || '—';
+      return `Historial de ${nombreMascota}:`;
     }
     return item.nombre || item._id;
   }

@@ -5,5 +5,8 @@
     "firebase": "^11.6.0",
     "mongodb": "^6.13.1",
     "zone.js": "^0.15.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
   }
 }

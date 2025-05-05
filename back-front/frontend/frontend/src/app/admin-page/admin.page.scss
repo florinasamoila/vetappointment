@@ -1,0 +1,120 @@
+// Paleta de Administración
+$bg-light:   #ecf0f1; // gris claro
+$surface:    #ffffff; // blanco puro
+$primary:    #2c3e50; // azul muy oscuro (navy)
+$secondary:  #34495e; // azul grisáceo
+$accent:     #1abc9c; // teal vibrante
+$text-primary:   #2c3e50;
+$text-secondary: #7f8c8d;
+
+$border-radius: 0.5rem;
+$box-shadow:    0 2px 8px rgba(0, 0, 0, 0.1);
+$spacing:       1rem;
+
+// Contenedor principal
+ion-content {
+  background: $bg-light;
+  padding: $spacing * 2;
+
+  // Header personalizado
+  app-header {
+    ion-toolbar {
+      background: $primary;
+      color: $surface;
+      ion-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  // Tarjetas de sección
+  section {
+    background: $surface;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    padding: $spacing * 1.5;
+    margin-bottom: $spacing * 2;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      margin: 0 0 ($spacing / 2);
+      color: $primary;
+      font-size: 1.25rem;
+      border-bottom: 2px solid $accent;
+      padding-bottom: ($spacing / 4);
+    }
+
+    .description {
+      margin: 0 0 $spacing;
+      color: $text-secondary;
+      font-size: 0.9rem;
+    }
+
+    ion-item {
+      --background: transparent;
+      --border-radius: $border-radius / 2;
+      --box-shadow: $box-shadow;
+      margin-bottom: $spacing;
+
+      ion-label {
+        color: $text-primary;
+      }
+
+      ion-select, ion-input {
+        --placeholder-color: $text-secondary;
+      }
+    }
+  }
+
+  // Botonera alineada
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing;
+
+    ion-button {
+      border-radius: $border-radius;
+      font-weight: 500;
+
+      &[fill="clear"] {
+        color: $secondary;
+      }
+
+      &:not([fill="clear"]) {
+        --background: $accent;
+        --background-activated: lighten($accent, 5%);
+        --color: $surface;
+      }
+    }
+  }
+
+  // Ajuste para servicios
+  section.services {
+    ion-item {
+      --border-radius: $border-radius;
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// Responsive móvil
+@media (max-width: 480px) {
+  ion-content {
+    padding: $spacing;
+
+    section {
+      padding: $spacing;
+    }
+
+    .button-group {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+}

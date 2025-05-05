@@ -44,6 +44,9 @@ export class GestionHistorialMedicoPage implements OnInit {
   // === Detalle ===
   vista: 'gestion' | 'entrada' = 'gestion';
   entradaDetalle: any = null;
+  historialId!: string;         // guardamos el ID del historial actual
+  editMode = false;             // flag de edición
+  editableEntrada: any = null;
 
   private apiUrl = 'http://localhost:3000/veterinaria';
 
@@ -160,24 +163,59 @@ export class GestionHistorialMedicoPage implements OnInit {
     this.http.get<any>(`${this.apiUrl}/historial-medico/${this.historialMedico._id}`)
       .subscribe(
         hist => {
+          this.historialId = hist._id;
           const full = hist.entradas.find((x: any) => x._id === e._id);
           this.entradaDetalle = { ...full, mascota: hist.mascotaID };
+          // preparamos la copia editable
+          this.editableEntrada = { ...this.entradaDetalle };
           this.vista = 'entrada';
+          this.editMode = false;
         },
         () => this.presentToast('Error cargando detalle', 'danger')
       );
   }
 
-  private cargarEntradaDesdeParams(histId: string, entId: string) {
-    this.http.get<any>(`${this.apiUrl}/historial-medico/${histId}`)
-      .subscribe(
-        hist => {
-          const full = hist.entradas.find((x: any) => x._id === entId);
-          this.entradaDetalle = { ...full, mascota: hist.mascotaID };
-        },
-        () => this.presentToast('Error cargando entrada', 'danger')
-      );
+  enableEdit() {
+    this.editMode = true;
+    // clonar de nuevo por si rehicimos cambios y cancelamos
+    this.editableEntrada = { ...this.entradaDetalle };
   }
+
+    /** Guarda cambios en la entrada */
+    async saveEdit() {
+      // Supongamos que tienes un endpoint PUT:
+      // PUT /historial-medico/:historialId/entrada/:entradaId
+      const url = `${this.apiUrl}/historial-medico/${this.historialId}/entrada/${this.editableEntrada._id}`;
+      try {
+        const updated = await this.http
+          .put<any>(url, this.editableEntrada)
+          .toPromise();
+        this.entradaDetalle = { ...updated };
+        this.editMode = false;
+        this.presentToast('Entrada actualizada', 'success');
+      } catch {
+        this.presentToast('Error al actualizar', 'danger');
+      }
+    }
+  
+    /** Cancela edición */
+    cancelEdit() {
+      this.editMode = false;
+    }
+
+    private cargarEntradaDesdeParams(histId: string, entId: string) {
+      this.historialId = histId;            // ← ¡añádelo aquí!
+      this.http.get<any>(`${this.apiUrl}/historial-medico/${histId}`)
+        .subscribe(
+          hist => {
+            const full = hist.entradas.find((x: any) => x._id === entId);
+            this.entradaDetalle = { ...full, mascota: hist.mascotaID };
+            this.editableEntrada = { ...this.entradaDetalle };
+          },
+          () => this.presentToast('Error cargando entrada', 'danger')
+        );
+    }
+    
 
   private async presentToast(message: string, color: 'success' | 'danger' | 'warning') {
     const t = await this.toastCtrl.create({ message, color, duration: 2000 });

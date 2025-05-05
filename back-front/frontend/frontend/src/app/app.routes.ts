@@ -10,10 +10,23 @@ export const routes: Routes = [
   },
   {
     path: 'tabs',
-    canActivate: [AuthGuard],              // ← aquí
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./tabs/tabs.routes').then(m => m.routes),
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
+  {
+    path: 'admin',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./admin-page/admin.page').then(m => m.AdminPage),
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];

@@ -1,4 +1,5 @@
 export interface EntradaHistorial {
+  _id?: string;
   cita: string;
   veterinario: string;
   fecha: Date;

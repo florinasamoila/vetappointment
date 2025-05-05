@@ -64,6 +64,21 @@ export class HeaderComponent implements OnInit {
           text: 'Cancelar',
           role: 'cancel',
           icon: 'close'
+        },
+        {
+          text: 'Adminitrar tus datos',
+          icon: 'person-circle',
+          handler: () => {
+            this.router.navigateByUrl('/admin');
+          }
+        },
+        {
+          text: 'Volver a la página de inicio',
+          icon: 'home',
+          
+          handler: () => {
+            this.router.navigateByUrl('/tabs/inicio', { replaceUrl: true });
+          }
         }
       ]
     });
