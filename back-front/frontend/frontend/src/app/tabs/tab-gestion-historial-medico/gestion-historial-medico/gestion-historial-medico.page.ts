@@ -10,7 +10,7 @@ import {
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, ToastController, ModalController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormularioEntradaHistorialComponent } from 'src/app/components/formulario-entrada-historial/formulario-entrada-historial.component';
 
 @Component({
@@ -54,7 +54,8 @@ export class GestionHistorialMedicoPage implements OnInit {
     private http: HttpClient,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -182,21 +183,35 @@ export class GestionHistorialMedicoPage implements OnInit {
   }
 
     /** Guarda cambios en la entrada */
+    /** Guarda cambios en la entrada */
+    /** Guarda cambios en la entrada */
     async saveEdit() {
-      // Supongamos que tienes un endpoint PUT:
-      // PUT /historial-medico/:historialId/entrada/:entradaId
       const url = `${this.apiUrl}/historial-medico/${this.historialId}/entrada/${this.editableEntrada._id}`;
       try {
-        const updated = await this.http
-          .put<any>(url, this.editableEntrada)
-          .toPromise();
-        this.entradaDetalle = { ...updated };
+        const updated = await this.http.put<any>(url, this.editableEntrada).toPromise();
+
+        // Mantener la mascota y la cita originales
+        this.entradaDetalle = {
+          ...updated,
+          mascota: this.entradaDetalle.mascota,
+          cita: this.entradaDetalle.cita
+        };
+
         this.editMode = false;
-        this.presentToast('Entrada actualizada', 'success');
+        await this.presentToast('Entrada actualizada', 'success');
+
+        // ← Aquí vuelves automáticamente a la vista de gestión
+        this.router.navigate(['/tabs/consultas']);
+        this.entradaDetalle = null;      // limpiar detalle
+        this.editableEntrada = null;
+        this.filtrarPorMes();            // refrescar lista de entradas
+
       } catch {
         this.presentToast('Error al actualizar', 'danger');
       }
     }
+
+
   
     /** Cancela edición */
     cancelEdit() {
@@ -218,7 +233,7 @@ export class GestionHistorialMedicoPage implements OnInit {
     
 
   private async presentToast(message: string, color: 'success' | 'danger' | 'warning') {
-    const t = await this.toastCtrl.create({ message, color, duration: 2000 });
+    const t = await this.toastCtrl.create({ message, color, duration: 2000, position: 'middle' });
     await t.present();
   }
 }

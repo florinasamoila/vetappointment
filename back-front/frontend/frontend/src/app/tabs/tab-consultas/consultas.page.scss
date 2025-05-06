@@ -132,5 +132,46 @@
       text-align: center;
       font-style: italic;
     }
+
+    // src/app/consultas/consultas.page.scss
+
+// Contenedor del spinner para centrarlo y dar un padding
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+// Estilos para el ion-spinner
+.custom-spinner {
+  // Color
+  --spinner-color: var(--ion-color-primary);
+  // Tamaño
+  width: 2.5rem;
+  height: 2.5rem;
+  // Margin opcional
+  margin: 0 auto;
+}
+
+// Estilos para el infinite scroll (container)
+.custom-infinite {
+  // Opcional: fondo transparente
+  --background: transparent;
+  // Espaciado
+  padding-bottom: 1rem;
+}
+
+// Estilos para el contenido del infinite scroll
+.custom-infinite ion-infinite-scroll-content {
+  // Color del spinner que aparece al cargar más
+  --loading-spinner-color: var(--ion-color-secondary);
+  // Color y tamaño del texto
+  --loading-text-color: var(--ion-color-medium);
+  font-size: 0.9rem;
+  // Puedes cambiar los textos de pull/refresh también:
+  --pulling-text: 'Arrastra para cargar…';
+  --refreshing-text: '¡Cargando…!';
+}
+
   }
   

@@ -1,5 +1,5 @@
 // src/app/components/header/header.component.ts
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   IonHeader, IonToolbar, IonGrid, IonRow, IonCol,
   IonButtons, IonButton, IonIcon, ActionSheetController
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-header',
+  encapsulation: ViewEncapsulation.None,    // ← DESACTIVAMOS encapsulación
   imports: [
     IonHeader,
     IonToolbar,
@@ -55,6 +56,7 @@ export class HeaderComponent implements OnInit {
           text: 'Cerrar sesión',
           role: 'destructive',
           icon: 'log-out',
+          cssClass: 'action-sheet-destructive',
           handler: () => {
             this.auth.logout();
             this.router.navigateByUrl('/login', { replaceUrl: true });
@@ -63,19 +65,21 @@ export class HeaderComponent implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          icon: 'close'
+          icon: 'close',
+          cssClass: 'action-sheet-cancel',
         },
         {
           text: 'Adminitrar tus datos',
           icon: 'person-circle',
           handler: () => {
             this.router.navigateByUrl('/admin');
-          }
+          },
+          cssClass: 'action-sheet-admin',
         },
         {
           text: 'Volver a la página de inicio',
           icon: 'home',
-          
+          cssClass: 'action-sheet-home',
           handler: () => {
             this.router.navigateByUrl('/tabs/inicio', { replaceUrl: true });
           }

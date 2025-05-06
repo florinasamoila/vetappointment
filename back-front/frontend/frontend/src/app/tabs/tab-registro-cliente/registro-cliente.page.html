@@ -42,6 +42,7 @@
   <form [formGroup]="clienteForm">
 
     <!-- Modo EXISTENTE -->
+
     <ng-container *ngIf="modoCliente==='existente'">
       <ion-input
         formControlName="clienteBusqueda"
@@ -72,8 +73,20 @@
           <p><strong>Teléfono:</strong> {{ clienteSeleccionado.telefono }}</p>
           <p><strong>Dirección:</strong> {{ clienteSeleccionado.direccion }}</p>
         </ion-card-content>
+
+        <!-- ← Aquí insertamos el botón -->
+        <ion-card-footer class="ion-text-center">
+          <ion-button
+            expand="block"
+            color="primary"
+            (click)="openAddMorePetsModal()"
+          >
+            + Añadir Mascota
+          </ion-button>
+        </ion-card-footer>
       </ion-card>
     </ng-container>
+
 
     <!-- Modo NUEVO -->
     <ng-container *ngIf="modoCliente==='nuevo'">
@@ -90,26 +103,67 @@
           </ion-col>
           <ion-col size="6">
             <h3>Datos de la Mascota</h3>
-            <ion-input formControlName="mascotaNombre"           placeholder="Nombre de la mascota" fill="outline" shape="round"></ion-input>
-            <ion-input formControlName="mascotaEspecie"          placeholder="Perro, Gato…"           fill="outline" shape="round"></ion-input>
-            <ion-input formControlName="mascotaRaza"             placeholder="Raza"                   fill="outline" shape="round"></ion-input>
-            <ion-input formControlName="mascotaFechaNacimiento"  type="date" fill="outline" shape="round"></ion-input>
-            <ion-input formControlName="mascotaPeso"             type="number" placeholder="kg" fill="outline" shape="round"></ion-input>
-            <ion-input formControlName="mascotaCaracteristicas"  placeholder="Color, marca, notas" fill="outline" shape="round"></ion-input>
+          
+            <!-- Nombre, especie y raza (ya existían) -->
+            <ion-input formControlName="mascotaNombre"
+                       placeholder="Nombre de la mascota"
+                       fill="outline" shape="round">
+            </ion-input>
+            <ion-input formControlName="mascotaEspecie"
+                       placeholder="Perro, Gato…"
+                       fill="outline" shape="round">
+            </ion-input>
+            <ion-input formControlName="mascotaRaza"
+                       placeholder="Raza"
+                       fill="outline" shape="round">
+            </ion-input>
+          
+            <!-- Edad -->
+            <ion-input formControlName="mascotaEdad"
+                       type="number"
+                       placeholder="Edad (años)"
+                       fill="outline" shape="round">
+            </ion-input>
+          
+            <!-- Sexo -->
+            <ion-item lines="none" fill="outline" shape="round">
+              <ion-label position="stacked">Sexo</ion-label>
+              <ion-select formControlName="mascotaSexo" placeholder="Selecciona sexo">
+                <ion-select-option value="Macho">Macho</ion-select-option>
+                <ion-select-option value="Hembra">Hembra</ion-select-option>
+              </ion-select>
+            </ion-item>
+          
+            <!-- Color -->
+            <ion-input formControlName="mascotaColor"
+                       placeholder="Color predominante"
+                       fill="outline" shape="round">
+            </ion-input>
+          
+            <!-- Fecha de nacimiento -->
+            <ion-input formControlName="mascotaFechaNacimiento"
+                       type="date"
+                       fill="outline" shape="round">
+            </ion-input>
+          
+            <!-- Peso -->
+            <ion-input formControlName="mascotaPeso"
+                       type="number"
+                       placeholder="Peso (kg)"
+                       fill="outline" shape="round">
+            </ion-input>
+          
+            <!-- Características -->
+            <ion-input formControlName="mascotaCaracteristicas"
+                       placeholder="Características o notas"
+                       fill="outline" shape="round">
+            </ion-input>
           </ion-col>
+          
         </ion-row>
 
         <!-- Mascotas Adicionales -->
-        <ion-row *ngIf="modoCliente==='nuevo'" class="ion-margin-top">
-          <ion-col size="12">
-            <ion-button fill="clear" (click)="openMascotaPopover($event)">+ Añadir Otra Mascota</ion-button>
-            <div *ngIf="mascotas.length" formArrayName="mascotas">
-              <div *ngFor="let m of mascotas.controls; let i = index" [formGroupName]="i">
-                <ion-input formControlName="nombre" placeholder="Nombre Mascota {{ i+2 }}" fill="outline" shape="round"></ion-input>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row>
+
 
         <!-- Botones -->
         <ion-row class="ion-padding-top action-buttons">

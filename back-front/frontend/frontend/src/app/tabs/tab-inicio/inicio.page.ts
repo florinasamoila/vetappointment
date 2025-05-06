@@ -21,6 +21,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
   ]
 })
 export class TabInicio implements OnInit {
+  loading = true;  
   allCitas: any[] = [];
   citas: any[] = [];
   estados = ['Todos', 'Confirmada', 'Programada', 'Completada', 'Cancelada'];
@@ -44,18 +45,24 @@ export class TabInicio implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.citaService.getAllCitas().subscribe({
       next: data => {
         this.allCitas = data;
+        if (data.length === 0) {
+          this.presentToast('No se encontraron citas', 'warning');
+        }
         // Extraer veterinarios únicos (si se usa en futuro)
         this.veterinarios = Array.from(new Map(
           data.map(c => [c.veterinario._id, c.veterinario])
         ).values());
         this.cargarCitasPorFecha();
+        this.loading = false;
       },
       error: err => {
         console.error('Error cargando citas', err);
         this.presentToast('Error cargando citas', 'danger');
+        this.loading = false;
       }
     });
   }
@@ -170,7 +177,7 @@ export class TabInicio implements OnInit {
     const t = await this.toastController.create({
       message,
       duration: 2500,
-      position: 'top',
+      position: 'middle',
       color
     });
     await t.present();

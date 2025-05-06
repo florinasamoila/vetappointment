@@ -3,14 +3,14 @@
 /* 1) El propio ion-content sirve como lienzo para el logo en mosaico */
 ion-content.login-page {
     position: relative; /* para contener nuestro overlay y contenedor */
-    --background: url('/assets/logo/complete-logo.svg') center center / 300px 150px repeat;
+    --background: url('/assets/logo/background_animado.gif') no-repeat center center  / cover;
   }
   
   /* 2) Overlay semitransparente que cubre TODO el contenido */
   .login-page .bg-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(255, 255, 255, 0.623);
+    background-color: rgba(255, 255, 255, 0);
     z-index: 1;
     pointer-events: none;
   }
@@ -21,21 +21,23 @@ ion-content.login-page {
     z-index: 2;
     height: 100%;
     display: flex;
-    align-items: center;
+    align-items:center;
     justify-content: center;
-    padding: 1rem;
+    padding: 4rem;
   }
   
   /* 4) Tarjeta del login, por encima de todo, sin ningún fade */
   .login-page .login-card {
     position: relative;
-    z-index: 3;
-    width: 100%;
-    max-width: 360px;
-    background-color: #e6fff0;    /* verde muy clarito */
-    border-radius: 12px;
+    z-index: -2;
+    
+    width: 200%;
+    max-width:500px;
+    background-color: #e6fff0d2;    /* verde muy clarito */
+    border-radius: 20px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     padding: 1.5rem;
+    
   }
   
   /* 5) Ajustes de los ítems y mensajes de error */
@@ -54,7 +56,30 @@ ion-content.login-page {
   }
   
   /* 6) Botón al final */
-  ion-button {
-    margin-top: 1rem;
+  .btn-wrapper {
+    width: 100%;        /* ocupa todo el ancho del card */
+    text-align: center; /* centra en horizontal cualquier inline/inline-block */
+    margin-top: 1rem;   /* separa el wrapper del último ion-item */
   }
+  
+  /* 3) Ajuste del botón para que no sea full-width */
+  .btn-wrapper ion-button {
+    width: auto;        /* ancho justo al contenido */
+    min-width: unset;   /* quita el mínimo de Ionic */
+  }
+
+  .login-page .login-card .logo {
+    display: block;        /* para que respete el margin auto */
+    max-width: fit-content;         /* tamaño deseado */
+    max-width: 100%;       /* no se desborda en pantallas pequeñas */
+    height: auto;          /* mantiene la proporción */
+    margin: 0 auto 1rem;   /* centrado horizontal y espacio bajo la imagen */
+  }
+
+  ion-card-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
   

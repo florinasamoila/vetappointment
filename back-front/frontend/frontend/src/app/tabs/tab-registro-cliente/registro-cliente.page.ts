@@ -20,7 +20,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ResumenClienteModalComponent } from 'src/app/components/resumen-cliente-modal/resumen-cliente-modal.component';
-import { PopoverMascotaPage } from 'src/app/pages/popover-mascota/popover-mascota.page';
+import { AddMorePetsModalComponent } from 'src/app/components/add-more-pets-modal/add-more-pets-modal.component';
+
 
 @Component({
   selector: 'app-tab3',
@@ -35,7 +36,7 @@ import { PopoverMascotaPage } from 'src/app/pages/popover-mascota/popover-mascot
     FormsModule,
     HeaderComponent,
     ResumenClienteModalComponent,
-    PopoverMascotaPage
+    AddMorePetsModalComponent
   ]
 })
 export class TabRegistroCliente implements OnInit {
@@ -51,7 +52,6 @@ export class TabRegistroCliente implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private modalCtrl: ModalController,
-    private popoverCtrl: PopoverController,
     private toastCtrl: ToastController,
     private route: ActivatedRoute,    // ← inyectamos ActivatedRoute
     private navCtrl: NavController
@@ -63,13 +63,16 @@ export class TabRegistroCliente implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       telefono: ['', Validators.required],
       direccion: ['', Validators.required],
-      mascotaNombre: ['', Validators.required],
-      mascotaEspecie: ['', Validators.required],
-      mascotaRaza: ['', Validators.required],
-      mascotaFechaNacimiento: ['', Validators.required],
-      mascotaPeso: ['', Validators.required],
-      mascotaCaracteristicas: ['', Validators.required],
-      mascotas: this.fb.array([])
+      mascotaNombre:           ['', Validators.required],
+      mascotaEspecie:          ['', Validators.required],
+      mascotaRaza:             ['', Validators.required],
+      mascotaEdad:             [null, [Validators.required, Validators.min(0)]],
+      mascotaSexo:             ['', Validators.required],
+      mascotaColor:            ['', Validators.required],
+      mascotaFechaNacimiento:  ['', Validators.required],
+      mascotaPeso:             [null, [Validators.required, Validators.min(0)]],
+      mascotaCaracteristicas:  ['', Validators.required],
+      mascotas:                this.fb.array([])
     });
   }
 
@@ -131,14 +134,18 @@ export class TabRegistroCliente implements OnInit {
 
   crearMascota(): FormGroup {
     return this.fb.group({
-      nombre: ['', Validators.required],
-      especie: ['', Validators.required],
-      raza: ['', Validators.required],
+      nombre:          ['', Validators.required],
+      especie:         ['', Validators.required],
+      raza:            ['', Validators.required],
+      edad:            [null, [Validators.required, Validators.min(0)]],
+      sexo:            ['', Validators.required],
+      color:           ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
-      peso: ['', Validators.required],
+      peso:            [null, [Validators.required, Validators.min(0)]],
       caracteristicas: ['', Validators.required]
     });
   }
+  
 
   // ─── MODO EXISTENTE ───────────────────────────────────
 
@@ -215,70 +222,83 @@ export class TabRegistroCliente implements OnInit {
 
   async crearCliente() {
     const d = this.clienteForm.value;
-    const mp = {
-      nombre: d.mascotaNombre,
-      especie: d.mascotaEspecie,
-      raza: d.mascotaRaza,
+    // Primer mascota
+    const mascotaPrincipal = {
+      nombre:          d.mascotaNombre,
+      especie:         d.mascotaEspecie,
+      raza:            d.mascotaRaza,
+      edad:            +d.mascotaEdad,
+      sexo:            d.mascotaSexo,
+      color:           d.mascotaColor,
       fechaNacimiento: d.mascotaFechaNacimiento,
-      peso: d.mascotaPeso,
+      peso:            +d.mascotaPeso,
       caracteristicas: d.mascotaCaracteristicas
     };
-    const extras = (d.mascotas as any[]).filter(m => m.nombre && m.especie && m.raza);
-
-    // Si ya había cliente seleccionado, solo añadimos mascota
-    if (this.clienteSeleccionado) {
-      return this.agregarMascota(this.clienteSeleccionado._id);
-    }
-
-    // Nuevo cliente completo
+    // Extras si hay FormArray
+    const extras = (d.mascotas as any[])
+      .filter(m => m.nombre && m.especie && m.raza)
+      .map(m => ({
+        nombre:          m.nombre,
+        especie:         m.especie,
+        raza:            m.raza,
+        edad:            +m.edad,
+        sexo:            m.sexo,
+        color:           m.color,
+        fechaNacimiento: m.fechaNacimiento,
+        peso:            +m.peso,
+        caracteristicas: m.caracteristicas
+      }));
+  
     const payload = {
-      nombre: d.nombre,
+      nombre:   d.nombre,
       apellido: d.apellido,
-      email: d.email,
+      email:    d.email,
       telefono: d.telefono,
-      direccion: d.direccion,
-      mascotas: [mp, ...extras]
+      direccion:d.direccion,
+      mascotas: [mascotaPrincipal, ...extras]
     };
-
+  
     this.http.post(`${this.apiUrl}/clientes`, payload).subscribe({
-      next: () => this.mostrarToast('Cliente registrado', 'success'),
-      error: () => this.mostrarToast('Error registrando cliente', 'danger')
+      next: () => this.mostrarToast('Cliente creado exitosamente', 'success'),
+      error: () => this.mostrarToast('Error al crear cliente', 'danger')
     });
   }
+  
 
-  async openMascotaPopover(ev: Event) {
-    const pop = await this.popoverCtrl.create({
-      component: PopoverMascotaPage,
-      event: ev,
-      translucent: true,
-      cssClass: 'popover-mascota'
-    });
-    await pop.present();
-
-    const { data } = await pop.onDidDismiss();
-    if (data) {
-      const grupo = this.crearMascota();
-      grupo.patchValue(data);
-      this.mascotas.push(grupo);
-      this.mostrarToast('Mascota agregada', 'success');
+  async openAddMorePetsModal() {
+    if (this.modoCliente !== 'existente' || !this.clienteSeleccionado) {
+      return;
     }
+    const modal = await this.modalCtrl.create({
+      component: AddMorePetsModalComponent,
+      componentProps: { cliente: this.clienteSeleccionado },
+      cssClass: 'add-more-pets-modal'
+    });
+    await modal.present();
+  
+    // Si necesitas hacer algo al cerrar:
+     const { data } = await modal.onDidDismiss();
   }
 
   async agregarMascota(clienteId: string) {
     const d = this.clienteForm.value;
     const dto = {
-      nombre: d.mascotaNombre,
-      especie: d.mascotaEspecie,
-      raza: d.mascotaRaza,
+      nombre:          d.mascotaNombre,
+      especie:         d.mascotaEspecie,
+      raza:            d.mascotaRaza,
+      edad:            +d.mascotaEdad,
+      sexo:            d.mascotaSexo,
+      color:           d.mascotaColor,
       fechaNacimiento: d.mascotaFechaNacimiento,
-      peso: d.mascotaPeso,
+      peso:            +d.mascotaPeso,
       caracteristicas: d.mascotaCaracteristicas
     };
     this.http.post(`${this.apiUrl}/clientes/${clienteId}/mascota`, dto).subscribe({
-      next: () => this.mostrarToast('Mascota añadida', 'success'),
-      error: () => this.mostrarToast('Error al añadir mascota', 'danger')
+      next: () => this.mostrarToast('Mascota agregada exitosamente', 'success'),
+      error: () => this.mostrarToast('Error al agregar mascota', 'danger')
     });
   }
+  
 
   // ─── MODO EDITAR CLIENTE ───────────────────────────────
 
@@ -306,24 +326,24 @@ export class TabRegistroCliente implements OnInit {
 
   confirmarEdicionMascota() {
     if (!this.mascotaIdParam) return;
+    const d = this.clienteForm.value;
     const payload = {
-      nombre: this.clienteForm.value.mascotaNombre,
-      especie: this.clienteForm.value.mascotaEspecie,
-      raza: this.clienteForm.value.mascotaRaza,
-      fechaNacimiento: this.clienteForm.value.mascotaFechaNacimiento,
-      peso: this.clienteForm.value.mascotaPeso,
-      caracteristicas: this.clienteForm.value.mascotaCaracteristicas
+      nombre:          d.mascotaNombre,
+      especie:         d.mascotaEspecie,
+      raza:            d.mascotaRaza,
+      edad:            +d.mascotaEdad,
+      sexo:            d.mascotaSexo,
+      color:           d.mascotaColor,
+      fechaNacimiento: d.mascotaFechaNacimiento,
+      peso:            +d.mascotaPeso,
+      caracteristicas: d.mascotaCaracteristicas
     };
-    this.http.put(`${this.apiUrl}/mascotas/${this.mascotaIdParam}`, payload)
-      .subscribe({
-        next: () => {
-          this.mostrarToast('Mascota actualizada', 'success');
-          // Regresa a la pantalla anterior (detalle de la mascota en Consultas)
-          this.navCtrl.back();
-        },
-        error: () => this.mostrarToast('Error actualizando mascota', 'danger')
-      });
+    this.http.put(`${this.apiUrl}/mascotas/${this.mascotaIdParam}`, payload).subscribe({
+      next: () => this.mostrarToast('Mascota actualizada', 'success'),
+      error: () => this.mostrarToast('Error actualizando mascota', 'danger')
+    });
   }
+  
   
 
   // ─── UTILIDADES ────────────────────────────────────────
@@ -332,7 +352,7 @@ export class TabRegistroCliente implements OnInit {
     msg: string,
     color: 'success' | 'danger' | 'warning' = 'success'
   ) {
-    const toast = await this.toastCtrl.create({ message: msg, duration: 2000, color, position: 'top' });
+    const toast = await this.toastCtrl.create({ message: msg, duration: 2000, color, position: 'middle' });
     await toast.present();
   }
 

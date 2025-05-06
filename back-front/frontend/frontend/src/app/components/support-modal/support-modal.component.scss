@@ -1,0 +1,84 @@
+:host {
+    display: block;
+  
+    /* Fondo y padding general del modal */
+    ion-content {
+      --background: var(--ion-background-color, #ffffff);
+      padding: 1.5rem;
+    }
+  
+    /* Cabecera */
+    ion-header {
+      ion-toolbar {
+        --background: var(--ion-color-primary);
+        color: var(--ion-color-light);
+  
+        ion-title {
+          font-size: 1.4rem;
+          font-weight: 600;
+        }
+  
+        ion-buttons ion-button {
+          --color: var(--ion-color-light);
+          font-size: 1.2rem;
+        }
+      }
+    }
+  
+    /* Formulario */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+  
+    ion-item {
+      --background: transparent;
+      --highlight-height: 2px;
+      --highlight-color-focused: var(--ion-color-primary);
+    }
+  
+    ion-label {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+  
+    ion-input,
+    ion-textarea {
+      font-size: 1rem;
+      --padding-start: 0.5rem;
+      --padding-end: 0.5rem;
+    }
+  
+    /* Botón Enviar */
+    ion-button[type="submit"] {
+      align-self: stretch;
+      --background: var(--ion-color-primary);
+      --background-activated: var(--ion-color-primary-shade);
+      --color: var(--ion-color-light);
+      --ripple-color: rgba(var(--ion-color-primary-rgb), 0.2);
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .support-info {
+        margin-bottom: 1rem;
+        padding: 0.75rem 1rem;
+        background: var(--ion-color-light-shade);
+        border-left: 4px solid var(--ion-color-primary);
+        border-radius: 4px;
+    
+        p {
+          margin: 0.25rem 0;
+          font-size: 0.9rem;
+          line-height: 1.4;
+          color: var(--ion-color-medium);
+        }
+    
+        strong {
+          color: var(--ion-color-dark);
+        }
+      }
+  }
+  

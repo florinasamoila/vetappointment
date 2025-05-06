@@ -5,7 +5,13 @@
         <!-- Usuario Conectado -->
         <ion-col size="2" class="left-col">
           <ion-buttons>
-            <ion-button (click)="openUserMenu()">
+            <ion-button 
+              shape="round"
+              color="success"
+              fill="solid"
+              class="user-button" 
+              (click)="openUserMenu()"
+            >
               <ion-icon slot="start" name="person-circle"></ion-icon>
               {{ userEmail || 'Invitado' }}
             </ion-button>
@@ -22,6 +28,10 @@
         <ion-col size="2" class="right-col">
           <ion-buttons>
             <ion-button
+              shape="round"
+              color="danger"
+              fill="solid"
+              class="help-button"
               href="http://localhost:3000/api-docs"
               target="_blank"
               rel="noopener"
