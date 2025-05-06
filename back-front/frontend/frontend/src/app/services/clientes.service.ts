@@ -19,5 +19,10 @@ export class ClienteService {
     return this.http.get<any[]>(`${this.baseUrl}/${clienteId}/mascotas`);
 
   }
+
+    /** Nuevo método para añadir una mascota a un cliente existente */
+    agregarMascota(clienteId: string, mascota: any) {
+      return this.http.post<any>(`${this.baseUrl}/${clienteId}/mascota`, mascota);
+    }
   
 }

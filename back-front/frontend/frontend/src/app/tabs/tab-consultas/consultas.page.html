@@ -4,6 +4,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- ► Filtros -->
   <div class="filtros-container">
     <div class="filtros-grid">
       <div class="campo">
@@ -34,18 +35,32 @@
     </div>
   </div>
 
-  <div class="resultados-container" *ngIf="coleccionSeleccionada">
+  <!-- Spinner mientras loading === true -->
+  <div *ngIf="loading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <!-- Resultados: sólo cuando loading === false y hay colección seleccionada -->
+  <div class="resultados-container" *ngIf="!loading && coleccionSeleccionada">
+    <!-- Badge con el conteo de resultados -->
+    <ion-item lines="none">
+      <ion-label>Resultados totales</ion-label>
+      <ion-badge slot="start" color="primary">{{ resultados.length }}</ion-badge>
+    </ion-item>
+
+    <!-- “Seleccionar todos” -->
     <ion-item>
       <ion-label>
         <ion-checkbox
           slot="start"
-          [checked]="clientesSeleccionados.size === resultados.length && resultados.length>0"
+          [checked]="clientesSeleccionados.size === resultados.length && resultados.length > 0"
           (ionChange)="toggleSeleccionTodos($event)"
         ></ion-checkbox>
         Seleccionar todos
       </ion-label>
     </ion-item>
 
+    <!-- Botón para borrar seleccionados -->
     <ion-button
       *ngIf="clientesSeleccionados.size > 0"
       expand="block"
@@ -55,15 +70,19 @@
       Borrar Seleccionados
     </ion-button>
 
+    <!-- Lista de resultados -->
     <ion-list>
-      <ion-item *ngFor="let item of resultados" button (click)="verDetalles(item)">
+      <ion-item
+        *ngFor="let item of resultados"
+        button
+        (click)="verDetalles(item)"
+      >
         <ion-checkbox
           slot="start"
           [checked]="clientesSeleccionados.has(item._id)"
           (ionChange)="toggleClienteSeleccionado(item._id); $event.stopPropagation()"
         ></ion-checkbox>
         <ion-label>
-          <!-- Aquí usamos obtenerNombreVisible() -->
           <h2>{{ obtenerNombreVisible(item) }}</h2>
           <p>{{ getSubtitulo(item) }}</p>
         </ion-label>
@@ -71,6 +90,20 @@
       </ion-item>
     </ion-list>
 
+    <!-- Infinite Scroll para cargar de 6 en 6 -->
+    <ion-infinite-scroll
+      threshold="100px"
+      (ionInfinite)="loadMore($event)"
+      [disabled]="resultados.length >= todosElementos.length"
+    >
+      <ion-infinite-scroll-content
+        loadingSpinner="crescent"
+        loadingText="Cargando más..."
+      >
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <!-- Mensaje cuando no hay resultados tras búsqueda -->
     <ion-text color="medium" *ngIf="resultados.length === 0 && terminoBusqueda">
       <p class="no-result-text">
         No se encontraron resultados para "{{ terminoBusqueda }}"

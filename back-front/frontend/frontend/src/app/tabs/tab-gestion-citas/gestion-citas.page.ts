@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonCard,
-  IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonDatetime,
-  IonGrid, IonInput, IonItem, IonLabel, IonList, IonRow, IonSearchbar,
-  IonSelect, IonSelectOption, ToastController
+   ToastController
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -233,7 +230,7 @@ export class TabGestionCitas implements OnInit {
       message,
       duration: 2500,
       color,
-      position: 'top'
+      position: 'middle',
     });
     await toast.present();
   }

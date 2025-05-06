@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Contactar Soporte</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">✕</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="support-info">
+    <p><strong>Instrucciones:</strong> Por favor describe tu incidencia con la mayor claridad posible, incluyendo capturas si fuera necesario.</p>
+    <p><strong>Tiempo estimado de respuesta:</strong> 24–48 horas laborables.</p>
+  </div>
+  <form (ngSubmit)="send()" #f="ngForm">
+    <ion-item>
+      <ion-label position="stacked">Asunto</ion-label>
+      <ion-input
+        name="subject"
+        [(ngModel)]="subject"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Mensaje</ion-label>
+      <ion-textarea
+        name="message"
+        [(ngModel)]="message"
+        required
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-button
+      type="submit"
+      expand="block"
+      [disabled]="!f.form.valid"
+    >
+      Enviar
+    </ion-button>
+  </form>
+</ion-content>

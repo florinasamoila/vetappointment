@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Añadir Mascota</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Lista de mascotas actuales del cliente -->
+  <ion-list *ngIf="mascotas.length > 0">
+    <ion-list-header>
+      <ion-label>Masco­tas de {{ cliente.nombre }}</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let m of mascotas">
+      <ion-label>
+        <h3>{{ m.nombre }}</h3>
+        <p>
+          <strong>Especie:</strong> {{ m.especie }} —
+          <strong>Raza:</strong> {{ m.raza }}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje si no hay mascotas -->
+  <div *ngIf="mascotas.length === 0" class="ion-text-center ion-padding">
+    <p>No hay mascotas registradas para este cliente.</p>
+  </div>
+
+  <!-- Formulario para agregar nueva mascota -->
+  <form [formGroup]="petForm" class="ion-margin-top">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Especie</ion-label>
+      <ion-input formControlName="especie"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Raza</ion-label>
+      <ion-input formControlName="raza"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Edad (años)</ion-label>
+      <ion-input type="number" formControlName="edad"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Sexo</ion-label>
+      <ion-select formControlName="sexo">
+        <ion-select-option value="Macho">Macho</ion-select-option>
+        <ion-select-option value="Hembra">Hembra</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Color predominante</ion-label>
+      <ion-input formControlName="color"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Peso (kg)</ion-label>
+      <ion-input type="number" formControlName="peso"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Características</ion-label>
+      <ion-textarea formControlName="caracteristicas"></ion-textarea>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="outline" (click)="cerrarModal()">
+        Cancelar
+      </ion-button>
+      <ion-button color="success" (click)="guardarMascota()">
+        Guardar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

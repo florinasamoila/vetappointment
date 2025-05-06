@@ -27,12 +27,34 @@
     </div>
     <h3>Entradas</h3>
     <ion-list>
-      <ion-item *ngFor="let e of datos.entradas" button (click)="verEntrada(e)">
+      <ion-item
+        *ngFor="let e of datos.entradas"
+        button
+        (click)="verEntrada(e)"
+      >
         <ion-label>
           <h4>{{ e.fecha | date:'dd/MM/yy H:mm' }}</h4>
           <p><strong>Diagnóstico:</strong> {{ e.diagnosticos || '—' }}</p>
         </ion-label>
-        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+
+        <!-- Botón editar/ir a entrada -->
+        <ion-button
+          slot="end"
+          fill="clear"
+          (click)="verEntrada(e); $event.stopPropagation()"
+        >
+          <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+
+        <!-- Botón eliminar -->
+        <ion-button
+          slot="end"
+          fill="clear"
+          color="danger"
+          (click)="confirmDeleteEntry(e); $event.stopPropagation()"
+        >
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-list>
   </ng-container>
@@ -59,6 +81,7 @@
 
   <!-- 3) CLIENTES -->
   <ng-container *ngIf="coleccion === 'clientes'">
+    <!-- Campos del cliente -->
     <ng-container *ngFor="let key of getKeys(datos)">
       <ion-item lines="none">
         <ion-icon [name]="getIconoPorCampo(key)" slot="start"></ion-icon>
@@ -67,6 +90,33 @@
         </ion-label>
       </ion-item>
     </ng-container>
+
+    <!-- Separador de sección -->
+    <ion-item-divider color="medium">
+      <ion-label>🐾 Mascotas Registradas</ion-label>
+    </ion-item-divider>
+
+    <!-- Lista de mascotas -->
+    <ion-list *ngIf="datos.mascotas?.length; else noPets">
+      <ion-item *ngFor="let m of datos.mascotas" lines="none">
+        <ion-icon name="paw-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h3>{{ m.nombre }}</h3>
+          <p>
+            <strong>Especie:</strong> {{ m.especie }}
+            &nbsp;–&nbsp;
+            <strong>Raza:</strong> {{ m.raza }}
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ng-template #noPets>
+      <ion-item lines="none">
+        <ion-label color="medium">
+          Este cliente no tiene mascotas registradas.
+        </ion-label>
+      </ion-item>
+    </ng-template>
   </ng-container>
 
   <!-- 4) MASCOTAS -->

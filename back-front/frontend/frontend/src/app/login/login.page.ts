@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { IonicModule, ToastController, NavController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { ModalController } from '@ionic/angular/standalone';
+import { SupportModalComponent } from '../components/support-modal/support-modal.component';
 
 @Component({
   standalone: true,
@@ -21,7 +23,8 @@ export class LoginPage {
     private fb: FormBuilder,
     private auth: AuthService,
     private navCtrl: NavController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController,
   ) {
     this.loginForm = this.fb.group({
       email: [
@@ -94,6 +97,7 @@ export class LoginPage {
     this.auth.login(email, password).subscribe(async ok => {
       if (ok) {
         const success = await this.toastCtrl.create({
+          position: 'middle',
           message: `¡Bienvenido, ${email}!`,
           color: 'success',
           duration: 2000
@@ -109,5 +113,12 @@ export class LoginPage {
         await error.present();
       }
     });
+  }
+
+  async openSupportModal() {
+    const modal = await this.modalCtrl.create({
+      component: SupportModalComponent
+    });
+    await modal.present();
   }
 }
