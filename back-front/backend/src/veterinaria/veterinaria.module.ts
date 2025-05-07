@@ -10,6 +10,7 @@ import { ServicioPrestadoSchema } from './schemas/servicio-prestado.schema/servi
 import { VeterinarioSchema } from './schemas/veterinario.schema/veterinario.schema';
 import { VeterinariaController } from './veterinaria.controller';
 import { MascotaSchema } from './schemas/mascota.schema/mascota.schema';
+import { AppGateway } from 'src/app.gateway';
 
 @Module({
   imports: [
@@ -53,7 +54,7 @@ import { MascotaSchema } from './schemas/mascota.schema/mascota.schema';
       ]
     )
   ],
-  providers: [VeterinariaService],
+  providers: [VeterinariaService, AppGateway],
   controllers: [VeterinariaController]
 })
 export class VeterinariaModule {}
