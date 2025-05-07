@@ -52,10 +52,12 @@ export class TabInicio implements OnInit {
         if (data.length === 0) {
           this.presentToast('No se encontraron citas', 'warning');
         }
-        // Extraer veterinarios únicos (si se usa en futuro)
+        // Filtrar citas que tienen veterinario definido antes de mapear
+        const citasConVet = data.filter(c => c.veterinario != null);
         this.veterinarios = Array.from(new Map(
-          data.map(c => [c.veterinario._id, c.veterinario])
+          citasConVet.map(c => [c.veterinario!._id, c.veterinario!])
         ).values());
+
         this.cargarCitasPorFecha();
         this.loading = false;
       },

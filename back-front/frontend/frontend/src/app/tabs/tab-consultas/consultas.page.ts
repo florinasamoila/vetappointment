@@ -53,6 +53,7 @@ export class TabConsultas implements OnInit {
   terminoBusqueda = '';
   todosElementos: any[] = [];
   resultados: any[] = [];
+  private originalElementos: any[] = [];
   clientesSeleccionados = new Set<string>();
   loading = false;
 
@@ -98,6 +99,7 @@ export class TabConsultas implements OnInit {
       .subscribe({
         next: list => {
           this.todosElementos = list;
+          this.originalElementos  = list; 
           if (list.length === 0) {
             this.presentToast('No se encontraron datos en la colección seleccionada.', 'warning');
           }
@@ -115,10 +117,11 @@ export class TabConsultas implements OnInit {
   buscarDatos() {
     const q = this.terminoBusqueda.trim().toLowerCase();
     if (!q) {
+      this.todosElementos = this.originalElementos;
       this.resetPagination();
       return;
     }
-    const filtered = this.todosElementos.filter(item => {
+    const filtered = this.originalElementos.filter(item => {
       switch (this.coleccionSeleccionada) {
         case 'historial-medico':
           const nombre = item.mascotaID?.nombre?.toLowerCase() || '';

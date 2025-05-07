@@ -527,6 +527,26 @@ export class VeterinariaController {
   }
 
 
+
+    @ApiTags('Historial Médico')
+    @Delete('historial-medico/:historialId/entrada/:entradaId')
+    @ApiOperation({ summary: 'Elimina una entrada específica del historial médico' })
+    @ApiParam({ name: 'historialId', description: 'ID del historial médico que contiene la entrada' })
+    @ApiParam({ name: 'entradaId',    description: 'ID de la entrada a eliminar' })
+    @ApiResponse({
+      status: 200,
+      description: 'Entrada eliminada con éxito',
+      type: HistorialMedicoDto  // <-- aquí
+    })
+    async deleteEntrada(
+      @Param('historialId') historialId: string,
+      @Param('entradaId')    entradaId: string
+    ): Promise<HistorialMedico> {    // <-- y aquí
+      return this.veterinariaService.deleteEntrada(historialId, entradaId);
+    }
+
+
+
   //  Rutas para Servicio Prestado
   @ApiTags('Servicios Prestados')
   @Get('servicio-prestado')

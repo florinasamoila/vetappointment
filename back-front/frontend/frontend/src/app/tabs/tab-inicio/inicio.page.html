@@ -89,40 +89,42 @@
                 name="chevron-down"
                 class="chevron-down"
               ></ion-icon>
-              <ion-label>🐶 Mascota: {{ cita.mascota.nombre }}</ion-label>
+              <ion-icon name="paw"></ion-icon>
+              <ion-label> Mascota: {{ cita.mascota?.nombre || '–' }}</ion-label>
             </ion-item>
             <ion-item slot="content">
               <ion-card [ngClass]="getEstadoClase(cita.estado)">
                 <ion-card-header>
-                  <ion-card-title>🐶 {{ cita.mascota.nombre }}</ion-card-title>
+                  
+                  <ion-card-title><ion-icon name="paw"></ion-icon> {{ cita.mascota?.nombre || '–' }}</ion-card-title>
                   <ion-card-subtitle>
-                    👤 {{ cita.cliente.nombre }}
-                    {{ cita.cliente.apellido }}
+                    <ion-icon name="person"></ion-icon> {{ cita.cliente?.nombre || '–' }}
+                    {{ cita.cliente?.apellido || '' }}
                   </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
                   <p>
-                    <strong>📅 Fecha:</strong>
+                    <strong><ion-icon name="calendar"></ion-icon> Fecha:</strong>
                     {{ cita.fechaHora | date: 'longDate' }}
                   </p>
                   <p>
-                    <strong>⏰ Hora:</strong>
+                    <strong><ion-icon name="time"></ion-icon> Hora:</strong>
                     {{ cita.fechaHora | date: 'shortTime' }}
                   </p>
                   <p>
-                    <strong>🩺 Servicio:</strong>
-                    {{ cita.servicioPrestado.nombre }}
+                    <strong><ion-icon name="medical"></ion-icon> Servicio:</strong>
+                    {{ cita.servicioPrestado?.nombre || '–' }}
                   </p>
                   <p>
-                    <strong>👨‍⚕️ Vet:</strong>
-                    {{ cita.veterinario.nombre }}
-                    {{ cita.veterinario.apellido }}
+                    <strong><ion-icon name="person"></ion-icon> Veterinario:</strong>
+                    {{ cita.veterinario?.nombre || '–' }}
+                    {{ cita.veterinario?.apellido || '' }}
                   </p>
                   <p>
-                    <strong>📌 Estado:</strong> {{ cita.estado }}
+                    <strong><ion-icon name="file-tray-stacked"></ion-icon> Estado:</strong> {{ cita.estado }}
                   </p>
                   <p>
-                    <strong>📝 Obs.:</strong>
+                    <strong><ion-icon name="clipboard"></ion-icon> Obs.:</strong>
                     {{ cita.observaciones || '—' }}
                   </p>
                 </ion-card-content>
@@ -130,8 +132,7 @@
                   <ion-button
                     fill="solid"
                     color="danger"
-                    (click)="confirmarCambioEstado(cita, 'Cancelada');
-                              $event.stopPropagation()"
+                    (click)="confirmarCambioEstado(cita, 'Cancelada'); $event.stopPropagation()"
                   >
                     Anular
                   </ion-button>
@@ -145,8 +146,7 @@
                   <ion-button
                     fill="solid"
                     color="success"
-                    (click)="confirmarCambioEstado(cita, 'Completada');
-                              $event.stopPropagation()"
+                    (click)="confirmarCambioEstado(cita, 'Completada'); $event.stopPropagation()"
                   >
                     Finalizada
                   </ion-button>

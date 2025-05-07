@@ -133,7 +133,7 @@ export class GestionHistorialMedicoPage implements OnInit {
       .toPromise()) || [];
 
     if (!citas.length) {
-      return this.presentToast('No hay citas para esta mascota', 'warning');
+      return this.presentToast('No hay citas para esta mascota. Es necesario registrar una cita primero.', 'warning');
     }
 
     const ultima = citas[citas.length - 1];
@@ -233,7 +233,7 @@ export class GestionHistorialMedicoPage implements OnInit {
     
 
   private async presentToast(message: string, color: 'success' | 'danger' | 'warning') {
-    const t = await this.toastCtrl.create({ message, color, duration: 2000, position: 'middle' });
+    const t = await this.toastCtrl.create({ message, color, duration: 3000, position: 'middle' });
     await t.present();
   }
 }

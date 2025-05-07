@@ -1,10 +1,10 @@
 // src/app/tabs/tab-inicio/inicio.page.scss
 
 /// Variables
-$clr-bg: #f5f5f5 !default;
-$clr-bg-alt: #fafafa !default;
+$clr-bg: #ffffff !default;
+$clr-bg-alt: #9b5757 !default;
 $clr-text: #444 !default;
-$clr-text-light: #666 !default;
+$clr-text-light: #000000 !default;
 $clr-white: #fff !default;
 $clr-primary: #007bff !default;
 $clr-warning: #f4c430 !default;
@@ -18,7 +18,7 @@ $radius-lg: 12px;
 
 // Mapa de colores según estado
 $estado-map: (
-  todos: #999,
+  todos: #9999997e,
   confirmada: $clr-primary,
   programada: $clr-warning,
   completada: $clr-success,

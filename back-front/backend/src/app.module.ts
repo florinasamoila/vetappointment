@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VeterinariaModule } from './veterinaria/veterinaria.module';
+import { AppGateway } from './app.gateway';
 
 
 @Module({
@@ -13,6 +14,6 @@ import { VeterinariaModule } from './veterinaria/veterinaria.module';
     VeterinariaModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppGateway],
 })
 export class AppModule {}

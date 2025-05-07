@@ -259,7 +259,12 @@ export class TabRegistroCliente implements OnInit {
     };
   
     this.http.post(`${this.apiUrl}/clientes`, payload).subscribe({
-      next: () => this.mostrarToast('Cliente creado exitosamente', 'success'),
+      next: () => {
+        this.mostrarToast('Cliente creado exitosamente', 'success');
+        this.clienteForm.reset();          // ← Añadir esto aquí
+        this.mascotas.clear();             // ← Limpia las mascotas adicionales
+        this.clienteSeleccionado = null;   // ← Limpia la selección previa si existe
+      },
       error: () => this.mostrarToast('Error al crear cliente', 'danger')
     });
   }

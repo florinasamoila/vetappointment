@@ -42,12 +42,18 @@ export class DetalleModalComponent implements OnInit {
   }
 
   private popularClientesMascotas() {
-    this.http.get<any[]>(`${this.base}/mascotas?cliente=${this.datos._id}`)
+    // Vaciamos antes, para no acumular viejos resultados
+    this.datos.mascotas = [];
+  
+    // Llamamos al endpoint /clientes/:id/mascotas
+    this.http
+      .get<any[]>(`${this.base}/clientes/${this.datos._id}/mascotas`)
       .subscribe({
         next: mascotas => this.datos.mascotas = mascotas,
-        error: () => this.datos.mascotas = []
+        error: ()        => this.datos.mascotas = []
       });
   }
+  
 
   private popularCita() {
     forkJoin({
