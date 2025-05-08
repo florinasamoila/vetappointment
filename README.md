@@ -195,7 +195,7 @@ Entidades principales: Cliente ↔ Mascota → Historial Médico → Entrada His
 5. Iniciar servidores:
 
    ```bash
-   npm run start:dev      # Frontend
+   ng serve --open      # Frontend
    cd backend && npm run start:dev # Backend
    ```
 
