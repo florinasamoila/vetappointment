@@ -58,36 +58,36 @@ VetAppointment es una aplicación diseñada para uso exclusivo del personal clí
 
 
 
-Análisis de Mercado en España
+## Análisis de Mercado en España
 
-Panorama General
+**Panorama General**
 En España operan más de 7 100 clínicas veterinarias distribuidas por todo el territorio, con Madrid, Barcelona, Valencia, Alicante, Málaga y Sevilla a la cabeza en número de centros. El sector de animales de compañía facturó 2 613 millones de euros en 2023, con un crecimiento interanual del 8,3%.
 
-Tamaño y Crecimiento del Mercado de Software
+**Tamaño y Crecimiento del Mercado de Software**
 
-Global: el mercado mundial de software veterinario se estima en USD 1,85 mil millones para 2025, con una tasa de crecimiento anual compuesta (CAGR) del 6,1% hasta 2030.
+**Global:** el mercado mundial de software veterinario se estima en USD 1,85 mil millones para 2025, con una tasa de crecimiento anual compuesta (CAGR) del 6,1% hasta 2030.
 
-España: aunque no hay datos públicos detallados, se estima que el gasto en software de gestión representa el 1 – 2% de la facturación clínica anual, lo que supondría un mercado de 26 – 52 millones de euros en 2023, con un crecimiento anual cercano al 6 – 7%.
+**España:** aunque no hay datos públicos detallados, se estima que el gasto en software de gestión representa el 1 – 2% de la facturación clínica anual, lo que supondría un mercado de 26 – 52 millones de euros en 2023, con un crecimiento anual cercano al 6 – 7%.
 
-Factores Impulsores
+**Factores Impulsores**
 
-Humanización de las mascotas: el censo de perros supera los 9,29 millones y el de gatos los 1,6 millones, creando demanda de servicios veterinarios especializados.
+**Humanización de las mascotas:** el censo de perros supera los 9,29 millones y el de gatos los 1,6 millones, creando demanda de servicios veterinarios especializados.
 
-Normativa y trazabilidad: nuevas regulaciones sobre receta electrónica y dispensación de fármacos exigen sistemas que garanticen el cumplimiento legal.
+**Normativa y trazabilidad:** nuevas regulaciones sobre receta electrónica y dispensación de fármacos exigen sistemas que garanticen el cumplimiento legal.
 
-Digitalización post-COVID: aumento de teleconsulta y gestión remota, favoreciendo soluciones en la nube y acceso multi-dispositivo.
+**Digitalización post-COVID:** aumento de teleconsulta y gestión remota, favoreciendo soluciones en la nube y acceso multi-dispositivo.
 
-Segmentación del Mercado
+**Segmentación del Mercado**
 
-Por tamaño de clínica:
+**Por tamaño de clínica:**
 
-Pequeñas (1–2 veterinarios): soluciones SaaS desde 25–50 €/mes.
+**Pequeñas (1–2 veterinarios):** soluciones SaaS desde 25–50 €/mes.
 
-Medianas (3–5 veterinarios): paquetes con facturación avanzada, CRM y agendas compartidas.
+**Medianas (3–5 veterinarios):** paquetes con facturación avanzada, CRM y agendas compartidas.
 
-Grandes (>5 veterinarios): sistemas on-premise personalizables e integraciones con laboratorio y ERP.
+**Grandes (>5 veterinarios):** sistemas on-premise personalizables e integraciones con laboratorio y ERP.
 
-Por modelo de despliegue:
+**Por modelo de despliegue:**
 
 Cloud/SaaS (~60%): escalado sencillo y coste inicial bajo.
 
