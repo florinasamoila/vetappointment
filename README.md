@@ -182,7 +182,8 @@ Diseño final con tipografía, colores y elementos de UI reales.
 
 ### Modelo de Datos
 
-![Diagrama ER](docs/images/erd.png)
+![ER_vetAPPointment](https://github.com/user-attachments/assets/1f0e1a4e-edda-4c24-8863-84273c30aab7)
+
 
 Entidades principales: Cliente ↔ Mascota → Historial Médico → Entrada Historial; Veterinario ↔ Cita; Servicio Prestado.
 
