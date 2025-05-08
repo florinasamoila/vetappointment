@@ -2,7 +2,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MascotaDto } from 'src/veterinaria/entidades/mascota/dto/mascota.dto/mascota.dto';
 
-
 export class ClienteDto {
   @ApiProperty({ example: '60ddae923b1e8b001f8a1a2c' })
   _id: string;

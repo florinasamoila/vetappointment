@@ -31,13 +31,13 @@ async function bootstrap() {
 
   // ────────── POST‐PROCESADO: quitamos el tag "Veterinaria" ──────────
   // 1) Eliminamos el tag de la lista general
-  document.tags = (document.tags ?? []).filter(t => t.name !== 'Veterinaria');
+  document.tags = (document.tags ?? []).filter((t) => t.name !== 'Veterinaria');
 
   // 2) Lo quitamos de cada operación
-  Object.values(document.paths).forEach(pathItem => {
+  Object.values(document.paths).forEach((pathItem) => {
     Object.values(pathItem as any).forEach((operation: any) => {
       if (operation.tags) {
-        operation.tags = (operation.tags as string[]).filter(tag => tag !== 'Veterinaria');
+        operation.tags = (operation.tags as string[]).filter((tag) => tag !== 'Veterinaria');
       }
     });
   });

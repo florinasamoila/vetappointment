@@ -6,7 +6,6 @@
 <ion-content>
   <ion-grid class="content-grid">
     <ion-row align-items-start>
-      
       <!-- 📌 Columna Izquierda - Formulario -->
       <!-- 12 cols en xs, 7 cols en md+ -->
       <ion-col size="12" size-md="7">
@@ -16,7 +15,6 @@
               Introduce el nombre del dueño de la mascota para crear una cita
             </ion-label>
             <ion-searchbar
-              
               animated="true"
               placeholder="Buscar cliente..."
               [(ngModel)]="busquedaCliente"
@@ -30,7 +28,8 @@
             <ion-item
               button
               *ngFor="let cliente of clientesFiltrados"
-              (click)="seleccionarCliente(cliente)">
+              (click)="seleccionarCliente(cliente)"
+            >
               {{ cliente.nombre }}
             </ion-item>
           </ion-list>
@@ -54,10 +53,12 @@
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.mascota"
-                    interface="popover">
+                    interface="popover"
+                  >
                     <ion-select-option
                       *ngFor="let mascota of mascotasCliente"
-                      [value]="mascota._id">
+                      [value]="mascota._id"
+                    >
                       {{ mascota.nombre }}
                     </ion-select-option>
                   </ion-select>
@@ -67,10 +68,12 @@
                     label-placement="floating"
                     fill="outline"
                     [(ngModel)]="cita.servicio"
-                    interface="popover">
+                    interface="popover"
+                  >
                     <ion-select-option
                       *ngFor="let servicio of servicios"
-                      [value]="servicio._id">
+                      [value]="servicio._id"
+                    >
                       {{ servicio.nombre }}
                     </ion-select-option>
                   </ion-select>
@@ -81,10 +84,12 @@
                     fill="outline"
                     [(ngModel)]="cita.veterinario"
                     interface="popover"
-                    (ionChange)="actualizarHorariosDisponibles()">
+                    (ionChange)="actualizarHorariosDisponibles()"
+                  >
                     <ion-select-option
                       *ngFor="let vet of veterinarios"
-                      [value]="vet._id">
+                      [value]="vet._id"
+                    >
                       {{ vet.nombre }}
                     </ion-select-option>
                   </ion-select>
@@ -95,7 +100,8 @@
                     fill="solid"
                     autoGrow="true"
                     placeholder="Escribe cualquier detalle adicional..."
-                    [(ngModel)]="cita.observaciones">
+                    [(ngModel)]="cita.observaciones"
+                  >
                   </ion-textarea>
                 </ion-col>
 
@@ -109,7 +115,8 @@
                     [(ngModel)]="cita.fecha"
                     cancelText="Cancelar"
                     doneText="Confirmar"
-                    (ionChange)="actualizarHorariosDisponibles()">
+                    (ionChange)="actualizarHorariosDisponibles()"
+                  >
                   </ion-datetime>
 
                   <ion-select
@@ -117,10 +124,12 @@
                     label-placement="floating"
                     fill="outline"
                     interface="alert"
-                    [(ngModel)]="cita.hora">
+                    [(ngModel)]="cita.hora"
+                  >
                     <ion-select-option
                       *ngFor="let horario of horariosDisponibles"
-                      [value]="horario">
+                      [value]="horario"
+                    >
                       {{ horario }}
                     </ion-select-option>
                   </ion-select>
@@ -129,10 +138,10 @@
             </ion-grid>
 
             <ion-button
-             
               fill="solid"
               color="primary"
-              (click)="mostrarResumenCita()">
+              (click)="mostrarResumenCita()"
+            >
               Revisar y Confirmar
             </ion-button>
           </ion-card-content>
@@ -148,18 +157,29 @@
           </ion-card-header>
           <ion-card-content>
             <p><strong>Cliente:</strong> {{ cita.nombreCliente }}</p>
-            <p><strong>Mascota:</strong> {{ getNombreMascota(cita.mascota) }}</p>
-            <p><strong>Servicio:</strong> {{ getNombreServicio(cita.servicio) }}</p>
-            <p><strong>Veterinario:</strong> {{ getNombreVeterinario(cita.veterinario) }}</p>
+            <p>
+              <strong>Mascota:</strong> {{ getNombreMascota(cita.mascota) }}
+            </p>
+            <p>
+              <strong>Servicio:</strong> {{ getNombreServicio(cita.servicio) }}
+            </p>
+            <p>
+              <strong>Veterinario:</strong> {{
+              getNombreVeterinario(cita.veterinario) }}
+            </p>
             <p><strong>Fecha:</strong> {{ cita.fecha | date:'fullDate' }}</p>
             <p><strong>Horario:</strong> {{ cita.hora }}</p>
-            <p><strong>Observaciones:</strong> {{ cita.observaciones || 'Sin observaciones' }}</p>
+            <p>
+              <strong>Observaciones:</strong> {{ cita.observaciones || 'Sin
+              observaciones' }}
+            </p>
 
             <ion-button
               expand="block"
               fill="solid"
               color="success"
-              (click)="confirmarCitaFinal()">
+              (click)="confirmarCitaFinal()"
+            >
               Confirmar Cita
             </ion-button>
 
@@ -167,13 +187,13 @@
               expand="block"
               fill="outline"
               color="danger"
-              (click)="cancelarResumen()">
+              (click)="cancelarResumen()"
+            >
               Cancelar
             </ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>
-
     </ion-row>
   </ion-grid>
 </ion-content>

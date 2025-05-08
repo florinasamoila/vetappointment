@@ -92,7 +92,9 @@
         (click)="abrirDetalleEntrada(e)"
       >
         <ion-label>
-          <h2>{{ e.fecha | date:'dd/MM/yy' }} — {{ e.fecha | date:'HH:mm' }}</h2>
+          <h2>
+            {{ e.fecha | date:'dd/MM/yy' }} — {{ e.fecha | date:'HH:mm' }}
+          </h2>
           <p>🐾 {{ mascotaSeleccionada.nombre }}</p>
         </ion-label>
         <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
@@ -100,12 +102,11 @@
     </ion-list>
 
     <!-- Botón nueva entrada -->
-    <ion-button 
-      
+    <ion-button
       color="primary"
       *ngIf="mascotaSeleccionada"
       (click)="abrirFormularioEntrada()"
-      class="ion-margin-bottom "
+      class="ion-margin-bottom"
     >
       Agregar nueva entrada
     </ion-button>
@@ -129,7 +130,8 @@
         </div>
         <ion-card-subtitle>
           Mascota: {{ entradaDetalle.mascota.nombre }}<br />
-          Cliente: {{ entradaDetalle.mascota.cliente.nombre }} {{ entradaDetalle.mascota.cliente.apellido }}
+          Cliente: {{ entradaDetalle.mascota.cliente.nombre }} {{
+          entradaDetalle.mascota.cliente.apellido }}
         </ion-card-subtitle>
       </ion-card-header>
 
@@ -201,35 +203,34 @@
         <ion-item lines="none" class="ion-margin-bottom">
           <ion-label>
             <strong>Cita asociada:</strong><br />
-            Fecha: {{ entradaDetalle.cita.fechaHora | date:'dd/MM/yy HH:mm' }}<br />
+            Fecha: {{ entradaDetalle.cita.fechaHora | date:'dd/MM/yy HH:mm'
+            }}<br />
             Motivo: {{ entradaDetalle.cita.motivo }}<br />
             Estado: {{ entradaDetalle.cita.estado }}
           </ion-label>
         </ion-item>
 
         <!-- Botones de navegación -->
-        <ion-button  (click)="vista='gestion'" class="ion-margin-bottom">
+        <ion-button (click)="vista='gestion'" class="ion-margin-bottom">
           ← Volver a Gestión
         </ion-button>
 
         <ion-button
           *ngIf="editMode"
           color="success"
-          
           (click)="saveEdit()"
           class="ion-margin-bottom"
         >
           Guardar Cambios
         </ion-button>
         <ion-button
-        *ngIf="editMode"
-        color="danger"
-       
-        (click)="cancelEdit()"
-        class="ion-margin-bottom"
-      >
-        Cancelar
-      </ion-button>
+          *ngIf="editMode"
+          color="danger"
+          (click)="cancelEdit()"
+          class="ion-margin-bottom"
+        >
+          Cancelar
+        </ion-button>
       </ion-card-content>
     </ion-card>
   </ng-container>

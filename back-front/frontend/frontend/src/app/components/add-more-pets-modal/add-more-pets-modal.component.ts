@@ -15,27 +15,27 @@ export class AddMorePetsModalComponent implements OnInit {
   @Input() cliente!: any;
   mascotas: any[] = [];
   petForm = this.fb.group({
-    nombre:          ['', Validators.required],
-    especie:         ['', Validators.required],
-    raza:            ['', Validators.required],
-    edad:            [null, [Validators.required, Validators.min(0)]],
-    sexo:            ['', Validators.required],
-    color:           ['', Validators.required],
-    peso:            [null, [Validators.required, Validators.min(0)]],
-    caracteristicas: ['']
+    nombre: ['', Validators.required],
+    especie: ['', Validators.required],
+    raza: ['', Validators.required],
+    edad: [null, [Validators.required, Validators.min(0)]],
+    sexo: ['', Validators.required],
+    color: ['', Validators.required],
+    peso: [null, [Validators.required, Validators.min(0)]],
+    caracteristicas: [''],
   });
 
   constructor(
     private modalCtrl: ModalController,
     private clienteService: ClienteService,
     private fb: FormBuilder,
-    private toastCtrl: ToastController         // ← Inyectamos el ToastController
+    private toastCtrl: ToastController // ← Inyectamos el ToastController
   ) {}
 
   ngOnInit() {
     this.clienteService
       .obtenerMascotasPorCliente(this.cliente._id)
-      .subscribe((list: any[]) => this.mascotas = list);
+      .subscribe((list: any[]) => (this.mascotas = list));
   }
 
   cerrarModal() {
@@ -48,7 +48,7 @@ export class AddMorePetsModalComponent implements OnInit {
         message: 'Por favor, completa todos los campos.',
         duration: 2000,
         color: 'warning',
-        position: 'top'
+        position: 'top',
       });
       await toast.present();
       return;
@@ -62,7 +62,7 @@ export class AddMorePetsModalComponent implements OnInit {
           message: 'Mascota agregada exitosamente.',
           duration: 2000,
           color: 'success',
-          position: 'top'
+          position: 'top',
         });
         await toast.present();
       },
@@ -71,10 +71,10 @@ export class AddMorePetsModalComponent implements OnInit {
           message: 'Error al agregar la mascota.',
           duration: 2000,
           color: 'danger',
-          position: 'top'
+          position: 'top',
         });
         await toast.present();
-      }
+      },
     });
   }
 }

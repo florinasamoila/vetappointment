@@ -5,7 +5,7 @@ import { IsString, IsNotEmpty, IsNumber, Min } from 'class-validator';
 export class CreateServicioPrestadoDto {
   @ApiProperty({
     description: 'Nombre del servicio',
-    example: 'Consulta general'
+    example: 'Consulta general',
   })
   @IsString()
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class CreateServicioPrestadoDto {
 
   @ApiProperty({
     description: 'Descripción detallada del servicio',
-    example: 'Revisión completa del estado de salud de la mascota'
+    example: 'Revisión completa del estado de salud de la mascota',
   })
   @IsString()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class CreateServicioPrestadoDto {
 
   @ApiProperty({
     description: 'Costo del servicio en la moneda local',
-    example: 25.5
+    example: 25.5,
   })
   @IsNumber()
   @Min(0)

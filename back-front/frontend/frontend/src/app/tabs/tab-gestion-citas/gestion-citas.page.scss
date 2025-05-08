@@ -6,8 +6,8 @@
   ion-content {
     flex: 1;
     --padding-start: 16px;
-    --padding-end:   16px;
-    --padding-top:   16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
     --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
   }
 
@@ -15,8 +15,8 @@
   .content-grid {
     height: 100%;
   }
-  ion-col[size="7"] .cita-card,
-  ion-col[size="5"] .resumen-cita-card {
+  ion-col[size='7'] .cita-card,
+  ion-col[size='5'] .resumen-cita-card {
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
@@ -27,7 +27,7 @@
     --background: white;
     --border-radius: 8px;
     --padding-start: 8px;
-    --padding-end:   8px;
+    --padding-end: 8px;
     margin-bottom: 16px;
   }
 
@@ -43,7 +43,7 @@
   ion-item {
     --background: transparent;
     --inner-padding-start: 12px;
-    --inner-padding-end:   12px;
+    --inner-padding-end: 12px;
     border: none;
     border-bottom: 1px solid var(--ion-color-light);
     transition: background 0.2s ease;
@@ -62,19 +62,21 @@
   ion-datetime {
     /* variables unificadas */
     --background: transparent;
-    --padding-top:    0.66em;
+    --padding-top: 0.66em;
     --padding-bottom: 0.66em;
-    --padding-start:  0.8em;
-    --padding-end:    0.8em;
-    --color:               var(--ion-color-dark);
-    --placeholder-color:   var(--ion-color-medium);
+    --padding-start: 0.8em;
+    --padding-end: 0.8em;
+    --color: var(--ion-color-dark);
+    --placeholder-color: var(--ion-color-medium);
     --placeholder-opacity: 0.6;
     border-radius: 8px;
     --border-width: 1px;
     --border-style: solid;
     --border-color: var(--ion-color-light);
     margin-bottom: 20px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:focus-within {
       --border-color: var(--ion-color-primary);
@@ -92,7 +94,7 @@
 
   /* datetime picker ajustes */
   ion-datetime.datetime-picker {
-    --padding-top:    1em;
+    --padding-top: 1em;
     --padding-bottom: 1em;
   }
 
@@ -100,7 +102,7 @@
   ion-row[align-items-start] {
     align-items: flex-start;
   }
-  ion-col[size="6"] {
+  ion-col[size='6'] {
     display: flex;
     flex-direction: column;
   }
@@ -111,7 +113,10 @@
     --color: #fff;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(var(--ion-color-primary-rgb), 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
     margin-top: 12px;
 
     &:hover {
@@ -123,7 +128,7 @@
       box-shadow: 0 1px 3px rgba(var(--ion-color-primary-rgb), 0.2);
     }
   }
-  ion-button[fill="outline"] {
+  ion-button[fill='outline'] {
     --border-color: var(--ion-color-primary);
     --color: var(--ion-color-primary);
     background: transparent;
@@ -154,7 +159,7 @@
 
   /* espacio extra entre columnas */
   .content-grid {
-    --ion-grid-column-gap: 32px;  /* aumenta o disminuye según necesites */
+    --ion-grid-column-gap: 32px; /* aumenta o disminuye según necesites */
   }
 
   /* si quieres un padding aún mayor en la columna de calendario */
@@ -164,5 +169,3 @@
 
   /* … resto de tus estilos … */
 }
-
-

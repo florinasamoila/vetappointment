@@ -7,16 +7,9 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiQuery,
-  ApiBody
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBody } from '@nestjs/swagger';
 import { MascotaService } from '../service/mascota.service';
 import { CreateHistorialMedicoDto } from '../../historial-medico/dto/create-historial-medico.dto/create-historial-medico.dto';
 import { AddEntradaHistorialDto } from '../../historial-medico/dto/historial-medico.dto/add-entrada-historial.dto';
@@ -28,16 +21,13 @@ import { MascotaDto } from '../dto/mascota.dto/mascota.dto';
 import { UpdateMascotaDto } from '../dto/update-mascota.dto/update-mascota.dto';
 import { Mascota } from '../interfaces/mascota/mascota.interface';
 
-
-
-
 // Todas las RUTAS están comentadas por categoría, para encontrarlas más fácilmente.
 
 @Controller('veterinaria')
 export class MascotaController {
-    constructor(private readonly mascotaService: MascotaService) {}
+  constructor(private readonly mascotaService: MascotaService) {}
 
-//  Rutas para Mascotas
+  //  Rutas para Mascotas
   @ApiTags('Mascotas')
   @Get('clientes/:id/mascotas')
   @ApiOperation({ summary: 'Lista las mascotas de un cliente' })
@@ -83,10 +73,7 @@ export class MascotaController {
   @ApiParam({ name: 'id', description: 'ID de la mascota' })
   @ApiBody({ type: UpdateMascotaDto })
   @ApiResponse({ status: 200, description: 'Mascota actualizada', type: CreateMascotaDto })
-  async updateMascota(
-    @Param('id') id: string,
-    @Body() dto: UpdateMascotaDto,
-  ) {
+  async updateMascota(@Param('id') id: string, @Body() dto: UpdateMascotaDto) {
     return this.mascotaService.updateMascota(id, dto);
   }
 
@@ -116,12 +103,12 @@ export class MascotaController {
   @ApiResponse({
     status: 201,
     description: 'Mascota creada y asociada al cliente',
-    type: MascotaDto
+    type: MascotaDto,
   })
   @ApiResponse({ status: 404, description: 'Cliente no encontrado' })
   async agregarMascotaACliente(
     @Param('id') clienteId: string,
-    @Body() createMascotaDto: CreateMascotaDto
+    @Body() createMascotaDto: CreateMascotaDto,
   ) {
     return await this.mascotaService.agregarMascotaACliente(clienteId, createMascotaDto);
   }

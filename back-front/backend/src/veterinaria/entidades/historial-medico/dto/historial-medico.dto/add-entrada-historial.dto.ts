@@ -7,13 +7,13 @@ export class AddEntradaHistorialDto {
 
   @ApiProperty({
     description: 'ID de la cita asociada (ObjectId)',
-    example: '60f7b2d5a1234b00123c4567'
+    example: '60f7b2d5a1234b00123c4567',
   })
   cita: string;
 
   @ApiProperty({
     description: 'ID del veterinario que realiza la entrada',
-    example: '60f7b2d5a1234b00123c4568'
+    example: '60f7b2d5a1234b00123c4568',
   })
   veterinario: string;
 
@@ -21,26 +21,26 @@ export class AddEntradaHistorialDto {
     type: String,
     format: 'date-time',
     description: 'Fecha y hora de la entrada en ISO',
-    example: new Date().toISOString()
+    example: new Date().toISOString(),
   })
   fecha: Date;
 
   @ApiProperty({
     description: 'Diagnósticos realizados',
-    example: 'Dermatitis alérgica'
+    example: 'Dermatitis alérgica',
   })
   diagnosticos: string;
 
   @ApiProperty({
     description: 'Tratamientos indicados',
-    example: 'Baño medicado diario'
+    example: 'Baño medicado diario',
   })
   tratamientos: string;
 
   @ApiProperty({
     description: 'Observaciones adicionales',
     example: 'La mascota reaccionó bien al baño',
-    required: false
+    required: false,
   })
   observaciones?: string;
 }

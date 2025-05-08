@@ -1,6 +1,11 @@
 // src/app/login/login.page.ts
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { IonicModule, ToastController, NavController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
@@ -24,7 +29,7 @@ export class LoginPage {
     private auth: AuthService,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
-    private modalCtrl: ModalController,
+    private modalCtrl: ModalController
   ) {
     this.loginForm = this.fb.group({
       email: [
@@ -33,16 +38,16 @@ export class LoginPage {
           Validators.required,
           Validators.email,
           // Sólo permitimos este email exacto
-          Validators.pattern('^admin@vetappointment\\.com$')
-        ]
+          Validators.pattern('^admin@vetappointment\\.com$'),
+        ],
       ],
       password: [
         '',
         [
           Validators.required,
           // Sólo permitimos esta contraseña exacta
-          Validators.pattern('^vetAPPointment01$')
-        ]
+          Validators.pattern('^vetAPPointment01$'),
+        ],
       ],
     });
   }
@@ -61,7 +66,7 @@ export class LoginPage {
       const toast = await this.toastCtrl.create({
         message: 'El email debe ser admin@vetappointment.com',
         color: 'warning',
-        duration: 3000
+        duration: 3000,
       });
       await toast.present();
       return;
@@ -74,7 +79,7 @@ export class LoginPage {
         const toast = await this.toastCtrl.create({
           message: 'Demasiados intentos fallidos. Contacta con soporte.',
           color: 'danger',
-          duration: 4000
+          duration: 4000,
         });
         await toast.present();
         // Opcional: deshabilitar el formulario tras demasiados intentos
@@ -84,7 +89,7 @@ export class LoginPage {
         const toast = await this.toastCtrl.create({
           message: `Contraseña incorrecta. Te quedan ${restante} intento(s).`,
           color: 'warning',
-          duration: 3000
+          duration: 3000,
         });
         await toast.present();
       }
@@ -94,13 +99,13 @@ export class LoginPage {
     // Si llegamos aquí, email y contraseña cumplen patrón exacto
     const { email, password } = this.loginForm.value;
 
-    this.auth.login(email, password).subscribe(async ok => {
+    this.auth.login(email, password).subscribe(async (ok) => {
       if (ok) {
         const success = await this.toastCtrl.create({
           position: 'middle',
           message: `¡Bienvenido, ${email}!`,
           color: 'success',
-          duration: 2000
+          duration: 2000,
         });
         await success.present();
         this.navCtrl.navigateRoot('/tabs', { replaceUrl: true });
@@ -108,7 +113,7 @@ export class LoginPage {
         const error = await this.toastCtrl.create({
           message: 'Error inesperado al iniciar sesión.',
           color: 'danger',
-          duration: 2000
+          duration: 2000,
         });
         await error.present();
       }
@@ -117,7 +122,7 @@ export class LoginPage {
 
   async openSupportModal() {
     const modal = await this.modalCtrl.create({
-      component: SupportModalComponent
+      component: SupportModalComponent,
     });
     await modal.present();
   }

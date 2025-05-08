@@ -2,10 +2,17 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonContent, IonHeader, IonSearchbar,
-  IonList, IonItem, IonLabel,
-  IonSelect, IonSelectOption,
-  IonButton, IonSegment, IonSegmentButton
+  IonContent,
+  IonHeader,
+  IonSearchbar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonSelect,
+  IonSelectOption,
+  IonButton,
+  IonSegment,
+  IonSegmentButton,
 } from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -26,8 +33,7 @@ import { FormularioEntradaHistorialComponent } from 'src/app/components/formular
     HttpClientModule,
     HeaderComponent,
     FormularioEntradaHistorialComponent,
-    
-  ]
+  ],
 })
 export class GestionHistorialMedicoPage implements OnInit {
   // === Gestión ===
@@ -45,8 +51,8 @@ export class GestionHistorialMedicoPage implements OnInit {
   // === Detalle ===
   vista: 'gestion' | 'entrada' = 'gestion';
   entradaDetalle: any = null;
-  historialId!: string;         // guardamos el ID del historial actual
-  editMode = false;             // flag de edición
+  historialId!: string; // guardamos el ID del historial actual
+  editMode = false; // flag de edición
   editableEntrada: any = null;
 
   private apiUrl = 'http://localhost:3000/veterinaria';
@@ -61,10 +67,13 @@ export class GestionHistorialMedicoPage implements OnInit {
 
   ngOnInit() {
     // Si llegamos con params, vamos directo al detalle
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params['historialId'] && params['entradaId']) {
         this.vista = 'entrada';
-        this.cargarEntradaDesdeParams(params['historialId'], params['entradaId']);
+        this.cargarEntradaDesdeParams(
+          params['historialId'],
+          params['entradaId']
+        );
       }
     });
   }
@@ -76,44 +85,46 @@ export class GestionHistorialMedicoPage implements OnInit {
       this.clientesFiltrados = [];
       return;
     }
-    this.http.get<any[]>(`${this.apiUrl}/clientes?search=${q}`)
-      .subscribe(
-        c => this.clientesFiltrados = c,
-        () => this.presentToast('Error buscando clientes', 'danger')
-      );
+    this.http.get<any[]>(`${this.apiUrl}/clientes?search=${q}`).subscribe(
+      (c) => (this.clientesFiltrados = c),
+      () => this.presentToast('Error buscando clientes', 'danger')
+    );
   }
 
   seleccionarCliente(c: any) {
     this.clienteSeleccionado = c;
     // Limpio la búsqueda anterior
     this.clientesFiltrados = [];
-    
+
     this.mascotaSeleccionada = null;
     this.historialMedico = null;
     this.mesesDisponibles = [];
     this.mesSeleccionado = '';
     this.entradasFiltradas = [];
-  
-    this.http.get<any[]>(`${this.apiUrl}/clientes/${c._id}/mascotas`)
-      .subscribe(
-        m => this.mascotasDelCliente = m,
-        () => this.presentToast('Error cargando mascotas', 'danger')
-      );
+
+    this.http.get<any[]>(`${this.apiUrl}/clientes/${c._id}/mascotas`).subscribe(
+      (m) => (this.mascotasDelCliente = m),
+      () => this.presentToast('Error cargando mascotas', 'danger')
+    );
   }
-  
 
   cargarHistorial() {
     if (!this.mascotaSeleccionada) return;
 
-    this.http.get<any>(`${this.apiUrl}/mascotas/${this.mascotaSeleccionada._id}/historial-medico`)
+    this.http
+      .get<any>(
+        `${this.apiUrl}/mascotas/${this.mascotaSeleccionada._id}/historial-medico`
+      )
       .subscribe(
-        h => {
+        (h) => {
           this.historialMedico = h;
           this.entradasFiltradas = h.entradas || [];
-          const meses = (h.entradas || []).map((e: any) =>
-            new Date(e.fecha).getMonth() + 1
+          const meses = (h.entradas || []).map(
+            (e: any) => new Date(e.fecha).getMonth() + 1
           );
-          this.mesesDisponibles = Array.from(new Set<number>(meses)).sort((a, b) => a - b);
+          this.mesesDisponibles = Array.from(new Set<number>(meses)).sort(
+            (a, b) => a - b
+          );
         },
         () => this.presentToast('Error cargando historial', 'danger')
       );
@@ -122,8 +133,8 @@ export class GestionHistorialMedicoPage implements OnInit {
   filtrarPorMes() {
     if (!this.historialMedico) return;
     if (this.mesSeleccionado) {
-      this.entradasFiltradas = this.historialMedico.entradas.filter((e: any) =>
-        new Date(e.fecha).getMonth() + 1 === this.mesSeleccionado
+      this.entradasFiltradas = this.historialMedico.entradas.filter(
+        (e: any) => new Date(e.fecha).getMonth() + 1 === this.mesSeleccionado
       );
     } else {
       this.entradasFiltradas = this.historialMedico.entradas;
@@ -133,12 +144,18 @@ export class GestionHistorialMedicoPage implements OnInit {
   /** Abre el modal para agregar nueva entrada */
   async abrirFormularioEntrada() {
     // Forzamos que la llamada siempre devuelva un array
-    const citas = (await this.http
-      .get<any[]>(`${this.apiUrl}/mascotas/${this.mascotaSeleccionada._id}/citas`)
-      .toPromise()) || [];
+    const citas =
+      (await this.http
+        .get<
+          any[]
+        >(`${this.apiUrl}/mascotas/${this.mascotaSeleccionada._id}/citas`)
+        .toPromise()) || [];
 
     if (!citas.length) {
-      return this.presentToast('No hay citas para esta mascota. Es necesario registrar una cita primero.', 'warning');
+      return this.presentToast(
+        'No hay citas para esta mascota. Es necesario registrar una cita primero.',
+        'warning'
+      );
     }
 
     const ultima = citas[citas.length - 1];
@@ -147,8 +164,8 @@ export class GestionHistorialMedicoPage implements OnInit {
       componentProps: {
         mascotaID: this.mascotaSeleccionada._id,
         citaID: ultima._id,
-        veterinarioID: ultima.veterinario._id
-      }
+        veterinarioID: ultima.veterinario._id,
+      },
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
@@ -166,9 +183,10 @@ export class GestionHistorialMedicoPage implements OnInit {
 
   abrirDetalleEntrada(e: any) {
     if (!this.historialMedico?._id) return;
-    this.http.get<any>(`${this.apiUrl}/historial-medico/${this.historialMedico._id}`)
+    this.http
+      .get<any>(`${this.apiUrl}/historial-medico/${this.historialMedico._id}`)
       .subscribe(
-        hist => {
+        (hist) => {
           this.historialId = hist._id;
           const full = hist.entradas.find((x: any) => x._id === e._id);
           this.entradaDetalle = { ...full, mascota: hist.mascotaID };
@@ -187,58 +205,63 @@ export class GestionHistorialMedicoPage implements OnInit {
     this.editableEntrada = { ...this.entradaDetalle };
   }
 
-    /** Guarda cambios en la entrada */
-    /** Guarda cambios en la entrada */
-    /** Guarda cambios en la entrada */
-    async saveEdit() {
-      const url = `${this.apiUrl}/historial-medico/${this.historialId}/entrada/${this.editableEntrada._id}`;
-      try {
-        const updated = await this.http.put<any>(url, this.editableEntrada).toPromise();
+  /** Guarda cambios en la entrada */
+  /** Guarda cambios en la entrada */
+  /** Guarda cambios en la entrada */
+  async saveEdit() {
+    const url = `${this.apiUrl}/historial-medico/${this.historialId}/entrada/${this.editableEntrada._id}`;
+    try {
+      const updated = await this.http
+        .put<any>(url, this.editableEntrada)
+        .toPromise();
 
-        // Mantener la mascota y la cita originales
-        this.entradaDetalle = {
-          ...updated,
-          mascota: this.entradaDetalle.mascota,
-          cita: this.entradaDetalle.cita
-        };
+      // Mantener la mascota y la cita originales
+      this.entradaDetalle = {
+        ...updated,
+        mascota: this.entradaDetalle.mascota,
+        cita: this.entradaDetalle.cita,
+      };
 
-        this.editMode = false;
-        await this.presentToast('Entrada actualizada', 'success');
-
-        // ← Aquí vuelves automáticamente a la vista de gestión
-        this.router.navigate(['/tabs/consultas']);
-        this.entradaDetalle = null;      // limpiar detalle
-        this.editableEntrada = null;
-        this.filtrarPorMes();            // refrescar lista de entradas
-
-      } catch {
-        this.presentToast('Error al actualizar', 'danger');
-      }
-    }
-
-
-  
-    /** Cancela edición */
-    cancelEdit() {
       this.editMode = false;
-    }
+      await this.presentToast('Entrada actualizada', 'success');
 
-    private cargarEntradaDesdeParams(histId: string, entId: string) {
-      this.historialId = histId;            // ← ¡añádelo aquí!
-      this.http.get<any>(`${this.apiUrl}/historial-medico/${histId}`)
-        .subscribe(
-          hist => {
-            const full = hist.entradas.find((x: any) => x._id === entId);
-            this.entradaDetalle = { ...full, mascota: hist.mascotaID };
-            this.editableEntrada = { ...this.entradaDetalle };
-          },
-          () => this.presentToast('Error cargando entrada', 'danger')
-        );
+      // ← Aquí vuelves automáticamente a la vista de gestión
+      this.router.navigate(['/tabs/consultas']);
+      this.entradaDetalle = null; // limpiar detalle
+      this.editableEntrada = null;
+      this.filtrarPorMes(); // refrescar lista de entradas
+    } catch {
+      this.presentToast('Error al actualizar', 'danger');
     }
-    
+  }
 
-  private async presentToast(message: string, color: 'success' | 'danger' | 'warning') {
-    const t = await this.toastCtrl.create({ message, color, duration: 3000, position: 'middle' });
+  /** Cancela edición */
+  cancelEdit() {
+    this.editMode = false;
+  }
+
+  private cargarEntradaDesdeParams(histId: string, entId: string) {
+    this.historialId = histId; // ← ¡añádelo aquí!
+    this.http.get<any>(`${this.apiUrl}/historial-medico/${histId}`).subscribe(
+      (hist) => {
+        const full = hist.entradas.find((x: any) => x._id === entId);
+        this.entradaDetalle = { ...full, mascota: hist.mascotaID };
+        this.editableEntrada = { ...this.entradaDetalle };
+      },
+      () => this.presentToast('Error cargando entrada', 'danger')
+    );
+  }
+
+  private async presentToast(
+    message: string,
+    color: 'success' | 'danger' | 'warning'
+  ) {
+    const t = await this.toastCtrl.create({
+      message,
+      color,
+      duration: 3000,
+      position: 'middle',
+    });
     await t.present();
   }
 }

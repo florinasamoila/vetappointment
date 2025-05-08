@@ -10,7 +10,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <!-- Lista de mascotas actuales del cliente -->
   <ion-list *ngIf="mascotas.length > 0">
     <ion-list-header>
@@ -20,8 +19,8 @@
       <ion-label>
         <h3>{{ m.nombre }}</h3>
         <p>
-          <strong>Especie:</strong> {{ m.especie }} —
-          <strong>Raza:</strong> {{ m.raza }}
+          <strong>Especie:</strong> {{ m.especie }} — <strong>Raza:</strong>
+          {{ m.raza }}
         </p>
       </ion-label>
     </ion-item>
@@ -82,9 +81,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button fill="outline" (click)="cerrarModal()">
-        Cancelar
-      </ion-button>
+      <ion-button fill="outline" (click)="cerrarModal()"> Cancelar </ion-button>
       <ion-button color="success" (click)="guardarMascota()">
         Guardar
       </ion-button>

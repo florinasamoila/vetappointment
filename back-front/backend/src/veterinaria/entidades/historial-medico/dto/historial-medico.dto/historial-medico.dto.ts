@@ -2,7 +2,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CitaDto } from 'src/veterinaria/entidades/cita/dto/cita.dto/cita.dto';
 
-
 export class HistorialMedicoDto {
   @ApiProperty({ example: '60f7b2d5a1234b00123c4567' })
   _id: string;
@@ -12,13 +11,13 @@ export class HistorialMedicoDto {
 
   @ApiProperty({
     description: 'ID de la mascota a la que pertenece este historial',
-    example: '60f7b2d5a1234b00123c4568'
+    example: '60f7b2d5a1234b00123c4568',
   })
   mascotaID: string;
 
   @ApiProperty({
     description: 'ID del veterinario que atendió',
-    example: '60f7b2d5a1234b00123c4569'
+    example: '60f7b2d5a1234b00123c4569',
   })
   veterinario: string;
 
@@ -26,7 +25,7 @@ export class HistorialMedicoDto {
     type: String,
     format: 'date-time',
     example: new Date().toISOString(),
-    description: 'Fecha y hora de la entrada del historial'
+    description: 'Fecha y hora de la entrada del historial',
   })
   fecha: Date;
 
@@ -36,6 +35,9 @@ export class HistorialMedicoDto {
   @ApiProperty({ example: 'Baño medicado diario', description: 'Plan de tratamientos indicados' })
   tratamientos: string;
 
-  @ApiProperty({ example: 'La mascota reaccionó bien al baño', description: 'Observaciones adicionales' })
+  @ApiProperty({
+    example: 'La mascota reaccionó bien al baño',
+    description: 'Observaciones adicionales',
+  })
   observaciones: string;
 }

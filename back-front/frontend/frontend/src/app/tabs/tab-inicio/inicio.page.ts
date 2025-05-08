@@ -13,15 +13,10 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
   styleUrls: ['inicio.page.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HeaderComponent
-  ]
+  imports: [CommonModule, FormsModule, IonicModule, HeaderComponent],
 })
 export class TabInicio implements OnInit {
-  loading = true;  
+  loading = true;
   allCitas: any[] = [];
   citas: any[] = [];
   estados = ['Todos', 'Confirmada', 'Programada', 'Completada', 'Cancelada'];
@@ -47,51 +42,54 @@ export class TabInicio implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.citaService.getAllCitas().subscribe({
-      next: data => {
+      next: (data) => {
         this.allCitas = data;
         if (data.length === 0) {
           this.presentToast('No se encontraron citas', 'warning');
         }
         // Filtrar citas que tienen veterinario definido antes de mapear
-        const citasConVet = data.filter(c => c.veterinario != null);
-        this.veterinarios = Array.from(new Map(
-          citasConVet.map(c => [c.veterinario!._id, c.veterinario!])
-        ).values());
+        const citasConVet = data.filter((c) => c.veterinario != null);
+        this.veterinarios = Array.from(
+          new Map(
+            citasConVet.map((c) => [c.veterinario!._id, c.veterinario!])
+          ).values()
+        );
 
         this.cargarCitasPorFecha();
         this.loading = false;
       },
-      error: err => {
+      error: (err) => {
         console.error('Error cargando citas', err);
         this.presentToast('Error cargando citas', 'danger');
         this.loading = false;
-      }
+      },
     });
   }
 
   /** Aplica filtros de fecha, estado y hora, y ordena ascendente por hora */
   applyFilters(showNoResultsToast = false) {
     const selDate = new Date(this.selectedDateStr);
-    let filtered = this.allCitas.filter(c => {
+    let filtered = this.allCitas.filter((c) => {
       const cDate = new Date(c.fechaHora);
       return cDate.toDateString() === selDate.toDateString();
     });
 
     if (this.selectedEstado !== 'Todos') {
-      filtered = filtered.filter(c => c.estado === this.selectedEstado);
+      filtered = filtered.filter((c) => c.estado === this.selectedEstado);
     }
 
     if (this.selectedHour) {
       const targetHour = parseInt(this.selectedHour, 10);
-      filtered = filtered.filter(c => {
+      filtered = filtered.filter((c) => {
         const cHour = new Date(c.fechaHora).getHours();
         return cHour === targetHour;
       });
     }
 
     // Ordenar ascendente por fechaHora
-    filtered.sort((a, b) =>
-      new Date(a.fechaHora).getTime() - new Date(b.fechaHora).getTime()
+    filtered.sort(
+      (a, b) =>
+        new Date(a.fechaHora).getTime() - new Date(b.fechaHora).getTime()
     );
 
     this.citas = filtered;
@@ -123,10 +121,14 @@ export class TabInicio implements OnInit {
 
   getEstadoClase(estado: string): string {
     switch (estado) {
-      case 'Confirmada': return 'confirmada';
-      case 'Completada': return 'completada';
-      case 'Cancelada':  return 'cancelada';
-      default:           return 'programada';
+      case 'Confirmada':
+        return 'confirmada';
+      case 'Completada':
+        return 'completada';
+      case 'Cancelada':
+        return 'cancelada';
+      default:
+        return 'programada';
     }
   }
 
@@ -134,14 +136,14 @@ export class TabInicio implements OnInit {
   async abrirModalEditarCita(cita: any) {
     const modal = await this.modalController.create({
       component: EditarCitaPopoverComponent,
-      componentProps: { cita: { ...cita } }
+      componentProps: { cita: { ...cita } },
     });
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
     const updated = data?.citaActualizada;
     if (updated) {
-      const idx = this.allCitas.findIndex(c => c._id === updated._id);
+      const idx = this.allCitas.findIndex((c) => c._id === updated._id);
       if (idx > -1) this.allCitas[idx] = updated;
       this.applyFilters();
       this.presentToast('Cita actualizada correctamente', 'success');
@@ -159,14 +161,14 @@ export class TabInicio implements OnInit {
           text: 'Sí',
           handler: () => {
             cita.estado = nuevoEstado;
-            const idx = this.allCitas.findIndex(c => c._id === cita._id);
+            const idx = this.allCitas.findIndex((c) => c._id === cita._id);
             if (idx > -1) this.allCitas[idx].estado = nuevoEstado;
             this.applyFilters();
             this.presentToast(`Estado cambiado a ${nuevoEstado}`, 'success');
-          }
+          },
         },
-        { text: 'Cancelar', role: 'cancel' }
-      ]
+        { text: 'Cancelar', role: 'cancel' },
+      ],
     });
     await toast.present();
   }
@@ -180,7 +182,7 @@ export class TabInicio implements OnInit {
       message,
       duration: 2500,
       position: 'middle',
-      color
+      color,
     });
     await t.present();
   }

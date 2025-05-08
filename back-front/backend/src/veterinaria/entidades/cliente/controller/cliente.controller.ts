@@ -7,29 +7,21 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiQuery,
-  ApiBody
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBody } from '@nestjs/swagger';
 import { ClienteDto } from '../dto/cliente.dto/cliente.dto';
 import { CreateClienteDto } from '../dto/create-cliente.dto/create-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto/update-cliente.dto';
 import { ClienteService } from '../service/cliente.service';
 
-
 // Todas las RUTAS están comentadas por categoría, para encontrarlas más fácilmente.
 
 @Controller('veterinaria')
 export class ClienteController {
-    constructor(private readonly clienteService: ClienteService) {}
+  constructor(private readonly clienteService: ClienteService) {}
 
-//  Rutas para Clientes
+  //  Rutas para Clientes
 
   @ApiTags('Clientes')
   @Post('clientes')
@@ -37,9 +29,7 @@ export class ClienteController {
   @ApiBody({ type: CreateClienteDto })
   @ApiResponse({ status: 201, description: 'Cliente creado', type: ClienteDto })
   @ApiResponse({ status: 400, description: 'Falta al menos una mascota' })
-  async createCliente(
-    @Body() createClienteDto: CreateClienteDto,
-  ): Promise<ClienteDto> {
+  async createCliente(@Body() createClienteDto: CreateClienteDto): Promise<ClienteDto> {
     if (!createClienteDto.mascotas || createClienteDto.mascotas.length === 0) {
       throw new Error('At least one mascota must be provided.');
     }
@@ -57,7 +47,7 @@ export class ClienteController {
     }
     return this.clienteService.findAllClientes();
   }
-  
+
   @ApiTags('Clientes')
   @Get('clientes/:id')
   @ApiOperation({ summary: 'Obtiene un cliente por su ID' })
@@ -74,10 +64,7 @@ export class ClienteController {
   @ApiParam({ name: 'id', description: 'ID del cliente' })
   @ApiBody({ type: UpdateClienteDto })
   @ApiResponse({ status: 200, description: 'Cliente actualizado', type: ClienteDto })
-  async updateCliente(
-    @Param('id') id: string,
-    @Body() updateClienteDto: UpdateClienteDto,
-  ) {
+  async updateCliente(@Param('id') id: string, @Body() updateClienteDto: UpdateClienteDto) {
     return this.clienteService.updateCliente(id, updateClienteDto);
   }
 

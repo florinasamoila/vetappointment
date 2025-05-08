@@ -7,16 +7,9 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiQuery,
-  ApiBody
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBody } from '@nestjs/swagger';
 import { CreateHistorialMedicoDto } from '../dto/create-historial-medico.dto/create-historial-medico.dto';
 import { AddEntradaHistorialDto } from '../dto/historial-medico.dto/add-entrada-historial.dto';
 import { HistorialMedicoDto } from '../dto/historial-medico.dto/historial-medico.dto';
@@ -24,15 +17,13 @@ import { UpdateHistorialMedicoDto } from '../dto/update-historial-medico.dto/upd
 import { HistorialMedico } from '../interfaces/historial-medico/historial-medico.interface';
 import { HistorialMedicoService } from '../service/historialMedico.service';
 
-
-
 // Todas las RUTAS están comentadas por categoría, para encontrarlas más fácilmente.
 
 @Controller('veterinaria')
 export class HistorialMedicoController {
-    constructor(private readonly historialMedicoService: HistorialMedicoService) {}
+  constructor(private readonly historialMedicoService: HistorialMedicoService) {}
 
-//  Rutas para Historial Médico
+  //  Rutas para Historial Médico
   @ApiTags('Historial Médico')
   @Post('historial-medico/:mascotaId/entrada')
   @ApiOperation({ summary: 'Agrega una entrada al historial de una mascota' })
@@ -41,7 +32,7 @@ export class HistorialMedicoController {
   @ApiResponse({
     status: 201,
     description: 'Entrada añadida al historial',
-    type: HistorialMedicoDto
+    type: HistorialMedicoDto,
   })
   @ApiResponse({ status: 404, description: 'Mascota o historial no encontrado' })
   async agregarEntrada(
@@ -62,7 +53,7 @@ export class HistorialMedicoController {
   @ApiResponse({
     status: 201,
     description: 'Historial médico creado',
-    type: HistorialMedicoDto
+    type: HistorialMedicoDto,
   })
   async createHistorialMedico(@Body() dto: CreateHistorialMedicoDto) {
     return this.historialMedicoService.createHistorialMedico(dto);
@@ -74,13 +65,12 @@ export class HistorialMedicoController {
   @ApiResponse({
     status: 200,
     description: 'Listado de historiales',
-    type: [HistorialMedicoDto]
+    type: [HistorialMedicoDto],
   })
   async findAllHistorialesMedicos() {
     return this.historialMedicoService.findAllHistorialesMedicos();
   }
 
-  
   @ApiTags('Historial Médico')
   @Get('mascotas/:id/historial-medico')
   @ApiOperation({ summary: 'Historial médico de una mascota' })
@@ -88,7 +78,7 @@ export class HistorialMedicoController {
   @ApiResponse({
     status: 200,
     description: 'Historial encontrado',
-    type: HistorialMedicoDto
+    type: HistorialMedicoDto,
   })
   @ApiResponse({ status: 404, description: 'Historial no encontrado para la mascota' })
   async findHistorialMedicoByMascota(@Param('id') id: string) {
@@ -106,7 +96,7 @@ export class HistorialMedicoController {
   @ApiResponse({
     status: 200,
     description: 'Historial médico encontrado',
-    type: HistorialMedicoDto
+    type: HistorialMedicoDto,
   })
   @ApiResponse({ status: 404, description: 'Historial no encontrado' })
   async findHistorialMedicoById(@Param('id') id: string) {
@@ -121,12 +111,9 @@ export class HistorialMedicoController {
   @ApiResponse({
     status: 200,
     description: 'Historial médico actualizado',
-    type: HistorialMedicoDto
+    type: HistorialMedicoDto,
   })
-  async updateHistorialMedico(
-    @Param('id') id: string,
-    @Body() dto: UpdateHistorialMedicoDto,
-  ) {
+  async updateHistorialMedico(@Param('id') id: string, @Body() dto: UpdateHistorialMedicoDto) {
     return this.historialMedicoService.updateHistorialMedico(id, dto);
   }
 
@@ -155,39 +142,37 @@ export class HistorialMedicoController {
   @Put('historial-medico/:historialId/entrada/:entradaId')
   @ApiOperation({ summary: 'Actualiza una entrada específica del historial médico' })
   @ApiParam({ name: 'historialId', description: 'ID del historial médico que contiene la entrada' })
-  @ApiParam({ name: 'entradaId',    description: 'ID de la entrada a modificar' })
+  @ApiParam({ name: 'entradaId', description: 'ID de la entrada a modificar' })
   @ApiBody({ type: AddEntradaHistorialDto })
   @ApiResponse({
     status: 200,
     description: 'Entrada actualizada con éxito',
-    type: HistorialMedicoDto
+    type: HistorialMedicoDto,
   })
   @ApiResponse({ status: 404, description: 'Historial o entrada no encontrado' })
   async updateEntrada(
     @Param('historialId') historialId: string,
-    @Param('entradaId')    entradaId: string,
-    @Body()               entradaDto: AddEntradaHistorialDto,
+    @Param('entradaId') entradaId: string,
+    @Body() entradaDto: AddEntradaHistorialDto,
   ): Promise<HistorialMedico> {
     return this.historialMedicoService.updateEntrada(historialId, entradaId, entradaDto);
   }
 
-
-
-    @ApiTags('Historial Médico')
-    @Delete('historial-medico/:historialId/entrada/:entradaId')
-    @ApiOperation({ summary: 'Elimina una entrada específica del historial médico' })
-    @ApiParam({ name: 'historialId', description: 'ID del historial médico que contiene la entrada' })
-    @ApiParam({ name: 'entradaId',    description: 'ID de la entrada a eliminar' })
-    @ApiResponse({
-      status: 200,
-      description: 'Entrada eliminada con éxito',
-      type: HistorialMedicoDto  // <-- aquí
-    })
-    async deleteEntrada(
-      @Param('historialId') historialId: string,
-      @Param('entradaId')    entradaId: string
-    ): Promise<HistorialMedico> {    // <-- y aquí
-      return this.historialMedicoService.deleteEntrada(historialId, entradaId);
-    }
-
+  @ApiTags('Historial Médico')
+  @Delete('historial-medico/:historialId/entrada/:entradaId')
+  @ApiOperation({ summary: 'Elimina una entrada específica del historial médico' })
+  @ApiParam({ name: 'historialId', description: 'ID del historial médico que contiene la entrada' })
+  @ApiParam({ name: 'entradaId', description: 'ID de la entrada a eliminar' })
+  @ApiResponse({
+    status: 200,
+    description: 'Entrada eliminada con éxito',
+    type: HistorialMedicoDto, // <-- aquí
+  })
+  async deleteEntrada(
+    @Param('historialId') historialId: string,
+    @Param('entradaId') entradaId: string,
+  ): Promise<HistorialMedico> {
+    // <-- y aquí
+    return this.historialMedicoService.deleteEntrada(historialId, entradaId);
+  }
 }

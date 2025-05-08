@@ -1,16 +1,10 @@
 <ion-header>
-  <app-header
-    titulo="Registro de Cliente"
-  ></app-header>
+  <app-header titulo="Registro de Cliente"></app-header>
 </ion-header>
 
 <ion-content>
-
   <!-- Selector de Modo -->
-  <ion-segment
-    [(ngModel)]="modoCliente"
-    class="ion-margin"
-  >
+  <ion-segment [(ngModel)]="modoCliente" class="ion-margin">
     <ion-segment-button
       value="nuevo"
       [disabled]="modoCliente === 'editar' || modoCliente === 'editar-mascota'"
@@ -32,18 +26,12 @@
       <ion-label>Editar Cliente</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button
-      value="editar-mascota"
-      [disabled]="!mascotaIdParam"
-    >
+    <ion-segment-button value="editar-mascota" [disabled]="!mascotaIdParam">
       <ion-label>Editar Mascota</ion-label>
     </ion-segment-button>
   </ion-segment>
 
-  <form
-    [formGroup]="clienteForm"
-  >
-
+  <form [formGroup]="clienteForm">
     <!-- Modo EXISTENTE -->
     <ng-container *ngIf="modoCliente === 'existente'">
       <ion-input
@@ -66,10 +54,7 @@
         </ion-item>
       </ion-list>
 
-      <ion-card
-        *ngIf="clienteSeleccionado"
-        class="ion-margin-top"
-      >
+      <ion-card *ngIf="clienteSeleccionado" class="ion-margin-top">
         <ion-card-header>
           <ion-card-title>Cliente Seleccionado</ion-card-title>
         </ion-card-header>
@@ -93,9 +78,7 @@
           </p>
         </ion-card-content>
 
-        <ion-card-footer
-          class="ion-text-center"
-        >
+        <ion-card-footer class="ion-text-center">
           <ion-button
             expand="block"
             color="primary"
@@ -238,14 +221,8 @@
           </ion-col>
         </ion-row>
 
-        <ion-row
-          class="ion-padding-top action-buttons"
-        >
-          <ion-button
-            expand="block"
-            color="primary"
-            (click)="revisarCliente()"
-          >
+        <ion-row class="ion-padding-top action-buttons">
+          <ion-button expand="block" color="primary" (click)="revisarCliente()">
             Revisar Cliente
           </ion-button>
           <ion-button
@@ -310,9 +287,7 @@
           </ion-col>
         </ion-row>
 
-        <ion-row
-          class="ion-padding-top action-buttons"
-        >
+        <ion-row class="ion-padding-top action-buttons">
           <ion-button
             expand="block"
             color="tertiary"
@@ -409,3 +384,8 @@
           >
             Cancelar
           </ion-button>
+        </ion-row></ion-grid
+      ></ng-container
+    >
+  </form></ion-content
+>

@@ -9,13 +9,13 @@ import {
   Min,
   IsDateString,
   IsMongoId,
-  IsInt
+  IsInt,
 } from 'class-validator';
 
 export class MascotaDto {
   @ApiPropertyOptional({
     description: 'ID de la mascota (ObjectId)',
-    example: '60f7b2d5a1234b00123c4567'
+    example: '60f7b2d5a1234b00123c4567',
   })
   @IsOptional()
   @IsMongoId()
@@ -23,7 +23,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'Nombre de la mascota',
-    example: 'Max'
+    example: 'Max',
   })
   @IsString()
   @IsNotEmpty()
@@ -31,7 +31,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'Especie de la mascota',
-    example: 'Perro'
+    example: 'Perro',
   })
   @IsString()
   @IsNotEmpty()
@@ -39,7 +39,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'Raza de la mascota',
-    example: 'Labrador Retriever'
+    example: 'Labrador Retriever',
   })
   @IsString()
   @IsNotEmpty()
@@ -47,7 +47,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'Edad de la mascota en años (entero)',
-    example: 3
+    example: 3,
   })
   @IsInt()
   @Min(0)
@@ -55,7 +55,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'Sexo de la mascota',
-    example: 'Macho'
+    example: 'Macho',
   })
   @IsString()
   @IsNotEmpty()
@@ -63,7 +63,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'Color principal de la mascota',
-    example: 'Marrón'
+    example: 'Marrón',
   })
   @IsString()
   @IsNotEmpty()
@@ -71,7 +71,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'Peso de la mascota en kg',
-    example: 12.5
+    example: 12.5,
   })
   @IsNumber()
   @Min(0)
@@ -79,7 +79,7 @@ export class MascotaDto {
 
   @ApiPropertyOptional({
     description: 'Características adicionales (marcas, notas, etc.)',
-    example: 'Mancha blanca en el pecho'
+    example: 'Mancha blanca en el pecho',
   })
   @IsString()
   @IsOptional()
@@ -89,7 +89,7 @@ export class MascotaDto {
     type: String,
     format: 'date',
     description: 'Fecha de nacimiento de la mascota en ISO',
-    example: '2018-06-21'
+    example: '2018-06-21',
   })
   @IsDateString()
   @IsOptional()
@@ -97,7 +97,7 @@ export class MascotaDto {
 
   @ApiProperty({
     description: 'ID del cliente propietario (ObjectId)',
-    example: '60f7b2d5a1234b00123c4568'
+    example: '60f7b2d5a1234b00123c4568',
   })
   @IsMongoId()
   @IsNotEmpty()

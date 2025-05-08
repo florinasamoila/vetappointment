@@ -1,5 +1,15 @@
-import { Component, Input, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { IonicModule, ModalController, AlertController, ToastController } from '@ionic/angular';
+import {
+  Component,
+  Input,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnInit,
+} from '@angular/core';
+import {
+  IonicModule,
+  ModalController,
+  AlertController,
+  ToastController,
+} from '@ionic/angular';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,7 +23,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./detalle-modal.component.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [IonicModule, NgIf, NgFor, CommonModule]
+  imports: [IonicModule, NgIf, NgFor, CommonModule],
 })
 export class DetalleModalComponent implements OnInit {
   @Input() datos: any;
@@ -44,44 +54,51 @@ export class DetalleModalComponent implements OnInit {
   private popularClientesMascotas() {
     // Vaciamos antes, para no acumular viejos resultados
     this.datos.mascotas = [];
-  
+
     // Llamamos al endpoint /clientes/:id/mascotas
     this.http
       .get<any[]>(`${this.base}/clientes/${this.datos._id}/mascotas`)
       .subscribe({
-        next: mascotas => this.datos.mascotas = mascotas,
-        error: ()        => this.datos.mascotas = []
+        next: (mascotas) => (this.datos.mascotas = mascotas),
+        error: () => (this.datos.mascotas = []),
       });
   }
-  
 
   private popularCita() {
     forkJoin({
-      cliente: this.http.get(`${this.base}/clientes/${this.datos.cliente}`).pipe(catchError(() => of(null))),
-      mascota: this.http.get(`${this.base}/mascotas/${this.datos.mascota}`).pipe(catchError(() => of(null))),
-      veterinario: this.http.get(`${this.base}/veterinario/${this.datos.veterinario}`).pipe(catchError(() => of(null))),
-      servicioPrestado: this.http.get(`${this.base}/servicio-prestado/${this.datos.servicioPrestado}`).pipe(catchError(() => of(null)))
-    }).subscribe(pop => this.datos = { ...this.datos, ...pop });
+      cliente: this.http
+        .get(`${this.base}/clientes/${this.datos.cliente}`)
+        .pipe(catchError(() => of(null))),
+      mascota: this.http
+        .get(`${this.base}/mascotas/${this.datos.mascota}`)
+        .pipe(catchError(() => of(null))),
+      veterinario: this.http
+        .get(`${this.base}/veterinario/${this.datos.veterinario}`)
+        .pipe(catchError(() => of(null))),
+      servicioPrestado: this.http
+        .get(`${this.base}/servicio-prestado/${this.datos.servicioPrestado}`)
+        .pipe(catchError(() => of(null))),
+    }).subscribe((pop) => (this.datos = { ...this.datos, ...pop }));
   }
 
   private popularHistorial() {
-    this.http.get<any>(`${this.base}/historial-medico/${this.datos._id}`)
+    this.http
+      .get<any>(`${this.base}/historial-medico/${this.datos._id}`)
       .pipe(
-        switchMap(hist => {
+        switchMap((hist) => {
           // extraemos la cadena del ID
-          const mascotaId = typeof hist.mascotaID === 'string'
-            ? hist.mascotaID
-            : hist.mascotaID._id;
+          const mascotaId =
+            typeof hist.mascotaID === 'string'
+              ? hist.mascotaID
+              : hist.mascotaID._id;
           // ahora sí pedimos la mascota por su _id
-          return this.http.get(`${this.base}/mascotas/${mascotaId}`)
-            .pipe(
-              map(mascota => ({ ...hist, mascotaID: mascota }))
-            );
+          return this.http
+            .get(`${this.base}/mascotas/${mascotaId}`)
+            .pipe(map((mascota) => ({ ...hist, mascotaID: mascota })));
         })
       )
-      .subscribe(full => this.datos = full);
+      .subscribe((full) => (this.datos = full));
   }
-  
 
   cerrar() {
     this.modalCtrl.dismiss();
@@ -92,7 +109,7 @@ export class DetalleModalComponent implements OnInit {
     const entradaId = e._id;
     this.modalCtrl.dismiss().then(() => {
       this.router.navigate(['/tabs/gestion-historial-medico'], {
-        queryParams: { historialId, entradaId }
+        queryParams: { historialId, entradaId },
       });
     });
   }
@@ -102,13 +119,19 @@ export class DetalleModalComponent implements OnInit {
       header: 'Eliminar entrada',
       message: '¿Estás seguro? Esta acción es irreversible.',
       inputs: [
-        { name: 'password', type: 'password', placeholder: 'Contraseña' }
+        { name: 'password', type: 'password', placeholder: 'Contraseña' },
       ],
       buttons: [
-        { text: 'Cancelar', role: 'cancel', handler: () => { return false; } },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            return false;
+          },
+        },
         {
           text: 'Eliminar',
-          handler: async data => {
+          handler: async (data) => {
             const pwd = data.password;
             const email = localStorage.getItem('vetapp_user');
             if (!email) {
@@ -122,7 +145,9 @@ export class DetalleModalComponent implements OnInit {
             }
             try {
               await firstValueFrom(
-                this.http.delete(`${this.base}/historial-medico/${this.datos._id}/entrada/${entry._id}`)
+                this.http.delete(
+                  `${this.base}/historial-medico/${this.datos._id}/entrada/${entry._id}`
+                )
               );
               this.presentToast('Entrada eliminada', 'success');
               this.popularHistorial();
@@ -130,9 +155,9 @@ export class DetalleModalComponent implements OnInit {
               this.presentToast('Error al eliminar', 'danger');
             }
             return true;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alert.present();
     return true;
@@ -150,15 +175,31 @@ export class DetalleModalComponent implements OnInit {
     });
   }
 
-  private async presentToast(message: string, color: 'success'|'danger'|'warning' = 'warning') {
-    const t = await this.toastCtrl.create({ message, duration: 2000, color, position: 'top' });
+  private async presentToast(
+    message: string,
+    color: 'success' | 'danger' | 'warning' = 'warning'
+  ) {
+    const t = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'top',
+    });
     await t.present();
   }
 
   getKeys(obj: any): string[] {
-    return Object.keys(obj).filter(k =>
-      (typeof obj[k] !== 'object' || obj[k] === null) &&
-      !['mascotaID','entradas','cliente','mascota','veterinario','servicioPrestado'].includes(k)
+    return Object.keys(obj).filter(
+      (k) =>
+        (typeof obj[k] !== 'object' || obj[k] === null) &&
+        ![
+          'mascotaID',
+          'entradas',
+          'cliente',
+          'mascota',
+          'veterinario',
+          'servicioPrestado',
+        ].includes(k)
     );
   }
 
@@ -180,7 +221,7 @@ export class DetalleModalComponent implements OnInit {
       peso: 'fitness',
       motivo: 'information-circle',
       estado: 'checkmark-circle',
-      observaciones: 'document-text'
+      observaciones: 'document-text',
     };
     return mapa[campo] || 'information-circle-outline';
   }

@@ -1,8 +1,15 @@
 // src/app/components/header/header.component.ts
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import {
-  IonHeader, IonToolbar, IonGrid, IonRow, IonCol,
-  IonButtons, IonButton, IonIcon, ActionSheetController
+  IonHeader,
+  IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  ActionSheetController,
 } from '@ionic/angular/standalone';
 import { helpCircle, personCircle, logOut, close } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +18,7 @@ import { Router } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-header',
-  encapsulation: ViewEncapsulation.None,    // ← DESACTIVAMOS encapsulación
+  encapsulation: ViewEncapsulation.None, // ← DESACTIVAMOS encapsulación
   imports: [
     IonHeader,
     IonToolbar,
@@ -20,7 +27,7 @@ import { Router } from '@angular/router';
     IonCol,
     IonButtons,
     IonButton,
-    IonIcon
+    IonIcon,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
@@ -42,7 +49,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     // Nos suscribimos al userEmail$ que ahora tu AuthService expone
-    this.auth.userEmail$.subscribe(email => {
+    this.auth.userEmail$.subscribe((email) => {
       this.userEmail = email;
     });
   }
@@ -60,7 +67,7 @@ export class HeaderComponent implements OnInit {
           handler: () => {
             this.auth.logout();
             this.router.navigateByUrl('/login', { replaceUrl: true });
-          }
+          },
         },
         {
           text: 'Cancelar',
@@ -82,9 +89,9 @@ export class HeaderComponent implements OnInit {
           cssClass: 'action-sheet-home',
           handler: () => {
             this.router.navigateByUrl('/tabs/inicio', { replaceUrl: true });
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await actionSheet.present();
   }

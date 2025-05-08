@@ -7,33 +7,21 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiQuery,
-  ApiBody
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBody } from '@nestjs/swagger';
 import { CreateVeterinarioDto } from '../dto/create-veterinario.dto/create-veterinario.dto';
 import { UpdateVeterinarioDto } from '../dto/update-veterinario.dto/update-veterinario.dto';
 import { VeterinarioDto } from '../dto/veterinario.dto/veterinario.dto';
 import { Veterinario } from '../interfaces/veterinario/veterinario.interface';
 import { VeterinarioService } from '../service/veterinario.service';
 
-
-
-
-
-
 // Todas las RUTAS están comentadas por categoría, para encontrarlas más fácilmente.
 
 @Controller('veterinaria')
 export class VeterinarioController {
-    constructor(private readonly veterinarioService: VeterinarioService) {}
- //  Rutas para Veterinario
+  constructor(private readonly veterinarioService: VeterinarioService) {}
+  //  Rutas para Veterinario
 
   @ApiTags('Veterinarios')
   @Get('veterinario')
@@ -41,16 +29,14 @@ export class VeterinarioController {
   @ApiQuery({
     name: 'search',
     required: false,
-    description: 'Término para búsqueda de veterinarios'
+    description: 'Término para búsqueda de veterinarios',
   })
   @ApiResponse({
     status: 200,
     description: 'Lista de veterinarios',
-    type: [VeterinarioDto]
+    type: [VeterinarioDto],
   })
-  async findVeterinarios(
-    @Query('search') search?: string
-  ): Promise<Veterinario[]> {
+  async findVeterinarios(@Query('search') search?: string): Promise<Veterinario[]> {
     if (search && search.trim() !== '') {
       return this.veterinarioService.findVeterinarioByNombre(search);
     } else {
@@ -65,10 +51,10 @@ export class VeterinarioController {
   @ApiResponse({
     status: 201,
     description: 'Veterinario creado',
-    type: VeterinarioDto
+    type: VeterinarioDto,
   })
   async createVeterinario(
-    @Body() createVeterinarioDto: CreateVeterinarioDto
+    @Body() createVeterinarioDto: CreateVeterinarioDto,
   ): Promise<Veterinario> {
     return this.veterinarioService.createVeterinario(createVeterinarioDto);
   }
@@ -80,12 +66,10 @@ export class VeterinarioController {
   @ApiResponse({
     status: 200,
     description: 'Veterinario encontrado',
-    type: VeterinarioDto
+    type: VeterinarioDto,
   })
   @ApiResponse({ status: 404, description: 'Veterinario no encontrado' })
-  async findVeterinarioById(
-    @Param('id') id: string
-  ): Promise<Veterinario> {
+  async findVeterinarioById(@Param('id') id: string): Promise<Veterinario> {
     return this.veterinarioService.findVeterinarioById(id);
   }
 
@@ -97,11 +81,11 @@ export class VeterinarioController {
   @ApiResponse({
     status: 200,
     description: 'Veterinario actualizado',
-    type: VeterinarioDto
+    type: VeterinarioDto,
   })
   async updateVeterinario(
     @Param('id') id: string,
-    @Body() updateVeterinarioDto: UpdateVeterinarioDto
+    @Body() updateVeterinarioDto: UpdateVeterinarioDto,
   ): Promise<Veterinario> {
     return this.veterinarioService.updateVeterinario(id, updateVeterinarioDto);
   }
@@ -111,9 +95,7 @@ export class VeterinarioController {
   @ApiOperation({ summary: 'Elimina un veterinario por su ID' })
   @ApiParam({ name: 'id', description: 'ID del veterinario' })
   @ApiResponse({ status: 200, description: 'Veterinario eliminado' })
-  async deleteVeterinario(
-    @Param('id') id: string
-  ): Promise<Veterinario> {
+  async deleteVeterinario(@Param('id') id: string): Promise<Veterinario> {
     return this.veterinarioService.deleteVeterinario(id);
   }
 
@@ -122,12 +104,10 @@ export class VeterinarioController {
   @ApiOperation({ summary: 'Elimina múltiples veterinarios' })
   @ApiBody({
     description: 'Array de IDs de veterinarios a eliminar',
-    type: [String]
+    type: [String],
   })
   @ApiResponse({ status: 200, description: 'Veterinarios eliminados' })
-  async deleteMultipleVeterinarios(
-    @Body() ids: string[]
-  ): Promise<Veterinario[]> {
+  async deleteMultipleVeterinarios(@Body() ids: string[]): Promise<Veterinario[]> {
     if (!ids || ids.length === 0) {
       throw new Error('No veterinario IDs provided for deletion.');
     }

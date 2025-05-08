@@ -1,4 +1,6 @@
-<app-header titulo="Administración de Veterinarios y Servicios Prestados"></app-header>
+<app-header
+  titulo="Administración de Veterinarios y Servicios Prestados"
+></app-header>
 
 <ion-content class="ion-padding">
   <!-- Selección de Veterinario -->
@@ -14,10 +16,7 @@
         (ionChange)="onVetSelectChange()"
         placeholder="Selecciona uno"
       >
-        <ion-select-option
-          *ngFor="let vet of veterinarios"
-          [value]="vet._id"
-        >
+        <ion-select-option *ngFor="let vet of veterinarios" [value]="vet._id">
           {{ vet.nombre }} {{ vet.apellido }}
         </ion-select-option>
       </ion-select>
@@ -27,7 +26,7 @@
     <div
       *ngIf="selectedVetId"
       class="selection-actions"
-      style="display: flex; gap: 0.5rem; margin: 0.5rem 0;"
+      style="display: flex; gap: 0.5rem; margin: 0.5rem 0"
     >
       <ion-button size="small" (click)="onVetSelectChange()">
         <ion-icon slot="start" name="pencil-outline"></ion-icon>
@@ -46,14 +45,11 @@
   </section>
 
   <!-- Formulario Veterinario (crear / editar) -->
-  <section style="margin-top: 2rem;">
-    <h2>
-      {{ editingVetId ? 'Editar Veterinario' : 'Nuevo Veterinario' }}
-    </h2>
+  <section style="margin-top: 2rem">
+    <h2>{{ editingVetId ? 'Editar Veterinario' : 'Nuevo Veterinario' }}</h2>
     <p class="description">
-      {{ editingVetId
-        ? 'Modifica los datos del veterinario seleccionado.'
-        : 'Añade aquí un nuevo veterinario al sistema.' }}
+      {{ editingVetId ? 'Modifica los datos del veterinario seleccionado.' :
+      'Añade aquí un nuevo veterinario al sistema.' }}
     </p>
     <form (ngSubmit)="saveVeterinario()">
       <ion-item>
@@ -108,10 +104,11 @@
   </section>
 
   <!-- Selección de Servicio -->
-  <section class="services" style="margin-top: 2rem;">
+  <section class="services" style="margin-top: 2rem">
     <h2>Servicios Prestados</h2>
     <p class="description">
-      Selecciona un servicio prestado para ver o editar sus detalles, o agrega uno nuevo.
+      Selecciona un servicio prestado para ver o editar sus detalles, o agrega
+      uno nuevo.
     </p>
     <ion-item>
       <ion-label>Servicio</ion-label>
@@ -120,10 +117,7 @@
         (ionChange)="onServiceSelectChange()"
         placeholder="Selecciona uno"
       >
-        <ion-select-option
-          *ngFor="let serv of servicios"
-          [value]="serv._id"
-        >
+        <ion-select-option *ngFor="let serv of servicios" [value]="serv._id">
           {{ serv.nombre }} – {{ serv.descripcion }}
         </ion-select-option>
       </ion-select>
@@ -133,7 +127,7 @@
     <div
       *ngIf="selectedServiceId"
       class="selection-actions"
-      style="display: flex; gap: 0.5rem; margin: 0.5rem 0;"
+      style="display: flex; gap: 0.5rem; margin: 0.5rem 0"
     >
       <ion-button size="small" (click)="onServiceSelectChange()">
         <ion-icon slot="start" name="pencil-outline"></ion-icon>
@@ -152,13 +146,12 @@
 
     <!-- Formulario Servicio (crear / editar) -->
     <form (ngSubmit)="saveServicio()">
-      <h2 style="margin-top: 1.5rem;">
+      <h2 style="margin-top: 1.5rem">
         {{ editingServId ? 'Editar Servicio' : 'Nuevo Servicio' }}
       </h2>
       <p class="description">
-        {{ editingServId
-          ? 'Actualiza los datos del servicio seleccionado.'
-          : 'Define un nuevo servicio prestado.' }}
+        {{ editingServId ? 'Actualiza los datos del servicio seleccionado.' :
+        'Define un nuevo servicio prestado.' }}
       </p>
 
       <ion-item>

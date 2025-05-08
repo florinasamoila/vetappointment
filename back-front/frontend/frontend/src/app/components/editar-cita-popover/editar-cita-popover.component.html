@@ -11,7 +11,6 @@
 
 <ion-content class="ion-padding">
   <ion-accordion-group multiple="true">
-
     <!-- 📅 DATOS DE LA CITA -->
     <ion-accordion value="cita">
       <ion-item slot="header">
@@ -23,13 +22,19 @@
             <ion-col size="6">
               <ion-item>
                 <ion-label position="stacked">Fecha</ion-label>
-                <ion-datetime [(ngModel)]="cita.fechaHora" presentation="date"></ion-datetime>
+                <ion-datetime
+                  [(ngModel)]="cita.fechaHora"
+                  presentation="date"
+                ></ion-datetime>
               </ion-item>
             </ion-col>
             <ion-col size="6">
               <ion-item>
                 <ion-label position="stacked">Hora</ion-label>
-                <ion-datetime [(ngModel)]="cita.fechaHora" presentation="time"></ion-datetime>
+                <ion-datetime
+                  [(ngModel)]="cita.fechaHora"
+                  presentation="time"
+                ></ion-datetime>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -38,12 +43,19 @@
               <ion-item>
                 <ion-label position="stacked">Estado</ion-label>
                 <ion-select [(ngModel)]="cita.estado">
-                  <ion-select-option *ngFor="let estado of estados" [value]="estado">{{ estado }}</ion-select-option>
+                  <ion-select-option
+                    *ngFor="let estado of estados"
+                    [value]="estado"
+                    >{{ estado }}</ion-select-option
+                  >
                 </ion-select>
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">Observaciones</ion-label>
-                <ion-textarea [(ngModel)]="cita.observaciones" autoGrow="true"></ion-textarea>
+                <ion-textarea
+                  [(ngModel)]="cita.observaciones"
+                  autoGrow="true"
+                ></ion-textarea>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -59,7 +71,9 @@
       <ion-item slot="content">
         <ion-item>
           <ion-label>Nombre</ion-label>
-          <ion-note slot="end">{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}</ion-note>
+          <ion-note slot="end"
+            >{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}</ion-note
+          >
         </ion-item>
         <ion-item>
           <ion-label>Teléfono</ion-label>
@@ -77,7 +91,10 @@
         <ion-item>
           <ion-label position="stacked">Seleccionar Mascota</ion-label>
           <ion-select [(ngModel)]="cita.mascota">
-            <ion-select-option *ngFor="let mascota of mascotasCliente" [value]="mascota">
+            <ion-select-option
+              *ngFor="let mascota of mascotasCliente"
+              [value]="mascota"
+            >
               {{ mascota.nombre }}
             </ion-select-option>
           </ion-select>
@@ -122,10 +139,13 @@
         </ion-item>
       </ion-item>
     </ion-accordion>
-
   </ion-accordion-group>
 
   <!-- BOTONES -->
-  <ion-button expand="block" color="success" (click)="guardar()">Guardar Cambios</ion-button>
-  <ion-button expand="block" color="medium" (click)="cerrar()">Cerrar</ion-button>
+  <ion-button expand="block" color="success" (click)="guardar()"
+    >Guardar Cambios</ion-button
+  >
+  <ion-button expand="block" color="medium" (click)="cerrar()"
+    >Cerrar</ion-button
+  >
 </ion-content>

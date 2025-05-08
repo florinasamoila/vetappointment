@@ -10,7 +10,9 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{ cliente.nombre }} {{ cliente.apellido }}</ion-card-title>
+      <ion-card-title
+        >{{ cliente.nombre }} {{ cliente.apellido }}</ion-card-title
+      >
     </ion-card-header>
     <ion-card-content>
       <p>Email: {{ cliente.email }}</p>
@@ -33,8 +35,12 @@
 
   <ion-row class="ion-padding-top">
     <ion-col size="12" class="ion-text-center">
-      <ion-button fill="solid" color="primary" (click)="confirmar()">Confirmar</ion-button>
-      <ion-button fill="outline" color="medium" (click)="cerrar()">Cancelar</ion-button>
+      <ion-button fill="solid" color="primary" (click)="confirmar()"
+        >Confirmar</ion-button
+      >
+      <ion-button fill="outline" color="medium" (click)="cerrar()"
+        >Cancelar</ion-button
+      >
     </ion-col>
   </ion-row>
 </ion-content>

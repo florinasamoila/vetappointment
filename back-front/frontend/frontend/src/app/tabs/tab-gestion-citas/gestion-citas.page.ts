@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-   ToastController
-} from '@ionic/angular/standalone';
+import { ToastController } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
@@ -26,11 +24,9 @@ import { IonicModule } from '@ionic/angular';
     FullCalendarModule,
     HeaderComponent,
     HttpClientModule,
-    
   ],
 })
 export class TabGestionCitas implements OnInit {
-
   busquedaCliente = '';
   clientesFiltrados: Cliente[] = [];
   mascotasCliente: any[] = [];
@@ -43,7 +39,7 @@ export class TabGestionCitas implements OnInit {
     fecha: '',
     hora: '',
     veterinario: '',
-    observaciones: ''
+    observaciones: '',
   };
   horariosDisponibles: string[] = [];
   servicios: any[] = [];
@@ -62,27 +58,34 @@ export class TabGestionCitas implements OnInit {
     this.generarHorarios();
 
     this.http.get<any[]>(`${this.apiUrl}/servicio-prestado`).subscribe({
-      next: data => this.servicios = data,
-      error: () => this.presentToast('Error cargando servicios', 'danger')
+      next: (data) => (this.servicios = data),
+      error: () => this.presentToast('Error cargando servicios', 'danger'),
     });
 
     this.http.get<any[]>(`${this.apiUrl}/veterinario`).subscribe({
-      next: data => this.veterinarios = data,
-      error: () => this.presentToast('Error cargando veterinarios', 'danger')
+      next: (data) => (this.veterinarios = data),
+      error: () => this.presentToast('Error cargando veterinarios', 'danger'),
     });
   }
 
   generarHorarios() {
     const bloques: string[] = [];
-    let hora = 9, minuto = 0;
+    let hora = 9,
+      minuto = 0;
     while (hora < 19) {
       const inicio = this.formatearHora(hora, minuto);
       minuto += 30;
-      if (minuto >= 60) { minuto = 0; hora++; }
+      if (minuto >= 60) {
+        minuto = 0;
+        hora++;
+      }
       const fin = this.formatearHora(hora, minuto);
       bloques.push(`${inicio} - ${fin}`);
       minuto += 15;
-      if (minuto >= 60) { minuto = 0; hora++; }
+      if (minuto >= 60) {
+        minuto = 0;
+        hora++;
+      }
     }
     this.horariosDisponibles = bloques;
   }
@@ -98,8 +101,8 @@ export class TabGestionCitas implements OnInit {
       return;
     }
     this.clienteService.buscarClientes(texto).subscribe({
-      next: clientes => this.clientesFiltrados = clientes,
-      error: () => this.presentToast('Error buscando clientes', 'danger')
+      next: (clientes) => (this.clientesFiltrados = clientes),
+      error: () => this.presentToast('Error buscando clientes', 'danger'),
     });
   }
 
@@ -112,8 +115,8 @@ export class TabGestionCitas implements OnInit {
     this.mascotasCliente = [];
 
     this.clienteService.obtenerMascotasPorCliente(cliente._id).subscribe({
-      next: mascotas => this.mascotasCliente = mascotas,
-      error: () => this.presentToast('Error al obtener mascotas', 'danger')
+      next: (mascotas) => (this.mascotasCliente = mascotas),
+      error: () => this.presentToast('Error al obtener mascotas', 'danger'),
     });
   }
 
@@ -128,24 +131,29 @@ export class TabGestionCitas implements OnInit {
       const fechaISO = new Date(this.cita.fecha);
       const fechaFormateada = fechaISO.toISOString().split('T')[0];
       // Obtenemos citas existentes para ese vet en esa fecha
-      this.http.get<any[]>(`${this.apiUrl}/cita?` +
-        `veterinario=${this.cita.veterinario}&fecha=${fechaFormateada}`)
+      this.http
+        .get<
+          any[]
+        >(`${this.apiUrl}/cita?` + `veterinario=${this.cita.veterinario}&fecha=${fechaFormateada}`)
         .subscribe({
-          next: citas => {
+          next: (citas) => {
             // Creamos un array de horas ocupadas (HH:mm)
-            const ocupados = citas.map(c => {
+            const ocupados = citas.map((c) => {
               const dt = new Date(c.fechaHora);
               const hh = dt.getHours().toString().padStart(2, '0');
               const mm = dt.getMinutes().toString().padStart(2, '0');
               return `${hh}:${mm}`;
             });
             // Filtramos los bloques para eliminar los que comienzan en hora ocupada
-            this.horariosDisponibles = this.horariosDisponibles.filter(bloque => {
-              const inicio = bloque.split(' - ')[0];
-              return !ocupados.includes(inicio);
-            });
+            this.horariosDisponibles = this.horariosDisponibles.filter(
+              (bloque) => {
+                const inicio = bloque.split(' - ')[0];
+                return !ocupados.includes(inicio);
+              }
+            );
           },
-          error: () => this.presentToast('Error cargando citas del veterinario', 'danger')
+          error: () =>
+            this.presentToast('Error cargando citas del veterinario', 'danger'),
         });
     } else {
       // Si falta vet o fecha, mostramos todos
@@ -154,11 +162,15 @@ export class TabGestionCitas implements OnInit {
   }
 
   mostrarResumenCita() {
-    const { nombreCliente, mascota, servicio, fecha, hora, veterinario } = this.cita;
+    const { nombreCliente, mascota, servicio, fecha, hora, veterinario } =
+      this.cita;
     if (nombreCliente && mascota && servicio && fecha && hora && veterinario) {
       this.mostrarResumen = true;
     } else {
-      this.presentToast('Completa todos los campos antes de continuar', 'warning');
+      this.presentToast(
+        'Completa todos los campos antes de continuar',
+        'warning'
+      );
     }
   }
 
@@ -180,7 +192,7 @@ export class TabGestionCitas implements OnInit {
       fechaHora,
       estado: 'Programada',
       motivo: 'Consulta general',
-      observaciones: this.cita.observaciones
+      observaciones: this.cita.observaciones,
     };
 
     this.citaService.crearCita(citaParaGuardar).subscribe({
@@ -189,7 +201,7 @@ export class TabGestionCitas implements OnInit {
         this.mostrarResumen = false;
         this.resetearFormulario();
       },
-      error: () => this.presentToast('Error al guardar la cita', 'danger')
+      error: () => this.presentToast('Error al guardar la cita', 'danger'),
     });
   }
 
@@ -202,7 +214,7 @@ export class TabGestionCitas implements OnInit {
       fecha: '',
       hora: '',
       veterinario: '',
-      observaciones: ''
+      observaciones: '',
     };
     this.mascotasCliente = [];
     this.busquedaCliente = '';
@@ -212,15 +224,15 @@ export class TabGestionCitas implements OnInit {
   }
 
   getNombreMascota(id: string): string {
-    const m = this.mascotasCliente.find(x => x._id === id);
+    const m = this.mascotasCliente.find((x) => x._id === id);
     return m ? m.nombre : id;
   }
   getNombreServicio(id: string): string {
-    const s = this.servicios.find(x => x._id === id);
+    const s = this.servicios.find((x) => x._id === id);
     return s ? s.nombre : id;
   }
   getNombreVeterinario(id: string): string {
-    const v = this.veterinarios.find(x => x._id === id);
+    const v = this.veterinarios.find((x) => x._id === id);
     return v ? v.nombre : id;
   }
 
