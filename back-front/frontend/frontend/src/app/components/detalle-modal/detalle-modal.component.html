@@ -16,24 +16,19 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <!-- 1) HISTORIAL MÉDICO -->
   <ng-container *ngIf="coleccion === 'historial-medico'">
     <div class="mascota-info">
       <ion-icon name="paw" slot="start"></ion-icon>
-      <strong>Mascota:</strong> {{ datos.mascotaID?.nombre }}<br>
+      <strong>Mascota:</strong> {{ datos.mascotaID?.nombre }}<br />
       <strong>Especie:</strong> {{ datos.mascotaID?.especie }} –
       <strong>Raza:</strong> {{ datos.mascotaID?.raza }}
     </div>
     <h3>Entradas</h3>
     <ion-list>
-      <ion-item
-        *ngFor="let e of datos.entradas"
-        button
-        (click)="verEntrada(e)"
-      >
+      <ion-item *ngFor="let e of datos.entradas" button (click)="verEntrada(e)">
         <ion-label>
-          <h4>{{ e.fecha | date:'dd/MM/yy H:mm' }}</h4>
+          <h4>{{ e.fecha | date: 'dd/MM/yy H:mm' }}</h4>
           <p><strong>Diagnóstico:</strong> {{ e.diagnosticos || '—' }}</p>
         </ion-label>
 
@@ -65,7 +60,8 @@
     <ion-item lines="none">
       <ion-icon name="calendar" slot="start"></ion-icon>
       <ion-label>
-        <strong>Fecha y Hora:</strong> {{ datos.fechaHora | date:'dd/MM/yy H:mm' }}
+        <strong>Fecha y Hora:</strong>
+        {{ datos.fechaHora | date: 'dd/MM/yy H:mm' }}
       </ion-label>
     </ion-item>
     <!-- ahora el resto de campos sin fechaHora -->
@@ -128,7 +124,7 @@
           <strong>{{ formatKey(key) }}:</strong>
           <ng-container [ngSwitch]="key">
             <ng-container *ngSwitchCase="'fechaNacimiento'">
-              {{ datos[key] | date:'dd/MM/yy' }}
+              {{ datos[key] | date: 'dd/MM/yy' }}
             </ng-container>
             <ng-container *ngSwitchDefault>
               {{ datos[key] }}
@@ -157,5 +153,4 @@
       </ion-item>
     </ng-container>
   </ng-container>
-
 </ion-content>

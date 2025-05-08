@@ -1,15 +1,15 @@
 // Paleta de Administración
-$bg-light:   #ecf0f1; // gris claro
-$surface:    #ffffff; // blanco puro
-$primary:    #2c3e50; // azul muy oscuro (navy)
-$secondary:  #34495e; // azul grisáceo
-$accent:     #1abc9c; // teal vibrante
-$text-primary:   #2c3e50;
+$bg-light: #ecf0f1; // gris claro
+$surface: #ffffff; // blanco puro
+$primary: #2c3e50; // azul muy oscuro (navy)
+$secondary: #34495e; // azul grisáceo
+$accent: #1abc9c; // teal vibrante
+$text-primary: #2c3e50;
 $text-secondary: #7f8c8d;
 
 $border-radius: 0.5rem;
-$box-shadow:    0 2px 8px rgba(0, 0, 0, 0.1);
-$spacing:       1rem;
+$box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+$spacing: 1rem;
 
 // Contenedor principal
 ion-content {
@@ -35,7 +35,9 @@ ion-content {
     box-shadow: $box-shadow;
     padding: $spacing * 1.5;
     margin-bottom: $spacing * 2;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:hover {
       transform: translateY(-4px);
@@ -66,7 +68,8 @@ ion-content {
         color: $text-primary;
       }
 
-      ion-select, ion-input {
+      ion-select,
+      ion-input {
         --placeholder-color: $text-secondary;
       }
     }
@@ -82,11 +85,11 @@ ion-content {
       border-radius: $border-radius;
       font-weight: 500;
 
-      &[fill="clear"] {
+      &[fill='clear'] {
         color: $secondary;
       }
 
-      &:not([fill="clear"]) {
+      &:not([fill='clear']) {
         --background: $accent;
         --background-activated: lighten($accent, 5%);
         --color: $surface;

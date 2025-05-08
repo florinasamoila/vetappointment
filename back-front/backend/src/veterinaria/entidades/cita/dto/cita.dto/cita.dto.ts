@@ -4,11 +4,10 @@ import { MascotaDto } from 'src/veterinaria/entidades/mascota/dto/mascota.dto/ma
 import { ServicioPrestadoDto } from 'src/veterinaria/entidades/servicio-prestado/dto/servicio-prestado.dto/servicio-prestado.dto';
 import { VeterinarioDto } from 'src/veterinaria/entidades/veterinario/dto/veterinario.dto/veterinario.dto';
 
-
 export class CitaDto {
   @ApiProperty({
     description: 'Identificador único de la cita',
-    example: '60ddae923b1e8b001f8a1a2c'
+    example: '60ddae923b1e8b001f8a1a2c',
   })
   _id: string;
 
@@ -16,44 +15,44 @@ export class CitaDto {
     description: 'Fecha y hora programada de la cita',
     type: String,
     format: 'date-time',
-    example: '2025-05-12T14:30:00Z'
+    example: '2025-05-12T14:30:00Z',
   })
   fechaHora: Date;
 
   @ApiProperty({
     description: 'Motivo de la cita',
-    example: 'Chequeo general'
+    example: 'Chequeo general',
   })
   motivo: string;
 
   @ApiProperty({
     description: 'Estado de la cita',
     enum: ['Programada', 'Confirmada', 'Cancelada', 'Completada'],
-    example: 'Programada'
+    example: 'Programada',
   })
   estado: 'Programada' | 'Confirmada' | 'Cancelada' | 'Completada';
 
   @ApiProperty({
     description: 'Datos del cliente asociado',
-    type: () => ClienteDto
+    type: () => ClienteDto,
   })
   cliente: ClienteDto;
 
   @ApiProperty({
     description: 'Datos de la mascota asociada',
-    type: () => MascotaDto
+    type: () => MascotaDto,
   })
   mascota: MascotaDto;
 
   @ApiProperty({
     description: 'Datos del veterinario asignado',
-    type: () => VeterinarioDto
+    type: () => VeterinarioDto,
   })
   veterinario: VeterinarioDto;
 
   @ApiProperty({
     description: 'Datos del servicio prestado en la cita',
-    type: () => ServicioPrestadoDto
+    type: () => ServicioPrestadoDto,
   })
   servicioPrestado: ServicioPrestadoDto;
 }

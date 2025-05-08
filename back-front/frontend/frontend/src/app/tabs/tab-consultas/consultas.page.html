@@ -1,16 +1,12 @@
 <!-- src/app/consultas/consultas.page.html -->
 <ion-header>
-  <app-header
-    titulo="Consultas"
-  ></app-header>
+  <app-header titulo="Consultas"></app-header>
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <!-- ► Filtros -->
   <div class="filtros-container">
     <div class="filtros-grid">
-
       <div class="campo">
         <ion-select
           id="coleccion"
@@ -22,10 +18,7 @@
           placeholder="Selecciona una colección"
           (ionChange)="onColeccionChange()"
         >
-          <ion-select-option
-            *ngFor="let c of colecciones"
-            [value]="c.valor"
-          >
+          <ion-select-option *ngFor="let c of colecciones" [value]="c.valor">
             {{ c.nombre }}
           </ion-select-option>
         </ion-select>
@@ -43,7 +36,6 @@
           (ionInput)="buscarDatos()"
         ></ion-input>
       </div>
-
     </div>
   </div>
 
@@ -53,10 +45,7 @@
   </div>
 
   <!-- Resultados -->
-  <div
-    class="resultados-container"
-    *ngIf="!loading && coleccionSeleccionada"
-  >
+  <div class="resultados-container" *ngIf="!loading && coleccionSeleccionada">
     <!-- Badge con el conteo -->
     <ion-item lines="none">
       <ion-label>Resultados totales</ion-label>
@@ -106,10 +95,7 @@
           <h2>{{ obtenerNombreVisible(item) }}</h2>
           <p>{{ getSubtitulo(item) }}</p>
         </ion-label>
-        <ion-icon
-          slot="end"
-          name="chevron-forward-outline"
-        ></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
       </ion-item>
     </ion-list>
 

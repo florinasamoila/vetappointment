@@ -35,8 +35,7 @@ import { DetalleModalComponent } from 'src/app/components/detalle-modal/detalle-
     HttpClientModule,
     HeaderComponent,
     DetalleModalComponent,
-
-  ]
+  ],
 })
 export class TabConsultas implements OnInit {
   colecciones = [
@@ -46,7 +45,7 @@ export class TabConsultas implements OnInit {
     { nombre: 'Facturación', valor: 'facturacion' },
     { nombre: 'Servicios', valor: 'servicio-prestado' },
     { nombre: 'Veterinarios', valor: 'veterinario' },
-    { nombre: 'Citas', valor: 'citas' }
+    { nombre: 'Citas', valor: 'citas' },
   ];
 
   coleccionSeleccionada = '';
@@ -81,7 +80,7 @@ export class TabConsultas implements OnInit {
       message,
       duration: 2000,
       position: 'middle',
-      color
+      color,
     });
     await t.present();
   }
@@ -95,22 +94,30 @@ export class TabConsultas implements OnInit {
       this.loading = false;
       return;
     }
-    this.http.get<any[]>(`${this.apiUrl}/${this.coleccionSeleccionada}`)
+    this.http
+      .get<any[]>(`${this.apiUrl}/${this.coleccionSeleccionada}`)
       .subscribe({
-        next: list => {
+        next: (list) => {
           this.todosElementos = list;
-          this.originalElementos  = list; 
+          this.originalElementos = list;
           if (list.length === 0) {
-            this.presentToast('No se encontraron datos en la colección seleccionada.', 'warning');
+            this.presentToast(
+              'No se encontraron datos en la colección seleccionada.',
+              'warning'
+            );
           }
           this.resetPagination();
           this.loading = false;
         },
         error: async () => {
           this.loading = false;
-          const t = await this.toastCtrl.create({ message: 'Error cargando datos', color: 'danger', duration: 2000 });
+          const t = await this.toastCtrl.create({
+            message: 'Error cargando datos',
+            color: 'danger',
+            duration: 2000,
+          });
           await t.present();
-        }
+        },
       });
   }
 
@@ -121,27 +128,37 @@ export class TabConsultas implements OnInit {
       this.resetPagination();
       return;
     }
-    const filtered = this.originalElementos.filter(item => {
+    const filtered = this.originalElementos.filter((item) => {
       switch (this.coleccionSeleccionada) {
         case 'historial-medico':
           const nombre = item.mascotaID?.nombre?.toLowerCase() || '';
           const ultFecha = item.entradas?.length
             ? new Date(item.entradas[item.entradas.length - 1].fecha)
-                .toLocaleDateString().toLowerCase()
+                .toLocaleDateString()
+                .toLowerCase()
             : '';
           return nombre.includes(q) || ultFecha.includes(q);
         case 'citas':
           const cli = item.cliente?.nombre?.toLowerCase() || '';
           const mas = item.mascota?.nombre?.toLowerCase() || '';
-          return cli.includes(q) || mas.includes(q) || item.motivo?.toLowerCase().includes(q);
+          return (
+            cli.includes(q) ||
+            mas.includes(q) ||
+            item.motivo?.toLowerCase().includes(q)
+          );
         default:
-          return item.nombre?.toLowerCase().includes(q)
-            || item.email?.toLowerCase().includes(q)
-            || item.especie?.toLowerCase().includes(q);
+          return (
+            item.nombre?.toLowerCase().includes(q) ||
+            item.email?.toLowerCase().includes(q) ||
+            item.especie?.toLowerCase().includes(q)
+          );
       }
     });
     if (filtered.length === 0) {
-      this.presentToast(`No se encontraron resultados para "${this.terminoBusqueda}".`, 'warning');
+      this.presentToast(
+        `No se encontraron resultados para "${this.terminoBusqueda}".`,
+        'warning'
+      );
     }
     this.todosElementos = filtered;
     this.resetPagination();
@@ -156,16 +173,16 @@ export class TabConsultas implements OnInit {
         component: DetalleModalComponent,
         componentProps: {
           datos: raw,
-          coleccion: this.coleccionSeleccionada
+          coleccion: this.coleccionSeleccionada,
         },
-        cssClass: 'custom-modal'
+        cssClass: 'custom-modal',
       });
       await modal.present();
     } catch {
       const t = await this.toastCtrl.create({
         message: 'Error obteniendo detalles',
         color: 'danger',
-        duration: 2000
+        duration: 2000,
       });
       await t.present();
     }
@@ -174,7 +191,8 @@ export class TabConsultas implements OnInit {
   obtenerNombreVisible(item: any): string {
     if (this.coleccionSeleccionada === 'citas') {
       const cli = item.cliente?.nombre
-        ? `${item.cliente.nombre} ${item.cliente.apellido}` : '–';
+        ? `${item.cliente.nombre} ${item.cliente.apellido}`
+        : '–';
       const mas = item.mascota?.nombre || '–';
       return `${cli} — ${mas}`;
     }
@@ -208,7 +226,7 @@ export class TabConsultas implements OnInit {
 
   toggleSeleccionTodos(ev: any) {
     if (ev.detail.checked) {
-      this.todosElementos.forEach(i => this.clientesSeleccionados.add(i._id));
+      this.todosElementos.forEach((i) => this.clientesSeleccionados.add(i._id));
     } else {
       this.clientesSeleccionados.clear();
     }
@@ -217,30 +235,39 @@ export class TabConsultas implements OnInit {
   borrarElementosSeleccionados() {
     if (!this.clientesSeleccionados.size) return;
     const ids = Array.from(this.clientesSeleccionados);
-    this.http.delete(`${this.apiUrl}/${this.coleccionSeleccionada}`, { body: ids })
-      .subscribe(async () => {
-        this.todosElementos = this.todosElementos.filter(i => !this.clientesSeleccionados.has(i._id));
-        this.clientesSeleccionados.clear();
-        this.resetPagination();
-        const t = await this.toastCtrl.create({
-          message: 'Eliminados',
-          color: 'success',
-          duration: 2000
-        });
-        await t.present();
-      }, async () => {
-        const t = await this.toastCtrl.create({
-          message: 'Error al eliminar',
-          color: 'danger',
-          duration: 2000
-        });
-        await t.present();
-      });
+    this.http
+      .delete(`${this.apiUrl}/${this.coleccionSeleccionada}`, { body: ids })
+      .subscribe(
+        async () => {
+          this.todosElementos = this.todosElementos.filter(
+            (i) => !this.clientesSeleccionados.has(i._id)
+          );
+          this.clientesSeleccionados.clear();
+          this.resetPagination();
+          const t = await this.toastCtrl.create({
+            message: 'Eliminados',
+            color: 'success',
+            duration: 2000,
+          });
+          await t.present();
+        },
+        async () => {
+          const t = await this.toastCtrl.create({
+            message: 'Error al eliminar',
+            color: 'danger',
+            duration: 2000,
+          });
+          await t.present();
+        }
+      );
   }
 
   /** Infinite scroll handler */
   loadMore(event: any) {
-    const nextChunk = this.todosElementos.slice(this.offset, this.offset + this.pageSize);
+    const nextChunk = this.todosElementos.slice(
+      this.offset,
+      this.offset + this.pageSize
+    );
     this.resultados.push(...nextChunk);
     this.offset += nextChunk.length;
     event.target.complete();

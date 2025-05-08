@@ -95,16 +95,20 @@
             <ion-item slot="content">
               <ion-card [ngClass]="getEstadoClase(cita.estado)">
                 <ion-card-header>
-                  
-                  <ion-card-title><ion-icon name="paw"></ion-icon> {{ cita.mascota?.nombre || '–' }}</ion-card-title>
+                  <ion-card-title
+                    ><ion-icon name="paw"></ion-icon> {{ cita.mascota?.nombre ||
+                    '–' }}</ion-card-title
+                  >
                   <ion-card-subtitle>
-                    <ion-icon name="person"></ion-icon> {{ cita.cliente?.nombre || '–' }}
-                    {{ cita.cliente?.apellido || '' }}
+                    <ion-icon name="person"></ion-icon> {{ cita.cliente?.nombre
+                    || '–' }} {{ cita.cliente?.apellido || '' }}
                   </ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
                   <p>
-                    <strong><ion-icon name="calendar"></ion-icon> Fecha:</strong>
+                    <strong
+                      ><ion-icon name="calendar"></ion-icon> Fecha:</strong
+                    >
                     {{ cita.fechaHora | date: 'longDate' }}
                   </p>
                   <p>
@@ -112,19 +116,29 @@
                     {{ cita.fechaHora | date: 'shortTime' }}
                   </p>
                   <p>
-                    <strong><ion-icon name="medical"></ion-icon> Servicio:</strong>
+                    <strong
+                      ><ion-icon name="medical"></ion-icon> Servicio:</strong
+                    >
                     {{ cita.servicioPrestado?.nombre || '–' }}
                   </p>
                   <p>
-                    <strong><ion-icon name="person"></ion-icon> Veterinario:</strong>
-                    {{ cita.veterinario?.nombre || '–' }}
-                    {{ cita.veterinario?.apellido || '' }}
+                    <strong
+                      ><ion-icon name="person"></ion-icon> Veterinario:</strong
+                    >
+                    {{ cita.veterinario?.nombre || '–' }} {{
+                    cita.veterinario?.apellido || '' }}
                   </p>
                   <p>
-                    <strong><ion-icon name="file-tray-stacked"></ion-icon> Estado:</strong> {{ cita.estado }}
+                    <strong
+                      ><ion-icon name="file-tray-stacked"></ion-icon>
+                      Estado:</strong
+                    >
+                    {{ cita.estado }}
                   </p>
                   <p>
-                    <strong><ion-icon name="clipboard"></ion-icon> Obs.:</strong>
+                    <strong
+                      ><ion-icon name="clipboard"></ion-icon> Obs.:</strong
+                    >
                     {{ cita.observaciones || '—' }}
                   </p>
                 </ion-card-content>

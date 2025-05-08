@@ -10,41 +10,46 @@
         <ion-card-title>Iniciar Sesión</ion-card-title>
       </ion-card-header>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
         <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input formControlName="email" type="email"></ion-input>
           <div *ngIf="loginForm.get('email')?.touched" class="error-messages">
-            <small *ngIf="loginForm.get('email')?.errors?.['required']">Email requerido</small>
-            <small *ngIf="loginForm.get('email')?.errors?.['email']">Formato inválido</small>
+            <small *ngIf="loginForm.get('email')?.errors?.['required']"
+              >Email requerido</small
+            >
+            <small *ngIf="loginForm.get('email')?.errors?.['email']"
+              >Formato inválido</small
+            >
           </div>
         </ion-item>
-
 
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input formControlName="password" type="password"></ion-input>
-          <div *ngIf="loginForm.get('password')?.touched" class="error-messages">
-            <small *ngIf="loginForm.get('password')?.errors?.['required']">Contraseña requerida</small>
-            <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</small>
+          <div
+            *ngIf="loginForm.get('password')?.touched"
+            class="error-messages"
+          >
+            <small *ngIf="loginForm.get('password')?.errors?.['required']"
+              >Contraseña requerida</small
+            >
+            <small *ngIf="loginForm.get('password')?.errors?.['minlength']"
+              >Mínimo 6 caracteres</small
+            >
           </div>
-        </ion-item> 
+        </ion-item>
         <div class="btn-wrapper">
-          
           <ion-button fill="outline" type="submit">Entrar</ion-button>
-          
         </div>
         <div class="btn-wrapper">
           <ion-button
-          color="danger"
-          class="help-button"
-          fill="clear "
-          (click)="openSupportModal()"
-        >
-          Contactar Soporte
-          
-        </ion-button>
-        
+            color="danger"
+            class="help-button"
+            fill="clear "
+            (click)="openSupportModal()"
+          >
+            Contactar Soporte
+          </ion-button>
         </div>
       </form>
     </div>

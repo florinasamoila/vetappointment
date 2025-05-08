@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServicioPrestado } from '../common/servicio-prestado';
 
-
 @Injectable({ providedIn: 'root' })
 export class ServicioPrestadoService {
   private baseUrl = 'http://localhost:3000/veterinaria/servicio-prestado';
@@ -38,7 +37,10 @@ export class ServicioPrestadoService {
   /**
    * Actualiza un servicio prestado existente
    */
-  update(id: string, data: Partial<ServicioPrestado>): Observable<ServicioPrestado> {
+  update(
+    id: string,
+    data: Partial<ServicioPrestado>
+  ): Observable<ServicioPrestado> {
     return this.http.put<ServicioPrestado>(`${this.baseUrl}/${id}`, data);
   }
 
@@ -50,4 +52,3 @@ export class ServicioPrestadoService {
   }
 }
 export { ServicioPrestado };
-

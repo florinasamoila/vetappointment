@@ -1,124 +1,127 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  
-    ion-content {
-      flex: 1;
-      --padding-start: 16px;
-      --padding-end:   16px;
-      --padding-top:   16px;
-      --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
-    }
-  
-    /***** ACORDEÓN Y ÍTEMS *****/
-    ion-accordion-group {
-      margin-bottom: 24px;
-    }
-  
-    ion-accordion {
-      border: 1px solid var(--ion-color-light);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 16px;
-  
-      /* Cabecera */
-      ion-item[slot="header"] {
-        --background: var(--ion-color-light-tint);
-        --inner-padding-start: 16px;
-        --inner-padding-end:   16px;
-        font-weight: 500;
-        color: var(--ion-color-dark);
-        border-bottom: 1px solid var(--ion-color-light);
-      }
-  
-      /* Contenido */
-      ion-item[slot="content"] {
-        --background: transparent;
-        padding: 0;
-      }
-    }
-  
-    /***** GRID Y COLUMNAS *****/
-    ion-grid {
-      margin: 0;
-    }
-    ion-row {
-      margin: 0 -8px;
-    }
-    ion-col {
-      padding: 0 8px;
-    }
-  
-    /***** ÍTEMS DE FORMULARIO *****/
-    ion-item {
-      --background: transparent;
-      --inner-padding-start: 0;
-      --inner-padding-end:   0;
-      border: none;
-      margin-bottom: 16px;
-    }
-  
-    ion-label[position="stacked"] {
-      font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  ion-content {
+    flex: 1;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+  }
+
+  /***** ACORDEÓN Y ÍTEMS *****/
+  ion-accordion-group {
+    margin-bottom: 24px;
+  }
+
+  ion-accordion {
+    border: 1px solid var(--ion-color-light);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+
+    /* Cabecera */
+    ion-item[slot='header'] {
+      --background: var(--ion-color-light-tint);
+      --inner-padding-start: 16px;
+      --inner-padding-end: 16px;
       font-weight: 500;
-      margin-bottom: 4px;
       color: var(--ion-color-dark);
+      border-bottom: 1px solid var(--ion-color-light);
     }
-  
-    /***** CONTROLES DE FORMULARIO *****/
-    ion-datetime,
-    ion-select,
-    ion-input,
-    ion-textarea {
+
+    /* Contenido */
+    ion-item[slot='content'] {
       --background: transparent;
-      --padding-start:  0.8em;
-      --padding-end:    0.8em;
-      --padding-top:    0.66em;
-      --padding-bottom: 0.66em;
-      --border-width: 1px;
-      --border-style: solid;
-      --border-color: var(--ion-color-light);
-      border-radius: 8px;
-      margin-bottom: 0 !important;
-      width: 100%;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  
-      &:focus-within {
-        --border-color: var(--ion-color-primary);
-        box-shadow: 0 2px 6px rgba(var(--ion-color-primary-rgb), 0.15);
-      }
-  
-      &.ng-touched.ng-invalid:not(:focus-within) {
-        --border-color: var(--ion-color-danger);
-      }
-    }
-  
-    /***** BOTONES *****/
-    ion-button {
-      --background: var(--ion-color-primary);
-      --color: #fff;
-      border-radius: 6px;
-      margin-top: 16px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.4);
-      }
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 1px 3px rgba(var(--ion-color-primary-rgb), 0.2);
-      }
-    }
-    ion-button[fill="outline"] {
-      --border-color: var(--ion-color-medium);
-      --color: var(--ion-color-medium);
-      background: transparent;
-  
-      &:hover {
-        background: rgba(var(--ion-color-medium-rgb), 0.1);
-      }
+      padding: 0;
     }
   }
-  
+
+  /***** GRID Y COLUMNAS *****/
+  ion-grid {
+    margin: 0;
+  }
+  ion-row {
+    margin: 0 -8px;
+  }
+  ion-col {
+    padding: 0 8px;
+  }
+
+  /***** ÍTEMS DE FORMULARIO *****/
+  ion-item {
+    --background: transparent;
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    border: none;
+    margin-bottom: 16px;
+  }
+
+  ion-label[position='stacked'] {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--ion-color-dark);
+  }
+
+  /***** CONTROLES DE FORMULARIO *****/
+  ion-datetime,
+  ion-select,
+  ion-input,
+  ion-textarea {
+    --background: transparent;
+    --padding-start: 0.8em;
+    --padding-end: 0.8em;
+    --padding-top: 0.66em;
+    --padding-bottom: 0.66em;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: var(--ion-color-light);
+    border-radius: 8px;
+    margin-bottom: 0 !important;
+    width: 100%;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:focus-within {
+      --border-color: var(--ion-color-primary);
+      box-shadow: 0 2px 6px rgba(var(--ion-color-primary-rgb), 0.15);
+    }
+
+    &.ng-touched.ng-invalid:not(:focus-within) {
+      --border-color: var(--ion-color-danger);
+    }
+  }
+
+  /***** BOTONES *****/
+  ion-button {
+    --background: var(--ion-color-primary);
+    --color: #fff;
+    border-radius: 6px;
+    margin-top: 16px;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.4);
+    }
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 3px rgba(var(--ion-color-primary-rgb), 0.2);
+    }
+  }
+  ion-button[fill='outline'] {
+    --border-color: var(--ion-color-medium);
+    --color: var(--ion-color-medium);
+    background: transparent;
+
+    &:hover {
+      background: rgba(var(--ion-color-medium-rgb), 0.1);
+    }
+  }
+}

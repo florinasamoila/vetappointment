@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CitaService {
   private apiUrl = 'http://localhost:3000/veterinaria/citas';
@@ -20,5 +20,4 @@ export class CitaService {
   updateCita(id: string, cita: any) {
     return this.http.put(`http://localhost:3000/veterinaria/citas/${id}`, cita);
   }
-  
 }

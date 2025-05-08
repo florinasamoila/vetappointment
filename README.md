@@ -1,171 +1,213 @@
-  
-# 🐾 VetAppointment – Software de Gestión Veterinaria
+# VetAppointment
 
-**Proyecto Final – CFGS Desarrollo de Aplicaciones Multiplataforma**  
-**Autora**: Florina-Viorica Samoila  
-**Curso**: 2024–2025
+![Logo de VetAppointment](docs/images/logo.png)
 
----
+Software de gestión veterinaria para la administración de citas, pacientes e historiales médicos en clínicas.
 
-## 📌 Introducción
+## Tabla de Contenidos
 
-VetAppointment es una aplicación pensada para optimizar la **gestión interna de clínicas veterinarias**. Está orientada exclusivamente al personal clínico (recepcionistas, veterinarios y administradores) y permite centralizar la información médica, citas, historiales y tareas administrativas desde una única interfaz, moderna y adaptable a múltiples dispositivos.
+* [Descripción](#descripción)
+* [Objetivos](#objetivos)
+* [Planificación](#planificación)
+* [Presupuesto](#presupuesto)
+* [Análisis de Mercado en España](#análisis-de-mercado-en-españa)
 
----
+  * [Público Objetivo y Perfiles de Usuario](#público-objetivo-y-perfiles-de-usuario)
+  * [Competencia](#competencia)
+* [Propuesta](#propuesta)
+* [Especificaciones del Producto](#especificaciones-del-producto)
+* [Diseño](#diseño)
 
-## 🩺 Descripción del Proyecto
+  * [Diagramas de Navegación (User Flow)](#diagramas-de-navegación-user-flow)
+  * [Wireframes](#wireframes)
 
-La aplicación permite:
+    * [Fidelidad Baja](#fidelidad-baja)
+    * [Fidelidad Media](#fidelidad-media)
+    * [Fidelidad Alta](#fidelidad-alta)
+* [Desarrollo](#desarrollo)
 
-- Registrar **mascotas** y sus datos clínicos.
-- Programar, modificar y anular **citas médicas**.
-- Consultar y registrar el **historial médico** de los pacientes.
-- Dividir el sistema por **roles** con permisos diferenciados.
-- Facilitar la **organización del personal veterinario**.
-- Consultar agenda diaria y filtros por estado/hora.
-
-Todo el sistema está desarrollado como una aplicación **web y móvil responsive** usando tecnologías modernas como Angular, Ionic y NestJS, con MongoDB como base de datos en la nube (MongoDB Atlas).
-
----
-
-## 🎯 Objetivo General
-
-Crear una solución digital integral que permita a clínicas veterinarias:
-- **Centralizar** la gestión de pacientes y citas.
-- **Reducir errores administrativos**.
-- **Mejorar la trazabilidad médica** de cada animal atendido.
-- **Aumentar la eficiencia operativa** diaria del equipo clínico.
+  * [Arquitectura de la Aplicación](#arquitectura-de-la-aplicación)
+  * [Herramientas de Desarrollo](#herramientas-de-desarrollo)
+  * [Tecnologías Utilizadas](#tecnologías-utilizadas)
+  * [Modelo de Datos](#modelo-de-datos)
+* [Despliegue](#despliegue)
+* [Conclusiones](#conclusiones)
+* [Líneas de Futuro](#líneas-de-futuro)
 
 ---
 
-## 📅 Planificación
+## Descripción
 
-El desarrollo se organizó en 5 etapas:
-1. Análisis de requerimientos y tecnologías.
-2. Diseño de interfaces y estructura.
-3. Desarrollo del backend y modelos de datos.
-4. Desarrollo del frontend e integración.
-5. Pruebas funcionales y documentación.
+VetAppointment es una aplicación diseñada para uso exclusivo del personal clínico de una clínica veterinaria. Permite optimizar la programación de citas, la gestión de pacientes (mascotas) y el control de historiales médicos, reduciendo errores administrativos y mejorando la eficiencia en las consultas.
 
+## Objetivos
 
----
+* Centralizar la gestión de citas médicas.
+* Almacenar y consultar historiales clínicos de mascotas.
+* Organizar la agenda y asignar profesionales veterinarios.
+* Control de acceso por roles (recepcionista, veterinario, administrador).
+* Soporte multiplataforma (escritorio y móvil en red interna).
 
-## 📈 Análisis de Mercado
+## Planificación
 
-A pesar de que existen softwares como **VetWin**, **ClinicCloud** y **GestVet**, estos suelen presentar una o varias de las siguientes limitaciones:
-- Interfaces anticuadas o poco intuitivas.
-- Alto coste mensual.
-- Falta de adaptación a pequeñas clínicas.
+![Diagrama de Gantt](docs/images/gantt.png)
 
-**VetAppointment** propone una alternativa **moderna, gratuita, personalizada y escalable**, desarrollada con tecnologías libres y pensada para entornos reales.
+*Diagrama de Gantt que muestra las fases de análisis, diseño, desarrollo y despliegue.*
 
----
+## Presupuesto
 
-## 👥 Público Objetivo
+* Coste estimado de desarrollo: \[detalle de horas y recursos].
+* Licencias de software libre: sin costes adicionales.
 
-- **Recepcionistas**: agendan citas, gestionan clientes y mascotas.
-- **Veterinarios**: registran tratamientos, consultan historial y citas.
-- **Administradores**: supervisan todo el sistema, usuarios y estadísticas.
+## Análisis de Mercado en España
 
-No está pensada para los clientes (dueños de mascotas), lo cual simplifica su uso y la hace más eficiente internamente.
+**Panorama General**
+En España operan más de **7 100** clínicas veterinarias distribuidas por todo el territorio, con Madrid, Barcelona, Valencia, Alicante, Málaga y Sevilla a la cabeza en número de centros. El sector de animales de compañía facturó **2 613 millones de euros** en 2023, con un crecimiento interanual del **8,3%**.
 
----
+### Tamaño y Crecimiento del Mercado de Software
 
-## 📌 Propuesta y Especificaciones Técnicas
+* **Global:** el mercado mundial de software veterinario se estima en **USD 1,85 mil millones** para 2025, con una tasa de crecimiento anual compuesta (CAGR) del **6,1%** hasta 2030.
+* **España:** aunque no hay datos públicos detallados, se estima que el gasto en software de gestión representa el **1 – 2%** de la facturación clínica anual, lo que supondría un mercado de **26 – 52 millones de euros** en 2023, con un crecimiento anual cercano al **6 – 7%**.
 
-- Registro y gestión de **clientes, mascotas, veterinarios y servicios prestados**.
-- **Citas médicas** gestionables con filtros, estados y calendario.
-- **Control de acceso por roles**.
-- Interfaz limpia, rápida y responsive (Ionic + Bootstrap).
-- Conexión segura con base de datos **MongoDB Atlas**.
-- Backoffice intuitivo para gestionar operaciones clínicas.
+### Factores Impulsores
 
----
+1. **Humanización de las mascotas:** el censo de perros supera los **9,29 millones** y el de gatos los **1,6 millones**, creando demanda de servicios veterinarios especializados.
+2. **Normativa y trazabilidad:** nuevas regulaciones sobre receta electrónica y dispensación de fármacos exigen sistemas que garanticen el cumplimiento legal.
+3. **Digitalización post-COVID:** aumento de teleconsulta y gestión remota, favoreciendo soluciones en la nube y acceso multi-dispositivo.
 
-## 🎨 Diseño de Interfaces
+### Segmentación del Mercado
 
-- **Fidelidad baja**: bocetos en papel para definir pantallas y flujos.
-- **Fidelidad media**: prototipos wireframe (estructura y jerarquía).
-- **Fidelidad alta**: interfaz real desarrollada con Angular + Ionic + Bootstrap, respetando la identidad visual profesional.
+* **Por tamaño de clínica:**
 
----
+  * **Pequeñas (1–2 veterinarios):** soluciones SaaS desde **25–50 €/mes**.
+  * **Medianas (3–5 veterinarios):** paquetes con facturación avanzada, CRM y agendas compartidas.
+  * **Grandes (>5 veterinarios):** sistemas on-premise personalizables e integraciones con laboratorio y ERP.
+* **Por modelo de despliegue:**
 
-## 🏗️ Desarrollo y Arquitectura
+  * **Cloud/SaaS (\~60%):** escalado sencillo y coste inicial bajo.
+  * **Instalado (Windows/Linux):** preferido por clínicas con infraestructura TI propia.
 
-### Frontend
-- SPA con Angular e Ionic.
-- Módulos organizados por funciones: clientes, mascotas, citas, historial, etc.
-- Formularios validados con Angular Forms.
-- Comunicación con backend vía `HttpClient`.
+### Público Objetivo y Perfiles de Usuario
 
-### Backend
-- NestJS (Node.js + TypeScript).
-- Arquitectura modular: controladores, servicios, DTOs y validaciones.
-- Autenticación con JWT, encriptación de contraseñas con bcrypt. (Trabajo futuro)
-- WebSocket Gateway (opcional para notificaciones en tiempo real). (Trabajo futuro)
+* **Recepcionistas:** Gestionan citas y vinculan mascotas con propietarios.
+* **Veterinarios:** Acceden y actualizan el historial clínico, consultan su agenda.
+* **Administradores:** Gestionan usuarios, supervisan estadísticas y salud del sistema.
 
-### Base de Datos
-- MongoDB Atlas (NoSQL)
-- Colecciones principales:
-  - `cliente`, `mascota`, `veterinario`, `cita`, `historialMedico`, `facturacion`, `servicioPrestado`
+### Competencia
 
----
+* **VetWin:** Completo, pero interfaz anticuada y curva de aprendizaje elevada.
+* **ClinicCloud:** Basado en la nube, con coste mensual y funcionalidades genéricas.
+* **GestVet:** Sencillo, pero limitado en personalización y escalabilidad.
 
-## 🧪 Herramientas de Desarrollo
+VetAppointment destaca por ser modular, escalable y sin costes de licencia, aprovechando software libre.
 
-- **VSCode** – Entorno principal.
-- **Postman** – Testeo de la API REST.
-- **MongoDB Compass** – Visualización de base de datos.
-- **Figma** – Prototipado de interfaces.
-- **Git + GitHub** – Control de versiones.
-- **Swagger** – Documentación OpenApi.
+## Propuesta
 
----
+Desarrollar una plataforma interna que permita registrar, consultar y administrar citas, pacientes y profesionales de forma centralizada, segura y eficiente, con una interfaz intuitiva centrada en el personal clínico.
 
-## 🚀 Instrucciones de Despliegue
+## Especificaciones del Producto
 
-1. Clonar el proyecto:
-```bash
-git clone https://github.com/florinasamoila/vetappointment.git
-cd vetappointment/back-front
-```
+1. Crear, modificar y eliminar citas médicas.
+2. Registrar y consultar historiales clínicos completos.
+3. Gestionar veterinarios y sus horarios.
+4. Agenda visual diaria, semanal y mensual.
+5. Control de acceso por roles.
+6. Compatibilidad con dispositivos de escritorio y móviles.
 
-2. Configurar `.env` en `backend` con la URI de MongoDB Atlas
+## Diseño
 
+### Diagramas de Navegación (User Flow)
 
-3. Instalar dependencias e iniciar backend:
-```bash
-cd backend
-npm install
-npm run start:dev
-```
+![User Flow](docs/images/user-flow.png)
 
-4. Iniciar frontend:
-```bash
-cd ../frontend
-npm install
-ng serve
-```
+Flujo de tareas principales: login → gestión de pacientes → programación de cita → registro de diagnóstico.
 
----
+### Wireframes
 
-## ✅ Conclusiones
+#### Fidelidad Baja
 
-VetAppointment ha logrado:
-- Desarrollar una solución modular, escalable y usable.
-- Optimizar la gestión de datos clínicos y de agenda.
-- Mejorar la organización interna del trabajo veterinario.
+![Wireframe Baja Fidelidad](docs/images/wireframe-low.png)
 
----
+Bosquejo inicial en papel para definir estructura y jerarquía de elementos.
 
-## 🌱 Líneas de Futuro
+#### Fidelidad Media
 
-- Módulo completo de **facturación** con generación de comprobantes.
-- **Notificaciones** internas, por email o SMS.
-- **Dashboard** de estadísticas y rendimiento clínico.
-- **Gestión de stock** de medicamentos e insumos.
-- **Backups automáticos** y funcionalidades de recuperación.
-- **Internacionalización (i18n)** para múltiples idiomas.
+![Wireframe Media Fidelidad](docs/images/wireframe-medium.png)
 
----
+Prototipo digital con componentes básicos y navegación definida.
 
+#### Fidelidad Alta
+
+![Wireframe Alta Fidelidad](docs/images/wireframe-high.png)
+
+Diseño final con tipografía, colores y elementos de UI reales.
+
+## Desarrollo
+
+### Arquitectura de la Aplicación
+
+**Frontend:** Angular v14 modularizado en CoreModule, SharedModule y módulos funcionales (Clientes, Mascotas, Citas, Facturación, Historial Médico, Servicios, Veterinarios). Estilos con Angular Material.
+
+**Backend:** NestJS con módulos específicos para cada entidad, validación con class-validator y documentación via Swagger.
+
+**Base de Datos:** PostgreSQL con Sequelize ORM (migraciones y seeders).
+
+### Herramientas de Desarrollo
+
+* Visual Studio Code
+* Git & GitHub
+* Postman
+* Figma
+* Angular CLI & Nest CLI
+
+### Tecnologías Utilizadas
+
+| Capa       | Tecnología / Biblioteca   | Uso Principal                            |
+| ---------- | ------------------------- | ---------------------------------------- |
+| Frontend   | Angular, Ionic, Bootstrap | SPA y responsive móvil/web               |
+| Backend    | NestJS (TypeScript)       | API REST y lógica de negocio             |
+| Base Datos | PostgreSQL, Sequelize     | Almacenamiento relacional                |
+| Seguridad  | JWT, Bcrypt               | Autenticación y cifrado de contraseñas   |
+| Otros      | RxJS, Angular Forms       | Manejo reactivo y gestión de formularios |
+
+### Modelo de Datos
+
+![Diagrama ER](docs/images/erd.png)
+
+Entidades principales: Cliente ↔ Mascota → Historial Médico → Entrada Historial; Veterinario ↔ Cita; Servicio Prestado.
+
+## Despliegue
+
+1. Clonar repositorio: `git clone https://github.com/tu-org/vetappointment.git`
+2. Configurar `.env` con credenciales de base de datos.
+3. Instalar dependencias:
+
+   ```bash
+   npm install
+   cd backend && npm install
+   ```
+4. Ejecutar migraciones y seeders:
+
+   ```bash
+   npm run migrate:up
+   npm run seed:run
+   ```
+5. Iniciar servidores:
+
+   ```bash
+   npm run start:dev      # Frontend
+   cd backend && npm run start:dev # Backend
+   ```
+
+## Conclusiones
+
+VetAppointment ofrece una solución moderna y eficiente para la gestión interna de clínicas veterinarias, con una arquitectura escalable y una interfaz enfocada en mejorar la productividad del personal.
+
+## Líneas de Futuro
+
+* Módulo completo de facturación y generación de comprobantes.
+* Notificaciones por email/SMS para recordatorios de citas.
+* Dashboard de métricas clínicas.
+* Gestión de stock médico.
+* Internacionalización (i18n).
+* Backups automáticos y herramientas de recuperación.

@@ -7,21 +7,13 @@ export enum EstadoCita {
 
 // src/veterinaria/dto/create-cita.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsDateString,
-  IsEnum,
-  IsMongoId,
-  IsNotEmpty,
-  IsOptional,
-  IsString
-} from 'class-validator';
-
+import { IsDateString, IsEnum, IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateCitaDto {
   @ApiProperty({
     description: 'Fecha y hora de la cita en formato ISO 8601',
     type: String,
-    format: 'date-time'
+    format: 'date-time',
   })
   @IsDateString()
   fechaHora: string;
@@ -34,7 +26,7 @@ export class CreateCitaDto {
   @ApiProperty({
     description: 'Estado de la cita',
     enum: EstadoCita,
-    example: EstadoCita.Programada
+    example: EstadoCita.Programada,
   })
   @IsEnum(EstadoCita)
   estado: EstadoCita;

@@ -5,7 +5,7 @@ import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
 export class CreateVeterinarioDto {
   @ApiProperty({
     description: 'Nombre del veterinario',
-    example: 'Juan'
+    example: 'Juan',
   })
   @IsString()
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class CreateVeterinarioDto {
 
   @ApiProperty({
     description: 'Apellido del veterinario',
-    example: 'Pérez'
+    example: 'Pérez',
   })
   @IsString()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class CreateVeterinarioDto {
 
   @ApiProperty({
     description: 'Especialidad del veterinario',
-    example: 'Dermatología'
+    example: 'Dermatología',
   })
   @IsString()
   @IsNotEmpty()
@@ -29,7 +29,7 @@ export class CreateVeterinarioDto {
 
   @ApiProperty({
     description: 'Correo electrónico del veterinario',
-    example: 'juan.perez@veterinaria.com'
+    example: 'juan.perez@veterinaria.com',
   })
   @IsEmail()
   @IsNotEmpty()
@@ -37,7 +37,7 @@ export class CreateVeterinarioDto {
 
   @ApiProperty({
     description: 'Teléfono de contacto del veterinario',
-    example: '+34 600 123 456'
+    example: '+34 600 123 456',
   })
   @IsString()
   @IsNotEmpty()

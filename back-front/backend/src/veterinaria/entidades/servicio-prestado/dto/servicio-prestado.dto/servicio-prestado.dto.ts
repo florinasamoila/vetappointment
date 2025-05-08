@@ -6,7 +6,7 @@ import { IsString, IsNotEmpty, IsNumber, Min } from 'class-validator';
 export class ServicioPrestadoDto {
   @ApiProperty({
     description: 'ID del servicio (ObjectId)',
-    example: '60f7b2d5a1234b00123c4590'
+    example: '60f7b2d5a1234b00123c4590',
   })
   @IsString()
   @IsNotEmpty()
@@ -14,7 +14,7 @@ export class ServicioPrestadoDto {
 
   @ApiProperty({
     description: 'Nombre del servicio',
-    example: 'Consulta General'
+    example: 'Consulta General',
   })
   @IsString()
   @IsNotEmpty()
@@ -22,7 +22,7 @@ export class ServicioPrestadoDto {
 
   @ApiProperty({
     description: 'Descripción detallada del servicio',
-    example: 'Consulta médica general para chequeo de salud'
+    example: 'Consulta médica general para chequeo de salud',
   })
   @IsString()
   @IsNotEmpty()
@@ -30,7 +30,7 @@ export class ServicioPrestadoDto {
 
   @ApiProperty({
     description: 'Costo del servicio en la moneda local',
-    example: 25.50
+    example: 25.5,
   })
   @IsNumber()
   @Min(0)

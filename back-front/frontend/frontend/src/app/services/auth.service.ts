@@ -7,17 +7,19 @@ export class AuthService {
   private readonly STORAGE_KEY = 'vetapp_user';
 
   // Credenciales fijas
-  private readonly expectedEmail    = 'admin@vetappointment.com';
+  private readonly expectedEmail = 'admin@vetappointment.com';
   private readonly expectedPassword = 'vetAPPointment01';
 
   private _isLoggedIn = new BehaviorSubject<boolean>(this.hasStoredUser());
-  private _userEmail  = new BehaviorSubject<string|null>(this.getStoredEmail());
+  private _userEmail = new BehaviorSubject<string | null>(
+    this.getStoredEmail()
+  );
 
   /** Exponen observables para quienes se suscriban */
   get isLoggedIn$(): Observable<boolean> {
     return this._isLoggedIn.asObservable();
   }
-  get userEmail$(): Observable<string|null> {
+  get userEmail$(): Observable<string | null> {
     return this._userEmail.asObservable();
   }
 
@@ -48,7 +50,7 @@ export class AuthService {
   }
 
   /** Recupera el email registrado en localStorage */
-  private getStoredEmail(): string|null {
+  private getStoredEmail(): string | null {
     return localStorage.getItem(this.STORAGE_KEY);
   }
 }

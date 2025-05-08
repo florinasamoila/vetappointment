@@ -21,47 +21,58 @@ import { VeterinarioController } from './entidades/veterinario/controller/veteri
 import { VeterinarioSchema } from './entidades/veterinario/schemas/veterinario.schema/veterinario.schema';
 import { VeterinarioService } from './entidades/veterinario/service/veterinario.service';
 
-
-
 @Module({
   imports: [
-    MongooseModule.forFeature(
-      [
-        {
-          name: 'Cita',
-          schema: CitaSchema,
-          collection: 'cita'
-        },
-        {
-          name: 'Cliente',
-          schema: ClienteSchema,
-          collection: 'cliente'
-        },
+    MongooseModule.forFeature([
+      {
+        name: 'Cita',
+        schema: CitaSchema,
+        collection: 'cita',
+      },
+      {
+        name: 'Cliente',
+        schema: ClienteSchema,
+        collection: 'cliente',
+      },
 
-        {
-          name: 'HistorialMedico',
-          schema: HistorialMedicoSchema,
-          collection: 'historialMedico'
-        },
-        {
-          name: 'Mascota',
-          schema: MascotaSchema,
-          collection: 'mascota'
-        },
-        {
-          name: 'ServicioPrestado',
-          schema: ServicioPrestadoSchema,
-          collection: 'servicioPrestado'
-        },
-        {
-          name: 'Veterinario',
-          schema: VeterinarioSchema,
-          collection: 'veterinario'
-        }
-      ]
-    )
+      {
+        name: 'HistorialMedico',
+        schema: HistorialMedicoSchema,
+        collection: 'historialMedico',
+      },
+      {
+        name: 'Mascota',
+        schema: MascotaSchema,
+        collection: 'mascota',
+      },
+      {
+        name: 'ServicioPrestado',
+        schema: ServicioPrestadoSchema,
+        collection: 'servicioPrestado',
+      },
+      {
+        name: 'Veterinario',
+        schema: VeterinarioSchema,
+        collection: 'veterinario',
+      },
+    ]),
   ],
-  providers: [ AppGateway, CitaService, ClienteService, HistorialMedicoService, MascotaService, ServicioPrestadoService, VeterinarioService],
-  controllers: [CitaController, ClienteController, HistorialMedicoController, MascotaController, ServicioPrestadoController, VeterinarioController],
+  providers: [
+    AppGateway,
+    CitaService,
+    ClienteService,
+    HistorialMedicoService,
+    MascotaService,
+    ServicioPrestadoService,
+    VeterinarioService,
+  ],
+  controllers: [
+    CitaController,
+    ClienteController,
+    HistorialMedicoController,
+    MascotaController,
+    ServicioPrestadoController,
+    VeterinarioController,
+  ],
 })
 export class VeterinariaModule {}

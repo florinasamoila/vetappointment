@@ -19,18 +19,16 @@ import { UpdateClienteDto } from '../dto/update-cliente.dto/update-cliente.dto';
 @Injectable()
 export class ClienteService {
   clienteService: any;
-    constructor(
-        @InjectModel('Cliente') private clienteModel: Model<Cliente>,
-        @InjectModel('Mascota') private mascotaModel: Model<Mascota>,
-        @InjectModel('Cita') private citaModel: Model<Cita>,
+  constructor(
+    @InjectModel('Cliente') private clienteModel: Model<Cliente>,
+    @InjectModel('Mascota') private mascotaModel: Model<Mascota>,
+    @InjectModel('Cita') private citaModel: Model<Cita>,
 
-        @InjectModel('HistorialMedico') private historialMedicoModel: Model<HistorialMedico>,
-        @InjectModel('ServicioPrestado') private servicioPrestadoModel: Model<ServicioPrestado>,
-        @InjectModel('Veterinario') private veterinarioModel: Model<Veterinario>,
-        private readonly gateway: AppGateway 
-    ) {}
-
-
+    @InjectModel('HistorialMedico') private historialMedicoModel: Model<HistorialMedico>,
+    @InjectModel('ServicioPrestado') private servicioPrestadoModel: Model<ServicioPrestado>,
+    @InjectModel('Veterinario') private veterinarioModel: Model<Veterinario>,
+    private readonly gateway: AppGateway,
+  ) {}
 
   //-- CLIENTES - CRUD---------------------------------------------------------------------------------------------------------------
   //-- 1. Crear cliente con mascotas ------------------------------------------------------------------------------------------------
@@ -67,9 +65,7 @@ export class ClienteService {
           }
         }
         if (nuevasMascotas.length) {
-          clienteExistente.mascotas.push(
-            ...nuevasMascotas.map(id => id.toString())
-          );
+          clienteExistente.mascotas.push(...nuevasMascotas.map((id) => id.toString()));
           await clienteExistente.save();
         }
       }
@@ -101,7 +97,7 @@ export class ClienteService {
         });
         await historialMedico.save();
       }
-      cliente.mascotas.push(...nuevasMascotas.map(id => id.toString()));
+      cliente.mascotas.push(...nuevasMascotas.map((id) => id.toString()));
       await cliente.save();
     }
 
@@ -111,108 +107,106 @@ export class ClienteService {
     return dto;
   }
 
-
-
-// 2. Encuentra a todos los clientes
-async findAllClientes(): Promise<Cliente[]> {
-  const clientes = await this.clienteModel.find().exec();
-  this.gateway.server.emit('clientesList', clientes);
-  return clientes;
-}
-
-// 3. Busca clientes por nombre, apellido, email o teléfono
-async findClientByName(search: string): Promise<Cliente[]> {
-  if (!search?.trim()) {
-    this.gateway.server.emit('clientesSearch', []);
-    return [];
-  }
-  const clientes = await this.clienteModel.find({
-    $or: [
-      { nombre:   { $regex: search, $options: 'i' } },
-      { apellido:{ $regex: search, $options: 'i' } },
-      { email:   { $regex: search, $options: 'i' } },
-      { telefono:{ $regex: search, $options: 'i' } },
-    ]
-  }).exec();
-  this.gateway.server.emit('clientesSearch', clientes);
-  return clientes;
-}
-
-// 4. Obtiene un cliente por ID junto con sus mascotas
-async findClienteById(id: string): Promise<ClienteDto> {
-  const cliente = await this.clienteModel
-    .findById(id)
-    .populate('mascotas')
-    .exec();
-
-  if (!cliente) {
-    throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+  // 2. Encuentra a todos los clientes
+  async findAllClientes(): Promise<Cliente[]> {
+    const clientes = await this.clienteModel.find().exec();
+    this.gateway.server.emit('clientesList', clientes);
+    return clientes;
   }
 
-  const dto: ClienteDto = {
-    _id: cliente._id.toString(),
-    nombre: cliente.nombre,
-    apellido: cliente.apellido,
-    email: cliente.email,
-    telefono: cliente.telefono,
-    direccion: cliente.direccion,
-    mascotas: cliente.mascotas.map((m: any) => ({
-      _id: m._id.toString(),
-      nombre: m.nombre,
-      especie: m.especie,
-      raza: m.raza,
-      edad: m.edad,
-      sexo: m.sexo,
-      color: m.color,
-      peso: m.peso,
-      observaciones: m.observaciones,
-      cliente: m.cliente.toString(),
-    })),
-  };
-
-  this.gateway.server.emit('clienteDetail', dto);
-  return dto;
-}
-
-// 5. Actualiza un cliente por ID
-async updateCliente(id: string, updateClienteDto: UpdateClienteDto): Promise<Cliente> {
-  const clienteActualizado = await this.clienteModel.findByIdAndUpdate(id, updateClienteDto, { new: true });
-  if (!clienteActualizado) {
-    throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+  // 3. Busca clientes por nombre, apellido, email o teléfono
+  async findClientByName(search: string): Promise<Cliente[]> {
+    if (!search?.trim()) {
+      this.gateway.server.emit('clientesSearch', []);
+      return [];
+    }
+    const clientes = await this.clienteModel
+      .find({
+        $or: [
+          { nombre: { $regex: search, $options: 'i' } },
+          { apellido: { $regex: search, $options: 'i' } },
+          { email: { $regex: search, $options: 'i' } },
+          { telefono: { $regex: search, $options: 'i' } },
+        ],
+      })
+      .exec();
+    this.gateway.server.emit('clientesSearch', clientes);
+    return clientes;
   }
-  this.gateway.server.emit('clienteUpdated', clienteActualizado);
-  return clienteActualizado;
-}
 
-// 6. Elimina un cliente por ID
-async deleteCliente(id: string): Promise<Cliente> {
-  const clienteEliminado = await this.clienteModel.findByIdAndDelete(id).exec();
-  if (!clienteEliminado) {
-    throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+  // 4. Obtiene un cliente por ID junto con sus mascotas
+  async findClienteById(id: string): Promise<ClienteDto> {
+    const cliente = await this.clienteModel.findById(id).populate('mascotas').exec();
+
+    if (!cliente) {
+      throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+    }
+
+    const dto: ClienteDto = {
+      _id: cliente._id.toString(),
+      nombre: cliente.nombre,
+      apellido: cliente.apellido,
+      email: cliente.email,
+      telefono: cliente.telefono,
+      direccion: cliente.direccion,
+      mascotas: cliente.mascotas.map((m: any) => ({
+        _id: m._id.toString(),
+        nombre: m.nombre,
+        especie: m.especie,
+        raza: m.raza,
+        edad: m.edad,
+        sexo: m.sexo,
+        color: m.color,
+        peso: m.peso,
+        observaciones: m.observaciones,
+        cliente: m.cliente.toString(),
+      })),
+    };
+
+    this.gateway.server.emit('clienteDetail', dto);
+    return dto;
   }
-  this.gateway.server.emit('clienteDeleted', clienteEliminado);
-  return clienteEliminado;
-}
 
-// 7. Elimina múltiples clientes en cascada
-async deleteMultipleClientes(ids: string[]): Promise<Cliente[]> {
-  const clientesToDelete = await this.clienteModel.find({ _id: { $in: ids } }).exec();
-  if (!clientesToDelete.length) {
-    throw new NotFoundException('No se encontraron clientes para eliminar.');
+  // 5. Actualiza un cliente por ID
+  async updateCliente(id: string, updateClienteDto: UpdateClienteDto): Promise<Cliente> {
+    const clienteActualizado = await this.clienteModel.findByIdAndUpdate(id, updateClienteDto, {
+      new: true,
+    });
+    if (!clienteActualizado) {
+      throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+    }
+    this.gateway.server.emit('clienteUpdated', clienteActualizado);
+    return clienteActualizado;
   }
-  const mascotas = await this.mascotaModel.find({ cliente: { $in: ids } }).exec();
-  const mascotaIds = mascotas.map(m => m._id);
-  await this.citaModel.deleteMany({
-    $or: [
-      { cliente: { $in: ids } },
-      { mascota: { $in: mascotaIds } }
-    ]
-  }).exec();
-  await this.historialMedicoModel.deleteMany({ mascotaID: { $in: mascotaIds } }).exec();
-  await this.mascotaModel.deleteMany({ cliente: { $in: ids } }).exec();
-  await this.clienteModel.deleteMany({ _id: { $in: ids } }).exec();
 
-  this.gateway.server.emit('clientesDeleted', clientesToDelete);
-  return clientesToDelete;
-}
+  // 6. Elimina un cliente por ID
+  async deleteCliente(id: string): Promise<Cliente> {
+    const clienteEliminado = await this.clienteModel.findByIdAndDelete(id).exec();
+    if (!clienteEliminado) {
+      throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+    }
+    this.gateway.server.emit('clienteDeleted', clienteEliminado);
+    return clienteEliminado;
+  }
+
+  // 7. Elimina múltiples clientes en cascada
+  async deleteMultipleClientes(ids: string[]): Promise<Cliente[]> {
+    const clientesToDelete = await this.clienteModel.find({ _id: { $in: ids } }).exec();
+    if (!clientesToDelete.length) {
+      throw new NotFoundException('No se encontraron clientes para eliminar.');
+    }
+    const mascotas = await this.mascotaModel.find({ cliente: { $in: ids } }).exec();
+    const mascotaIds = mascotas.map((m) => m._id);
+    await this.citaModel
+      .deleteMany({
+        $or: [{ cliente: { $in: ids } }, { mascota: { $in: mascotaIds } }],
+      })
+      .exec();
+    await this.historialMedicoModel.deleteMany({ mascotaID: { $in: mascotaIds } }).exec();
+    await this.mascotaModel.deleteMany({ cliente: { $in: ids } }).exec();
+    await this.clienteModel.deleteMany({ _id: { $in: ids } }).exec();
+
+    this.gateway.server.emit('clientesDeleted', clientesToDelete);
+    return clientesToDelete;
+  }
 }
