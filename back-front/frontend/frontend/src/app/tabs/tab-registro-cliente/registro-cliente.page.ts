@@ -344,7 +344,11 @@ export class TabRegistroCliente implements OnInit {
       caracteristicas: d.mascotaCaracteristicas
     };
     this.http.put(`${this.apiUrl}/mascotas/${this.mascotaIdParam}`, payload).subscribe({
-      next: () => this.mostrarToast('Mascota actualizada', 'success'),
+      next: () => {
+        this.mostrarToast('Mascota actualizada', 'success');
+        // Volver a la página anterior
+        this.navCtrl.back();
+      },
       error: () => this.mostrarToast('Error actualizando mascota', 'danger')
     });
   }
@@ -369,5 +373,6 @@ export class TabRegistroCliente implements OnInit {
     this.mascotaIdParam = undefined;
     this.modoCliente = 'nuevo';
     this.mostrarToast('Operación cancelada', 'warning');
+    this.navCtrl.back();
   }
 }

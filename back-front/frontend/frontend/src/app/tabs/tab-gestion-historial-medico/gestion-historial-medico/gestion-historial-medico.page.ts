@@ -25,7 +25,8 @@ import { FormularioEntradaHistorialComponent } from 'src/app/components/formular
     IonicModule,
     HttpClientModule,
     HeaderComponent,
-    FormularioEntradaHistorialComponent
+    FormularioEntradaHistorialComponent,
+    
   ]
 })
 export class GestionHistorialMedicoPage implements OnInit {
@@ -84,18 +85,22 @@ export class GestionHistorialMedicoPage implements OnInit {
 
   seleccionarCliente(c: any) {
     this.clienteSeleccionado = c;
+    // Limpio la búsqueda anterior
+    this.clientesFiltrados = [];
+    
     this.mascotaSeleccionada = null;
     this.historialMedico = null;
     this.mesesDisponibles = [];
     this.mesSeleccionado = '';
     this.entradasFiltradas = [];
-
+  
     this.http.get<any[]>(`${this.apiUrl}/clientes/${c._id}/mascotas`)
       .subscribe(
         m => this.mascotasDelCliente = m,
         () => this.presentToast('Error cargando mascotas', 'danger')
       );
   }
+  
 
   cargarHistorial() {
     if (!this.mascotaSeleccionada) return;

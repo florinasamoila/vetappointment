@@ -6,121 +6,14 @@
   ion-content {
     flex: 1;
     --padding-start: 16px;
-    --padding-end:   16px;
-    --padding-top:   16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
     --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
   }
 
-  /***** CONTENEDORES TRANSPARENTES *****/
-  ion-card,
-  ion-list {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  /***** INPUTS UNIFICADOS *****/
-  ion-input {
-    /* Custom Properties oficiales de Ion-Input */
-    --background: transparent;
-    --padding-top:    0.66em;
-    --padding-bottom: 0.66em;
-    --padding-start:  0.8em;
-    --padding-end:    0.8em;
-
-    --color:               var(--ion-color-dark);
-    --placeholder-color:   var(--ion-color-medium);
-    --placeholder-opacity: 0.6;
-
-    --min-height: 2.4em;
-    --caret-color: var(--ion-color-primary);
-
-    /* bordes redondeados y border custom */
-    border-radius: 999px;
-    --border-width: 1px;
-    --border-style: solid;
-    --border-color: var(--ion-color-light);
-
-    /* espacio entre inputs */
-    margin-bottom: 20px;
-
-    /* transición suave */
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
-    /* foco: azul + sombra ligera */
-    &:focus-within {
-      --border-color: var(--ion-color-primary);
-      box-shadow: 0 2px 6px rgba(var(--ion-color-primary-rgb), 0.15);
-    }
-
-    /* error: rojo si está tocado e inválido */
-    &.ng-touched.ng-invalid:not(:focus-within) {
-      --border-color: var(--ion-color-danger);
-      box-shadow: none;
-    }
-
-    /* disabled: atenuado */
-    &:disabled {
-      --border-color: var(--ion-color-medium);
-      opacity: 0.6;
-    }
-
-    /* animación de label interno */
-    &::part(label) {
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-    &:focus-within::part(label) {
-      transform: translateY(-6px) scale(0.95);
-      color: var(--ion-color-primary);
-    }
-  }
-
-  /***** OCULTAR H2 GLOBAL (si no lo has borrado del HTML) *****/
-  ion-content > h2 {
-    display: none;
-  }
-
-  /***** TÍTULOS ALINEADOS EN CADA COLUMNA *****/
-  ion-col > h3 {
-    margin: 0 0 16px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--ion-color-dark);
-  }
-  ion-grid > ion-row:first-child {
-    align-items: flex-start;
+  /* Espacio entre campos para inputs y selects */
+  ion-input,
+  ion-select {
     margin-bottom: 24px;
-  }
-
-  /***** BOTONES “LIFT” & HEADER COLOR *****/
-  .action-buttons {
-    margin-bottom: env(safe-area-inset-bottom);
-
-    ion-button {
-      --background: var(--ion-color-primary);
-      --color: #fff;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(var(--ion-color-primary-rgb), 0.3);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.4);
-      }
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 1px 3px rgba(var(--ion-color-primary-rgb), 0.2);
-      }
-    }
-
-    ion-button[fill="outline"] {
-      --border-color: var(--ion-color-primary);
-      --color: var(--ion-color-primary);
-      transition: background 0.2s ease;
-
-      &:hover {
-        background: rgba(var(--ion-color-primary-rgb), 0.1);
-      }
-    }
   }
 }
