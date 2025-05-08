@@ -89,25 +89,25 @@ En España operan más de 7 100 clínicas veterinarias distribuidas por todo el
 
 **Por modelo de despliegue:**
 
-Cloud/SaaS (~60%): escalado sencillo y coste inicial bajo.
+**Cloud/SaaS (~60%):** escalado sencillo y coste inicial bajo.
 
-Instalado (Windows/Linux): preferido por clínicas con infraestructura TI propia.
+**Instalado (Windows/Linux):** preferido por clínicas con infraestructura TI propia.
 
-Público Objetivo y Perfiles de Usuario
+## Público Objetivo y Perfiles de Usuario##
 
-Recepcionistas: Gestionan citas y vinculan mascotas con propietarios.
+* Recepcionistas: Gestionan citas y vinculan mascotas con propietarios.
 
-Veterinarios: Acceden y actualizan el historial clínico, consultan su agenda.
+* Veterinarios: Acceden y actualizan el historial clínico, consultan su agenda.
 
-Administradores: Gestionan usuarios, supervisan estadísticas y salud del sistema.
+* Administradores: Gestionan usuarios, supervisan estadísticas y salud del sistema.
 
-Competencia
+# Competencia#
 
-VetWin: Completo, pero interfaz anticuada y curva de aprendizaje elevada.
+* VetWin: Completo, pero interfaz anticuada y curva de aprendizaje elevada.
 
-ClinicCloud: Basado en la nube, con coste mensual y funcionalidades genéricas.
+* ClinicCloud: Basado en la nube, con coste mensual y funcionalidades genéricas.
 
-GestVet: Sencillo, pero limitado en personalización y escalabilidad.
+* GestVet: Sencillo, pero limitado en personalización y escalabilidad.
 
 VetAppointment destaca por ser modular, escalable y sin costes de licencia, aprovechando software libre.
 
