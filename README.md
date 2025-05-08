@@ -65,35 +65,35 @@ En España operan más de 7 100 clínicas veterinarias distribuidas por todo el
 
 **Tamaño y Crecimiento del Mercado de Software**
 
-**Global:** el mercado mundial de software veterinario se estima en USD 1,85 mil millones para 2025, con una tasa de crecimiento anual compuesta (CAGR) del 6,1% hasta 2030.
+* Global: el mercado mundial de software veterinario se estima en USD 1,85 mil millones para 2025, con una tasa de crecimiento anual compuesta (CAGR) del 6,1% hasta 2030.
 
-**España:** aunque no hay datos públicos detallados, se estima que el gasto en software de gestión representa el 1 – 2% de la facturación clínica anual, lo que supondría un mercado de 26 – 52 millones de euros en 2023, con un crecimiento anual cercano al 6 – 7%.
+* España: aunque no hay datos públicos detallados, se estima que el gasto en software de gestión representa el 1 – 2% de la facturación clínica anual, lo que supondría un mercado de 26 – 52 millones de euros en 2023, con un crecimiento anual cercano al 6 – 7%.
 
 **Factores Impulsores**
 
-**Humanización de las mascotas:** el censo de perros supera los 9,29 millones y el de gatos los 1,6 millones, creando demanda de servicios veterinarios especializados.
+* Humanización de las mascotas: el censo de perros supera los 9,29 millones y el de gatos los 1,6 millones, creando demanda de servicios veterinarios especializados.
 
-**Normativa y trazabilidad:** nuevas regulaciones sobre receta electrónica y dispensación de fármacos exigen sistemas que garanticen el cumplimiento legal.
+* Normativa y trazabilidad: nuevas regulaciones sobre receta electrónica y dispensación de fármacos exigen sistemas que garanticen el cumplimiento legal.
 
-**Digitalización post-COVID:** aumento de teleconsulta y gestión remota, favoreciendo soluciones en la nube y acceso multi-dispositivo.
+* Digitalización post-COVID: aumento de teleconsulta y gestión remota, favoreciendo soluciones en la nube y acceso multi-dispositivo.
 
 **Segmentación del Mercado**
 
 **Por tamaño de clínica:**
 
-**Pequeñas (1–2 veterinarios):** soluciones SaaS desde 25–50 €/mes.
+* Pequeñas (1–2 veterinarios): soluciones SaaS desde 25–50 €/mes.
 
-**Medianas (3–5 veterinarios):** paquetes con facturación avanzada, CRM y agendas compartidas.
+* Medianas (3–5 veterinarios): paquetes con facturación avanzada, CRM y agendas compartidas.
 
-**Grandes (>5 veterinarios):** sistemas on-premise personalizables e integraciones con laboratorio y ERP.
+* Grandes (>5 veterinarios): sistemas on-premise personalizables e integraciones con laboratorio y ERP.
 
 **Por modelo de despliegue:**
 
-**Cloud/SaaS (~60%):** escalado sencillo y coste inicial bajo.
+* Cloud/SaaS (~60%): escalado sencillo y coste inicial bajo.
 
-**Instalado (Windows/Linux):** preferido por clínicas con infraestructura TI propia.
+* Instalado (Windows/Linux): preferido por clínicas con infraestructura TI propia.
 
-## Público Objetivo y Perfiles de Usuario##
+## Público Objetivo y Perfiles de Usuario
 
 * Recepcionistas: Gestionan citas y vinculan mascotas con propietarios.
 
@@ -101,7 +101,7 @@ En España operan más de 7 100 clínicas veterinarias distribuidas por todo el
 
 * Administradores: Gestionan usuarios, supervisan estadísticas y salud del sistema.
 
-# Competencia#
+# Competencia
 
 * VetWin: Completo, pero interfaz anticuada y curva de aprendizaje elevada.
 
