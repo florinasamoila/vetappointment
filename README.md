@@ -61,53 +61,42 @@ VetAppointment es una aplicación diseñada para uso exclusivo del personal clí
 ## Análisis de Mercado en España
 
 **Panorama General**
-En España operan más de 7 100 clínicas veterinarias distribuidas por todo el territorio, con Madrid, Barcelona, Valencia, Alicante, Málaga y Sevilla a la cabeza en número de centros. El sector de animales de compañía facturó 2 613 millones de euros en 2023, con un crecimiento interanual del 8,3%.
+En España operan más de **7 100** clínicas veterinarias distribuidas por todo el territorio, con Madrid, Barcelona, Valencia, Alicante, Málaga y Sevilla a la cabeza en número de centros. El sector de animales de compañía facturó **2 613 millones de euros** en 2023, con un crecimiento interanual del **8,3%**.
 
-**Tamaño y Crecimiento del Mercado de Software**
+### Tamaño y Crecimiento del Mercado de Software
 
-* Global: el mercado mundial de software veterinario se estima en USD 1,85 mil millones para 2025, con una tasa de crecimiento anual compuesta (CAGR) del 6,1% hasta 2030.
+* **Global:** el mercado mundial de software veterinario se estima en **USD 1,85 mil millones** para 2025, con una tasa de crecimiento anual compuesta (CAGR) del **6,1%** hasta 2030.
+* **España:** aunque no hay datos públicos detallados, se estima que el gasto en software de gestión representa el **1 – 2%** de la facturación clínica anual, lo que supondría un mercado de **26 – 52 millones de euros** en 2023, con un crecimiento anual cercano al **6 – 7%**.
 
-* España: aunque no hay datos públicos detallados, se estima que el gasto en software de gestión representa el 1 – 2% de la facturación clínica anual, lo que supondría un mercado de 26 – 52 millones de euros en 2023, con un crecimiento anual cercano al 6 – 7%.
+### Factores Impulsores
 
-**Factores Impulsores**
+1. **Humanización de las mascotas:** el censo de perros supera los **9,29 millones** y el de gatos los **1,6 millones**, creando demanda de servicios veterinarios especializados.
+2. **Normativa y trazabilidad:** nuevas regulaciones sobre receta electrónica y dispensación de fármacos exigen sistemas que garanticen el cumplimiento legal.
+3. **Digitalización post-COVID:** aumento de teleconsulta y gestión remota, favoreciendo soluciones en la nube y acceso multi-dispositivo.
 
-* Humanización de las mascotas: el censo de perros supera los 9,29 millones y el de gatos los 1,6 millones, creando demanda de servicios veterinarios especializados.
+### Segmentación del Mercado
 
-* Normativa y trazabilidad: nuevas regulaciones sobre receta electrónica y dispensación de fármacos exigen sistemas que garanticen el cumplimiento legal.
+* **Por tamaño de clínica:**
 
-* Digitalización post-COVID: aumento de teleconsulta y gestión remota, favoreciendo soluciones en la nube y acceso multi-dispositivo.
+  * **Pequeñas (1–2 veterinarios):** soluciones SaaS desde **25–50 €/mes**.
+  * **Medianas (3–5 veterinarios):** paquetes con facturación avanzada, CRM y agendas compartidas.
+  * **Grandes (>5 veterinarios):** sistemas on-premise personalizables e integraciones con laboratorio y ERP.
+* **Por modelo de despliegue:**
 
-**Segmentación del Mercado**
+  * **Cloud/SaaS (\~60%):** escalado sencillo y coste inicial bajo.
+  * **Instalado (Windows/Linux):** preferido por clínicas con infraestructura TI propia.
 
-**Por tamaño de clínica:**
+### Público Objetivo y Perfiles de Usuario
 
-* Pequeñas (1–2 veterinarios): soluciones SaaS desde 25–50 €/mes.
+* **Recepcionistas:** Gestionan citas y vinculan mascotas con propietarios.
+* **Veterinarios:** Acceden y actualizan el historial clínico, consultan su agenda.
+* **Administradores:** Gestionan usuarios, supervisan estadísticas y salud del sistema.
 
-* Medianas (3–5 veterinarios): paquetes con facturación avanzada, CRM y agendas compartidas.
+### Competencia
 
-* Grandes (>5 veterinarios): sistemas on-premise personalizables e integraciones con laboratorio y ERP.
-
-**Por modelo de despliegue:**
-
-* Cloud/SaaS (~60%): escalado sencillo y coste inicial bajo.
-
-* Instalado (Windows/Linux): preferido por clínicas con infraestructura TI propia.
-
-## Público Objetivo y Perfiles de Usuario
-
-* Recepcionistas: Gestionan citas y vinculan mascotas con propietarios.
-
-* Veterinarios: Acceden y actualizan el historial clínico, consultan su agenda.
-
-* Administradores: Gestionan usuarios, supervisan estadísticas y salud del sistema.
-
-# Competencia
-
-* VetWin: Completo, pero interfaz anticuada y curva de aprendizaje elevada.
-
-* ClinicCloud: Basado en la nube, con coste mensual y funcionalidades genéricas.
-
-* GestVet: Sencillo, pero limitado en personalización y escalabilidad.
+* **VetWin:** Completo, pero interfaz anticuada y curva de aprendizaje elevada.
+* **ClinicCloud:** Basado en la nube, con coste mensual y funcionalidades genéricas.
+* **GestVet:** Sencillo, pero limitado en personalización y escalabilidad.
 
 VetAppointment destaca por ser modular, escalable y sin costes de licencia, aprovechando software libre.
 
