@@ -1,177 +1,30 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  
-    ion-content {
-      flex: 1;
-      --padding-start: 16px;
-      --padding-end:   16px;
-      --padding-top:   16px;
-      --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
-    }
-  
-    /***** FILTROS *****/
-    .filtros-container {
-      margin-bottom: 24px;
-    }
-    .filtros-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .campo {
-      display: flex;
-      flex-direction: column;
-  
-      label {
-        margin-bottom: 8px;
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: var(--ion-color-dark);
-      }
-    }
-  
-    /***** CONTENEDORES TRANSPARENTES *****/
-    ion-list {
-      background: transparent !important;
-      box-shadow: none !important;
-      border: none !important;
-    }
-    ion-item {
-      --background: transparent;
-      --inner-padding-start: 0;
-      --inner-padding-end:   0;
-      border: none;
-      border-bottom: 1px solid var(--ion-color-light);
-      transition: background 0.2s ease, box-shadow 0.2s ease;
-  
-      &:hover {
-        background: rgba(var(--ion-color-primary-rgb), 0.03);
-      }
-    }
-  
-    /***** INPUTS & SELECTS UNIFICADOS *****/
-    ion-input,
-    ion-select {
-      /* Custom Properties */
-      --background: transparent;
-      --padding-top:    0.66em;
-      --padding-bottom: 0.66em;
-      --padding-start:  0.8em;
-      --padding-end:    0.8em;
-  
-      --color:               var(--ion-color-dark);
-      --placeholder-color:   var(--ion-color-medium);
-      --placeholder-opacity: 0.6;
-  
-      --min-height: 2.4em;
-      --caret-color: var(--ion-color-primary);
-  
-      border-radius: 999px;
-      --border-width: 1px;
-      --border-style: solid;
-      --border-color: var(--ion-color-light);
-  
-      margin-bottom: 20px;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  
-      &:focus-within {
-        --border-color: var(--ion-color-primary);
-        box-shadow: 0 2px 6px rgba(var(--ion-color-primary-rgb), 0.15);
-      }
-  
-      &:disabled {
-        --border-color: var(--ion-color-medium);
-        opacity: 0.6;
-      }
-  
-      &.ng-touched.ng-invalid:not(:focus-within) {
-        --border-color: var(--ion-color-danger);
-        box-shadow: none;
-      }
-  
-      &::part(label) {
-        transition: transform 0.2s ease, color 0.2s ease;
-      }
-      &:focus-within::part(label) {
-        transform: translateY(-6px) scale(0.95);
-        color: var(--ion-color-primary);
-      }
-    }
-  
-    /***** BOTONES “LIFT” & COLOR DEL HEADER *****/
-    ion-button {
-      --background: var(--ion-color-primary);
-      --color: #fff;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(var(--ion-color-primary-rgb), 0.3);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.4);
-      }
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 1px 3px rgba(var(--ion-color-primary-rgb), 0.2);
-      }
-    }
-    ion-button[fill="outline"] {
-      --border-color: var(--ion-color-primary);
-      --color: var(--ion-color-primary);
-  
-      &:hover {
-        background: rgba(var(--ion-color-primary-rgb), 0.1);
-      }
-    }
-  
-    /***** TEXTO SIN RESULTADOS *****/
-    .no-result-text {
-      margin-top: 16px;
-      text-align: center;
-      font-style: italic;
-    }
-
-    // src/app/consultas/consultas.page.scss
-
-// Contenedor del spinner para centrarlo y dar un padding
-.loading-wrapper {
   display: flex;
-  justify-content: center;
-  padding: 1rem 0;
-}
+  flex-direction: column;
+  height: 100%;
 
-// Estilos para el ion-spinner
-.custom-spinner {
-  // Color
-  --spinner-color: var(--ion-color-primary);
-  // Tamaño
-  width: 2.5rem;
-  height: 2.5rem;
-  // Margin opcional
-  margin: 0 auto;
-}
+  ion-content {
+    flex: 1;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+  }
 
-// Estilos para el infinite scroll (container)
-.custom-infinite {
-  // Opcional: fondo transparente
-  --background: transparent;
-  // Espaciado
-  padding-bottom: 1rem;
-}
-
-// Estilos para el contenido del infinite scroll
-.custom-infinite ion-infinite-scroll-content {
-  // Color del spinner que aparece al cargar más
-  --loading-spinner-color: var(--ion-color-secondary);
-  // Color y tamaño del texto
-  --loading-text-color: var(--ion-color-medium);
-  font-size: 0.9rem;
-  // Puedes cambiar los textos de pull/refresh también:
-  --pulling-text: 'Arrastra para cargar…';
-  --refreshing-text: '¡Cargando…!';
-}
+  /* Separación entre filtros y resultados */
+  .filtros {
+    margin-bottom: 16px;
 
   }
-  
+  /* Separación entre resultados y botón de añadir */
+  .resultados {
+    margin-bottom: 16px;
+  }
+ 
+
+  /* Margen entre campos de formulario */
+  ion-input,
+  ion-select {
+    margin-bottom: 24px;
+  }
+}

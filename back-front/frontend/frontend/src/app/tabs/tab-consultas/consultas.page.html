@@ -1,37 +1,49 @@
 <!-- src/app/consultas/consultas.page.html -->
 <ion-header>
-  <app-header titulo="Consultas"></app-header>
+  <app-header
+    titulo="Consultas"
+  ></app-header>
 </ion-header>
 
 <ion-content class="ion-padding">
+
   <!-- ► Filtros -->
   <div class="filtros-container">
     <div class="filtros-grid">
+
       <div class="campo">
-        <label for="coleccion">Base de Datos</label>
         <ion-select
           id="coleccion"
           [(ngModel)]="coleccionSeleccionada"
           interface="popover"
+          label="Base de Datos"
+          labelPlacement="floating"
+          fill="outline"
           placeholder="Selecciona una colección"
           (ionChange)="onColeccionChange()"
         >
-          <ion-select-option *ngFor="let c of colecciones" [value]="c.valor">
+          <ion-select-option
+            *ngFor="let c of colecciones"
+            [value]="c.valor"
+          >
             {{ c.nombre }}
           </ion-select-option>
         </ion-select>
       </div>
 
       <div class="campo">
-        <label for="termino">Término de Búsqueda</label>
         <ion-input
           id="termino"
           [(ngModel)]="terminoBusqueda"
-          (ionInput)="buscarDatos()"
-          clearInput
+          label="Término de Búsqueda"
+          labelPlacement="floating"
+          fill="outline"
           placeholder="Escribe aquí..."
+          clearInput
+          (ionInput)="buscarDatos()"
         ></ion-input>
       </div>
+
     </div>
   </div>
 
@@ -40,27 +52,35 @@
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
-  <!-- Resultados: sólo cuando loading === false y hay colección seleccionada -->
-  <div class="resultados-container" *ngIf="!loading && coleccionSeleccionada">
-    <!-- Badge con el conteo de resultados -->
+  <!-- Resultados -->
+  <div
+    class="resultados-container"
+    *ngIf="!loading && coleccionSeleccionada"
+  >
+    <!-- Badge con el conteo -->
     <ion-item lines="none">
       <ion-label>Resultados totales</ion-label>
-      <ion-badge slot="start" color="primary">{{ resultados.length }}</ion-badge>
+      <ion-badge slot="start" color="primary">
+        {{ resultados.length }}
+      </ion-badge>
     </ion-item>
 
-    <!-- “Seleccionar todos” -->
+    <!-- Seleccionar todos -->
     <ion-item>
       <ion-label>
         <ion-checkbox
           slot="start"
-          [checked]="clientesSeleccionados.size === resultados.length && resultados.length > 0"
+          [checked]="
+            clientesSeleccionados.size === resultados.length
+            && resultados.length > 0
+          "
           (ionChange)="toggleSeleccionTodos($event)"
         ></ion-checkbox>
         Seleccionar todos
       </ion-label>
     </ion-item>
 
-    <!-- Botón para borrar seleccionados -->
+    <!-- Borrar seleccionados -->
     <ion-button
       *ngIf="clientesSeleccionados.size > 0"
       expand="block"
@@ -86,15 +106,20 @@
           <h2>{{ obtenerNombreVisible(item) }}</h2>
           <p>{{ getSubtitulo(item) }}</p>
         </ion-label>
-        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        <ion-icon
+          slot="end"
+          name="chevron-forward-outline"
+        ></ion-icon>
       </ion-item>
     </ion-list>
 
-    <!-- Infinite Scroll para cargar de 6 en 6 -->
+    <!-- Infinite Scroll -->
     <ion-infinite-scroll
       threshold="100px"
       (ionInfinite)="loadMore($event)"
-      [disabled]="resultados.length >= todosElementos.length"
+      [disabled]="
+        resultados.length >= todosElementos.length
+      "
     >
       <ion-infinite-scroll-content
         loadingSpinner="crescent"
@@ -103,8 +128,14 @@
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
 
-    <!-- Mensaje cuando no hay resultados tras búsqueda -->
-    <ion-text color="medium" *ngIf="resultados.length === 0 && terminoBusqueda">
+    <!-- Mensaje sin resultados -->
+    <ion-text
+      color="medium"
+      *ngIf="
+        resultados.length === 0
+        && terminoBusqueda
+      "
+    >
       <p class="no-result-text">
         No se encontraron resultados para "{{ terminoBusqueda }}"
       </p>

@@ -1,16 +1,27 @@
 import { Module } from '@nestjs/common';
-import { VeterinariaService } from './veterinaria.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { CitaSchema } from './schemas/cita.schema/cita.schema';
-import { ClienteSchema } from './schemas/cliente.schema/cliente.schema';
-import { FacturacionSchema } from './schemas/facturacion.schema/facturacion.schema';
-import { HistorialMedicoSchema } from './schemas/historial-medico.schema/historial-medico.schema';
 
-import { ServicioPrestadoSchema } from './schemas/servicio-prestado.schema/servicio-prestado.schema';
-import { VeterinarioSchema } from './schemas/veterinario.schema/veterinario.schema';
-import { VeterinariaController } from './veterinaria.controller';
-import { MascotaSchema } from './schemas/mascota.schema/mascota.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppGateway } from 'src/app.gateway';
+import { CitaController } from './entidades/cita/controller/cita.controller';
+import { CitaSchema } from './entidades/cita/schemas/cita.schema/cita.schema';
+import { CitaService } from './entidades/cita/service/cita.service';
+import { ClienteController } from './entidades/cliente/controller/cliente.controller';
+import { ClienteSchema } from './entidades/cliente/schemas/cliente.schema/cliente.schema';
+import { ClienteService } from './entidades/cliente/service/cliente.service';
+import { HistorialMedicoController } from './entidades/historial-medico/controller/historialMedico.controller';
+import { HistorialMedicoSchema } from './entidades/historial-medico/schemas/historial-medico.schema/historial-medico.schema';
+import { HistorialMedicoService } from './entidades/historial-medico/service/historialMedico.service';
+import { MascotaController } from './entidades/mascota/controller/mascota.controller';
+import { MascotaSchema } from './entidades/mascota/schemas/mascota.schema/mascota.schema';
+import { MascotaService } from './entidades/mascota/service/mascota.service';
+import { ServicioPrestadoController } from './entidades/servicio-prestado/controller/servicio-prestado.controller';
+import { ServicioPrestadoSchema } from './entidades/servicio-prestado/schemas/servicio-prestado.schema/servicio-prestado.schema';
+import { ServicioPrestadoService } from './entidades/servicio-prestado/service/servicio-prestado.service';
+import { VeterinarioController } from './entidades/veterinario/controller/veterinario.controller';
+import { VeterinarioSchema } from './entidades/veterinario/schemas/veterinario.schema/veterinario.schema';
+import { VeterinarioService } from './entidades/veterinario/service/veterinario.service';
+
+
 
 @Module({
   imports: [
@@ -26,11 +37,7 @@ import { AppGateway } from 'src/app.gateway';
           schema: ClienteSchema,
           collection: 'cliente'
         },
-        {
-          name: 'Facturacion',
-          schema: FacturacionSchema,
-          collection: 'facturacion'
-        },
+
         {
           name: 'HistorialMedico',
           schema: HistorialMedicoSchema,
@@ -54,7 +61,7 @@ import { AppGateway } from 'src/app.gateway';
       ]
     )
   ],
-  providers: [VeterinariaService, AppGateway],
-  controllers: [VeterinariaController]
+  providers: [ AppGateway, CitaService, ClienteService, HistorialMedicoService, MascotaService, ServicioPrestadoService, VeterinarioService],
+  controllers: [CitaController, ClienteController, HistorialMedicoController, MascotaController, ServicioPrestadoController, VeterinarioController],
 })
 export class VeterinariaModule {}
