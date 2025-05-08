@@ -1,6 +1,7 @@
 # VetAppointment
 
-![Logo de VetAppointment](docs/images/logo.png)
+![logo_vetappointment](https://github.com/user-attachments/assets/a06e807f-2753-4290-b682-a4d22a30d3f6)
+
 
 Software de gestión veterinaria para la administración de citas, pacientes e historiales médicos en clínicas.
 
@@ -10,7 +11,7 @@ Software de gestión veterinaria para la administración de citas, pacientes e h
 * [Objetivos](#objetivos)
 * [Planificación](#planificación)
 * [Presupuesto](#presupuesto)
-* [Análisis de Mercado en España](#análisis-de-mercado-en-españa)
+* [Análisis de Mercado](#análisis-de-mercado)
 
   * [Público Objetivo y Perfiles de Usuario](#público-objetivo-y-perfiles-de-usuario)
   * [Competencia](#competencia)
@@ -50,14 +51,12 @@ VetAppointment es una aplicación diseñada para uso exclusivo del personal clí
 
 ## Planificación
 
-![Diagrama de Gantt](docs/images/gantt.png)
+![output](https://github.com/user-attachments/assets/375ba11b-a4fb-4ad8-a0e8-630c7037ada4)
+
 
 *Diagrama de Gantt que muestra las fases de análisis, diseño, desarrollo y despliegue.*
 
-## Presupuesto
 
-* Coste estimado de desarrollo: \[detalle de horas y recursos].
-* Licencias de software libre: sin costes adicionales.
 
 ## Análisis de Mercado en España
 
@@ -172,7 +171,8 @@ Diseño final con tipografía, colores y elementos de UI reales.
 
 ### Modelo de Datos
 
-![Diagrama ER](docs/images/erd.png)
+![ER_vetAPPointment](https://github.com/user-attachments/assets/1f0e1a4e-edda-4c24-8863-84273c30aab7)
+
 
 Entidades principales: Cliente ↔ Mascota → Historial Médico → Entrada Historial; Veterinario ↔ Cita; Servicio Prestado.
 
@@ -195,7 +195,7 @@ Entidades principales: Cliente ↔ Mascota → Historial Médico → Entrada His
 5. Iniciar servidores:
 
    ```bash
-   npm run start:dev      # Frontend
+   ng serve --open      # Frontend
    cd backend && npm run start:dev # Backend
    ```
 
