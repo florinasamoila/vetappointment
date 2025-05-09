@@ -178,7 +178,7 @@ Entidades principales: Cliente ↔ Mascota → Historial Médico → Entrada His
 
 ## Despliegue
 
-1. Clonar repositorio: `git clone https://github.com/tu-org/vetappointment.git`
+1. Clonar repositorio: `git clone [https://github.com/tu-org/vetappointment.git](https://github.com/florinasamoila/vetappointment)`
 2. Configurar `.env` con credenciales de base de datos.
 3. Instalar dependencias:
 
