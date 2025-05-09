@@ -149,7 +149,7 @@ Diseño final con tipografía, colores y elementos de UI reales.
 
 **Backend:** NestJS con módulos específicos para cada entidad, validación con class-validator y documentación via Swagger.
 
-**Base de Datos:** PostgreSQL con Sequelize ORM (migraciones y seeders).
+**Base de Datos:** MongoDB (no-relacional)
 
 ### Herramientas de Desarrollo
 
