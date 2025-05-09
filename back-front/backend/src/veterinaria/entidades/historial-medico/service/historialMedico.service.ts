@@ -15,11 +15,11 @@ import { CreateHistorialMedicoDto } from '../dto/create-historial-medico.dto/cre
 import { AddEntradaHistorialDto } from '../dto/historial-medico.dto/add-entrada-historial.dto';
 import { UpdateHistorialMedicoDto } from '../dto/update-historial-medico.dto/update-historial-medico.dto';
 import { Cliente } from '../../cliente/interfaces/cliente/cliente.interface';
-// Removed duplicate import of NotFoundException
+
 
 @Injectable()
 export class HistorialMedicoService {
-  clienteService: any;
+  historialMedicoService: any;
   constructor(
     @InjectModel('Cliente') private clienteModel: Model<Cliente>,
     @InjectModel('Mascota') private mascotaModel: Model<Mascota>,
@@ -32,7 +32,7 @@ export class HistorialMedicoService {
   ) {}
 
   //-- HISTORIAL MÉDICO / ENTRADAS AL HISTORIAL  - CRUD ---------------------------------------------------------------------------------------------------------------
-  //-- 1. Agrega una entrada al historial médico de una mascota ----------------------------------------------------------------------------------
+  //-- 1. Agrega una entrada al historial médico de una mascota -------------------------------------------------------------------------------------------------------
   async agregarEntradaAHistorial(mascotaId: string, entrada: any) {
     const tieneCitas = await this.verificarCitasAntesDeAgregarEntrada(mascotaId);
 
