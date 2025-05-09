@@ -118,12 +118,11 @@ Desarrollar una plataforma interna que permita registrar, consultar y administra
 ## Diseño
 
 ### Diagramas de Navegación (User Flow)
-
 ```mermaid
 flowchart TD
   A["Login (Usuario)"] -->|Credenciales válidas| B["Página Inicio"]
-  
-  subgraph Navegación Superior
+
+  subgraph Navegación_Superior
     B --> C["Inicio"]
     B --> D["Citas"]
     B --> E["Clientes"]
@@ -142,9 +141,10 @@ flowchart TD
   H --> H2["Administración de Servicios"]
   I --> I1["Abrir Swagger UI"]
 
-  style Navegación Superior fill:#f9f,stroke:#333,stroke-width:1px
-  style A fill:#ff9,stroke:#333,stroke-width:1px
-  style B fill:#9f9,stroke:#333,stroke-width:1px
+  style Navegación_Superior fill:#f9f,stroke:#333,stroke-width:2px
+  style A fill:#ff9,stroke:#333,stroke-width:2px
+  style B fill:#9f9,stroke:#333,stroke-width:2px
+
 
 
 Flujo de tareas principales: login → gestión de pacientes → programación de cita → registro de diagnóstico.
