@@ -172,6 +172,78 @@ Diseño final con tipografía, colores y elementos de UI reales.
 
 ### Arquitectura de la Aplicación
 
+```mermaid
+flowchart LR
+  %% Backend (NestJS)
+  subgraph Backend ["Backend (NestJS)"]
+    direction TB
+    AM[AppModule] 
+    AM --> CM[ClientesModule]
+    AM --> MM[MascotasModule]
+    AM --> CitM[CitasModule]
+    AM --> HM[HistorialMedicoModule]
+    AM --> SM[ServiciosModule]
+    AM --> VM[VeterinariosModule]
+
+    subgraph "Módulo de Clientes"
+      CM --> CC[ClientesController]
+      CM --> CS[ClientesService]
+      CS --> CR[ClientesRepository]
+    end
+    subgraph "Módulo de Mascotas"
+      MM --> MC[MascotasController]
+      MM --> MS[MascotasService]
+      MS --> MR[MascotasRepository]
+    end
+    subgraph "Módulo de Citas"
+      CitM --> CitC[CitasController]
+      CitM --> CitS[CitasService]
+      CitS --> CitR[CitasRepository]
+    end
+    subgraph "Módulo de Historial"
+      HM --> HC[HistorialController]
+      HM --> HS[HistorialService]
+      HS --> HR[HistorialRepository]
+    end
+    subgraph "Módulo de Servicios"
+      SM --> SC[ServiciosController]
+      SM --> SS[ServiciosService]
+      SS --> SR[ServiciosRepository]
+    end
+    subgraph "Módulo de Veterinarios"
+      VM --> VC[VeterinariosController]
+      VM --> VS[VeterinariosService]
+      VS --> VR[VeterinariosRepository]
+    end
+  end
+
+  %% Frontend (Angular + Ionic)
+  subgraph Frontend ["Frontend (Angular / Ionic)"]
+    direction TB
+    AF[AppModule] 
+    AF --> RCP[RegistroClientePage]
+    AF --> GHP[GestionHistorialPage]
+    AF --> CP[ConsultasPage]
+    AF --> CitP[CitasPage]
+
+    subgraph "Componentes Compartidos"
+      HC[HeaderComponent]
+      FE[FormularioEntradaHistorialComponent]
+      AP[AddMorePetsModalComponent]
+    end
+    RCP --> HC
+    GHP --> HC
+    CP  --> HC
+    CitP --> HC
+    RCP --> FE
+    GHP --> FE
+    GHP --> AP
+  end
+
+  %% Conexión Frontend ↔ Backend
+  Frontend -.->|HTTP REST| Backend
+```
+
 **Frontend:** Angular v14 modularizado en CoreModule, SharedModule y módulos funcionales (Clientes, Mascotas, Citas, Facturación, Historial Médico, Servicios, Veterinarios). Estilos con Angular Material.
 
 **Backend:** NestJS con módulos específicos para cada entidad, validación con class-validator y documentación via Swagger.
