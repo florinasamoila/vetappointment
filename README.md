@@ -51,7 +51,8 @@ VetAppointment es una aplicación diseñada para uso exclusivo del personal clí
 
 ## Planificación
 
-![diagrama_gantt_app](https://github.com/user-attachments/assets/c273bd6f-f49b-4684-83f9-9f99b968e53f)
+
+![diagrama_gantt_completo](https://github.com/user-attachments/assets/f9234f07-a816-4d15-88e0-26a6cdc7ff1a)
 
 
 
