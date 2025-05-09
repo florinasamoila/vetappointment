@@ -58,7 +58,7 @@ VetAppointment es una aplicación diseñada para uso exclusivo del personal clí
 
 *Diagrama de Gantt que muestra las fases de análisis, diseño, desarrollo y despliegue.*
 
-## Presupuesto
+## Presupuesto (ESTIMADO)
 
 ### 4.1 Costes de Personal
 
@@ -200,26 +200,6 @@ flowchart TD
   style B fill:#9f9,stroke:#333,stroke-width:2px
 
 ```
-
-### Wireframes
-
-#### Fidelidad Baja
-
-![Wireframe Baja Fidelidad](docs/images/wireframe-low.png)
-
-Bosquejo inicial en papel para definir estructura y jerarquía de elementos.
-
-#### Fidelidad Media
-
-![Wireframe Media Fidelidad](docs/images/wireframe-medium.png)
-
-Prototipo digital con componentes básicos y navegación definida.
-
-#### Fidelidad Alta
-
-![Wireframe Alta Fidelidad](docs/images/wireframe-high.png)
-
-Diseño final con tipografía, colores y elementos de UI reales.
 
 ## Desarrollo
 
