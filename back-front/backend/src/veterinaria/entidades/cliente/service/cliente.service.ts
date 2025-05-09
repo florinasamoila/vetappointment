@@ -14,7 +14,7 @@ import { Veterinario } from '../../veterinario/interfaces/veterinario/veterinari
 import { ClienteDto } from '../dto/cliente.dto/cliente.dto';
 import { CreateClienteDto } from '../dto/create-cliente.dto/create-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto/update-cliente.dto';
-// Removed duplicate import of NotFoundException
+
 
 @Injectable()
 export class ClienteService {

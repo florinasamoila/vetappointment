@@ -14,7 +14,7 @@ import { Cita } from '../interfaces/cita/cita.interface';
 import { CreateCitaDto } from '../dto/cita.dto/create-cita.dto/create-cita.dto';
 import { UpdateCitaDto } from '../dto/cita.dto/update-cita.dto/update-cita.dto';
 
-// Removed duplicate import of NotFoundException
+
 
 @Injectable()
 export class CitaService {
