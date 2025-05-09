@@ -146,7 +146,7 @@ flowchart TD
   style A fill:#ff9,stroke:#333,stroke-width:2px
   style B fill:#9f9,stroke:#333,stroke-width:2px
 
-```markdown
+```
 
 ### Wireframes
 
