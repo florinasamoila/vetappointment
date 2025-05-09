@@ -119,6 +119,7 @@ Desarrollar una plataforma interna que permita registrar, consultar y administra
 
 ### Diagramas de Navegación (User Flow)
 
+```mermaid
 flowchart TD
   A[Login<br/>(Usuario)] -->|Credenciales válidas| B[Página Inicio]
   
@@ -144,6 +145,7 @@ flowchart TD
   style Navegación Superior fill:#f9f,stroke:#333,stroke-width:1px
   style A fill:#ff9,stroke:#333,stroke-width:1px
   style B fill:#9f9,stroke:#333,stroke-width:1px
+
 
 Flujo de tareas principales: login → gestión de pacientes → programación de cita → registro de diagnóstico.
 
