@@ -106,7 +106,7 @@ Desarrollar una plataforma interna que permita registrar, consultar y administra
 
 ## Especificaciones del Producto
 
-1. Crear, modificar y eliminar citas médicas.
+1. Crear, modificar, visualizar y eliminar citas médicas.
 2. Registrar y consultar historiales clínicos completos.
 3. Gestionar veterinarios y sus horarios.
 4. Agenda visual diaria, semanal y mensual.
