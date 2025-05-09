@@ -129,7 +129,7 @@ flowchart TD
     B --> E["Clientes"]
     B --> F["Consultas"]
     B --> G["Historial Médico"]
-    B --> H["Perfil (admin@vetappointment.com)"]
+    B --> H["Perfil admin@vetappointment.com -> Administrador de Datos"]
     B --> I["Ayuda"]
   end
 
