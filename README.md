@@ -51,12 +51,67 @@ VetAppointment es una aplicación diseñada para uso exclusivo del personal clí
 
 ## Planificación
 
-![output](https://github.com/user-attachments/assets/375ba11b-a4fb-4ad8-a0e8-630c7037ada4)
+
+![diagrama_gantt_completo](https://github.com/user-attachments/assets/f9234f07-a816-4d15-88e0-26a6cdc7ff1a)
+
 
 
 *Diagrama de Gantt que muestra las fases de análisis, diseño, desarrollo y despliegue.*
 
+## Presupuesto (ESTIMADO)
 
+### 4.1 Costes de Personal
+
+| Fase                                | Horas | Tarifa (€ / h) | Coste (€) |
+|-------------------------------------|:-----:|:--------------:|---------:|
+| Análisis de Mercado                 |  120  |       40       |   4 800  |
+| Especificaciones y Planificación    |  128  |       40       |   5 120  |
+| Diseño (User Flow + Wireframes)     |  224  |       35       |   7 840  |
+| Desarrollo Frontend & Arquitectura  |  368  |       30       |  11 040  |
+| Desarrollo Backend / API            |  368  |       30       |  11 040  |
+| Pruebas e Integración               |  120  |       25       |   3 000  |
+| Despliegue y Configuración          |  120  |       30       |   3 600  |
+| Documentación y Conclusiones        |  128  |       25       |   3 200  |
+| **Total Personal**                  | **1576** |      —      | **49 640** |
+
+### 4.2 Infraestructura y Operaciones
+
+| Concepto                               | Periodo      | Coste unitario | Coste (€)  |
+|----------------------------------------|:------------:|:--------------:|----------:|
+| Servidor de preproducción (VPS)        | Ene–May 2025 |    50 €/mes    | 5 × 50 = 250 |
+| Dominio + SSL                          |    1 año     |       —        |     100   |
+| Servicios en la nube (API)             | Ene–May 2025 |   100 €/mes    | 5 × 100 = 500 |
+| **Total Infraestructura**              |              |                |   **850** |
+
+### 4.3 Licencias y Herramientas
+
+| Herramienta / Licencia        | Periodo    | Coste (€) |
+|-------------------------------|:----------:|---------:|
+| Angular Enterprise Support    |   1 año    |   1 000  |
+| NestJS Enterprise Support     |   1 año    |     800  |
+| Figma (UI/UX) – 5 usuarios    |    —       |     600  |
+| Postman Pro – 3 usuarios      |    —       |     300  |
+| **Total Licencias**           |            |   **2 700** |
+
+### 4.4 Contingencia (10 %)
+
+Para cubrir riesgos y posibles ampliaciones de alcance:
+
+\[
+(49\,640 + 850 + 2\,700) \times 0{,}10 = 5\,009\;\text{€}
+\]
+
+### 4.5 Gran Total
+
+| Concepto               | Coste (€) |
+|------------------------|---------:|
+| Total Personal         |   49 640 |
+| Total Infraestructura  |      850 |
+| Total Licencias        |    2 700 |
+| Contingencia (10 %)    |    5 009 |
+| **TOTAL GENERAL**      | **58 199** |
+
+---
 
 ## Análisis de Mercado en España
 
@@ -106,7 +161,7 @@ Desarrollar una plataforma interna que permita registrar, consultar y administra
 
 ## Especificaciones del Producto
 
-1. Crear, modificar y eliminar citas médicas.
+1. Crear, modificar, visualizar y eliminar citas médicas.
 2. Registrar y consultar historiales clínicos completos.
 3. Gestionar veterinarios y sus horarios.
 4. Agenda visual diaria, semanal y mensual.
@@ -115,41 +170,118 @@ Desarrollar una plataforma interna que permita registrar, consultar y administra
 
 ## Diseño
 
-### Diagramas de Navegación (User Flow)
+## Diagramas de Navegación (User Flow)
 
-![User Flow](docs/images/user-flow.png)
+```mermaid
+flowchart TD
+  A["Login (Usuario)"] -->|Credenciales válidas| B["Página Inicio"]
 
-Flujo de tareas principales: login → gestión de pacientes → programación de cita → registro de diagnóstico.
+  subgraph Navegación_Superior
+    B --> C["Inicio"]
+    B --> D["Citas"]
+    B --> E["Clientes"]
+    B --> F["Consultas"]
+    B --> G["Historial Médico"]
+    B --> H["Perfil Usuario -> Administrador de Datos"]
+    B --> I["Ayuda"]
+  end
 
-### Wireframes
+  C --> C1["Ver citas del día"]
+  D --> D1["CRUD de citas"]
+  E --> E1["Registro clientes y mascotas"]
+  F --> F1["Búsqueda transversal (ver/editar/borrar)"]
+  G --> G1["Gestión historial médico"]
+  H --> H1["CRUD veterinarios"]
+  H --> H2["CRUD servicios"]
+  I --> I1["Abrir Swagger UI"]
 
-#### Fidelidad Baja
+  style Navegación_Superior fill:#f9f,stroke:#333,stroke-width:2px
+  style A fill:#ff9,stroke:#333,stroke-width:2px
+  style B fill:#9f9,stroke:#333,stroke-width:2px
 
-![Wireframe Baja Fidelidad](docs/images/wireframe-low.png)
-
-Bosquejo inicial en papel para definir estructura y jerarquía de elementos.
-
-#### Fidelidad Media
-
-![Wireframe Media Fidelidad](docs/images/wireframe-medium.png)
-
-Prototipo digital con componentes básicos y navegación definida.
-
-#### Fidelidad Alta
-
-![Wireframe Alta Fidelidad](docs/images/wireframe-high.png)
-
-Diseño final con tipografía, colores y elementos de UI reales.
+```
 
 ## Desarrollo
 
 ### Arquitectura de la Aplicación
 
+```mermaid
+flowchart LR
+  %% Backend (NestJS)
+  subgraph Backend ["Backend (NestJS)"]
+    direction TB
+    AM[AppModule] 
+    AM --> CM[ClientesModule]
+    AM --> MM[MascotasModule]
+    AM --> CitM[CitasModule]
+    AM --> HM[HistorialMedicoModule]
+    AM --> SM[ServiciosModule]
+    AM --> VM[VeterinariosModule]
+
+    subgraph "Módulo de Clientes"
+      CM --> CC[ClientesController]
+      CM --> CS[ClientesService]
+      CS --> CR[ClientesRepository]
+    end
+    subgraph "Módulo de Mascotas"
+      MM --> MC[MascotasController]
+      MM --> MS[MascotasService]
+      MS --> MR[MascotasRepository]
+    end
+    subgraph "Módulo de Citas"
+      CitM --> CitC[CitasController]
+      CitM --> CitS[CitasService]
+      CitS --> CitR[CitasRepository]
+    end
+    subgraph "Módulo de Historial"
+      HM --> HC[HistorialController]
+      HM --> HS[HistorialService]
+      HS --> HR[HistorialRepository]
+    end
+    subgraph "Módulo de Servicios"
+      SM --> SC[ServiciosController]
+      SM --> SS[ServiciosService]
+      SS --> SR[ServiciosRepository]
+    end
+    subgraph "Módulo de Veterinarios"
+      VM --> VC[VeterinariosController]
+      VM --> VS[VeterinariosService]
+      VS --> VR[VeterinariosRepository]
+    end
+  end
+
+  %% Frontend (Angular + Ionic)
+  subgraph Frontend ["Frontend (Angular / Ionic)"]
+    direction TB
+    AF[AppModule] 
+    AF --> RCP[RegistroClientePage]
+    AF --> GHP[GestionHistorialPage]
+    AF --> CP[ConsultasPage]
+    AF --> CitP[CitasPage]
+
+    subgraph "Componentes Compartidos"
+      HC[HeaderComponent]
+      FE[FormularioEntradaHistorialComponent]
+      AP[AddMorePetsModalComponent]
+    end
+    RCP --> HC
+    GHP --> HC
+    CP  --> HC
+    CitP --> HC
+    RCP --> FE
+    GHP --> FE
+    GHP --> AP
+  end
+
+  %% Conexión Frontend ↔ Backend
+  Frontend -.->|HTTP REST| Backend
+```
+
 **Frontend:** Angular v14 modularizado en CoreModule, SharedModule y módulos funcionales (Clientes, Mascotas, Citas, Facturación, Historial Médico, Servicios, Veterinarios). Estilos con Angular Material.
 
 **Backend:** NestJS con módulos específicos para cada entidad, validación con class-validator y documentación via Swagger.
 
-**Base de Datos:** PostgreSQL con Sequelize ORM (migraciones y seeders).
+**Base de Datos:** MongoDB (no-relacional)
 
 ### Herramientas de Desarrollo
 
