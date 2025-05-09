@@ -144,11 +144,6 @@ flowchart TD
   style Navegación_Superior fill:#f9f,stroke:#333,stroke-width:2px
   style A fill:#ff9,stroke:#333,stroke-width:2px
   style B fill:#9f9,stroke:#333,stroke-width:2px
-
-
-
-Flujo de tareas principales: login → gestión de pacientes → programación de cita → registro de diagnóstico.
-
 ### Wireframes
 
 #### Fidelidad Baja
