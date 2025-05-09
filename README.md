@@ -58,7 +58,60 @@ VetAppointment es una aplicación diseñada para uso exclusivo del personal clí
 
 *Diagrama de Gantt que muestra las fases de análisis, diseño, desarrollo y despliegue.*
 
+## Presupuesto
 
+### 4.1 Costes de Personal
+
+| Fase                                | Horas | Tarifa (€ / h) | Coste (€) |
+|-------------------------------------|:-----:|:--------------:|---------:|
+| Análisis de Mercado                 |  120  |       40       |   4 800  |
+| Especificaciones y Planificación    |  128  |       40       |   5 120  |
+| Diseño (User Flow + Wireframes)     |  224  |       35       |   7 840  |
+| Desarrollo Frontend & Arquitectura  |  368  |       30       |  11 040  |
+| Desarrollo Backend / API            |  368  |       30       |  11 040  |
+| Pruebas e Integración               |  120  |       25       |   3 000  |
+| Despliegue y Configuración          |  120  |       30       |   3 600  |
+| Documentación y Conclusiones        |  128  |       25       |   3 200  |
+| **Total Personal**                  | **1576** |      —      | **49 640** |
+
+### 4.2 Infraestructura y Operaciones
+
+| Concepto                               | Periodo      | Coste unitario | Coste (€)  |
+|----------------------------------------|:------------:|:--------------:|----------:|
+| Servidor de preproducción (VPS)        | Ene–May 2025 |    50 €/mes    | 5 × 50 = 250 |
+| Dominio + SSL                          |    1 año     |       —        |     100   |
+| Servicios en la nube (API)             | Ene–May 2025 |   100 €/mes    | 5 × 100 = 500 |
+| **Total Infraestructura**              |              |                |   **850** |
+
+### 4.3 Licencias y Herramientas
+
+| Herramienta / Licencia        | Periodo    | Coste (€) |
+|-------------------------------|:----------:|---------:|
+| Angular Enterprise Support    |   1 año    |   1 000  |
+| NestJS Enterprise Support     |   1 año    |     800  |
+| Figma (UI/UX) – 5 usuarios    |    —       |     600  |
+| Postman Pro – 3 usuarios      |    —       |     300  |
+| **Total Licencias**           |            |   **2 700** |
+
+### 4.4 Contingencia (10 %)
+
+Para cubrir riesgos y posibles ampliaciones de alcance:
+
+\[
+(49\,640 + 850 + 2\,700) \times 0{,}10 = 5\,009\;\text{€}
+\]
+
+### 4.5 Gran Total
+
+| Concepto               | Coste (€) |
+|------------------------|---------:|
+| Total Personal         |   49 640 |
+| Total Infraestructura  |      850 |
+| Total Licencias        |    2 700 |
+| Contingencia (10 %)    |    5 009 |
+| **TOTAL GENERAL**      | **58 199** |
+
+---
 
 ## Análisis de Mercado en España
 
