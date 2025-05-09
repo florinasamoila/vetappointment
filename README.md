@@ -165,8 +165,8 @@ Diseño final con tipografía, colores y elementos de UI reales.
 | ---------- | ------------------------- | ---------------------------------------- |
 | Frontend   | Angular, Ionic, Bootstrap | SPA y responsive móvil/web               |
 | Backend    | NestJS (TypeScript)       | API REST y lógica de negocio             |
-| Base Datos | PostgreSQL, Sequelize     | Almacenamiento relacional                |
-| Seguridad  | JWT, Bcrypt               | Autenticación y cifrado de contraseñas   |
+| Base Datos | MongoDB     | Almacenamiento no-relacional                |
+| Seguridad  | JWT, Bcrypt               | Autenticación y cifrado de contraseñas (Trabajo futuro)   |
 | Otros      | RxJS, Angular Forms       | Manejo reactivo y gestión de formularios |
 
 ### Modelo de Datos
@@ -178,7 +178,7 @@ Entidades principales: Cliente ↔ Mascota → Historial Médico → Entrada His
 
 ## Despliegue
 
-1. Clonar repositorio: `git clone https://github.com/tu-org/vetappointment.git`
+1. Clonar repositorio: `git clone [https://github.com/tu-org/vetappointment.git](https://github.com/florinasamoila/vetappointment)`
 2. Configurar `.env` con credenciales de base de datos.
 3. Instalar dependencias:
 
