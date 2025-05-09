@@ -121,26 +121,26 @@ Desarrollar una plataforma interna que permita registrar, consultar y administra
 
 ```mermaid
 flowchart TD
-  A[Login<br/>(Usuario)] -->|Credenciales válidas| B[Página Inicio]
+  A["Login (Usuario)"] -->|Credenciales válidas| B["Página Inicio"]
   
   subgraph Navegación Superior
-    B --> C[Inicio]
-    B --> D[Citas]
-    B --> E[Clientes]
-    B --> F[Consultas]
-    B --> G[Historial Médico]
-    B --> H[Perfil (admin@…)] 
-    B --> I[Ayuda]
+    B --> C["Inicio"]
+    B --> D["Citas"]
+    B --> E["Clientes"]
+    B --> F["Consultas"]
+    B --> G["Historial Médico"]
+    B --> H["Perfil (admin@…)"]
+    B --> I["Ayuda"]
   end
 
-  C --> C1[Ver citas del día seleccionadas en Calendario]
-  D --> D1[Crear / Modificar / Eliminar citas]
-  E --> E1[Registrar Cliente + Mascotas]
-  F --> F1[Búsqueda transversal (borrar / editar / ver)]
-  G --> G1[Gestionar Historial Médico de Mascotas]
-  H --> H1[Administración de Veterinarios]
-  H --> H2[Administración de Servicios]
-  I --> I1[Abrir Swagger UI]
+  C --> C1["Ver citas del día seleccionadas en Calendario"]
+  D --> D1["Crear / Modificar / Eliminar citas"]
+  E --> E1["Registrar Cliente + Mascotas"]
+  F --> F1["Búsqueda transversal (borrar / editar / ver)"]
+  G --> G1["Gestionar Historial Médico de Mascotas"]
+  H --> H1["Administración de Veterinarios"]
+  H --> H2["Administración de Servicios"]
+  I --> I1["Abrir Swagger UI"]
 
   style Navegación Superior fill:#f9f,stroke:#333,stroke-width:1px
   style A fill:#ff9,stroke:#333,stroke-width:1px
