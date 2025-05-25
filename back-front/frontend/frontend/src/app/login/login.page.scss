@@ -3,10 +3,18 @@
 /* 1) El propio ion-content sirve como lienzo para el logo en mosaico */
 ion-content.login-page {
   position: relative; /* para contener nuestro overlay y contenedor */
-  --background: url('/assets/logo/background_animado.gif') no-repeat center
-    center / cover;
+  
 }
-
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0; /* detrás de todo */
+  pointer-events: none;
+}
 /* 2) Overlay semitransparente que cubre TODO el contenido */
 .login-page .bg-overlay {
   position: absolute;
