@@ -61,6 +61,7 @@ export class LoginPage {
   }
 
   async onSubmit() {
+    console.log('🔔 onSubmit disparado', this.loginForm.value);
     // Primero validamos el email
     if (this.emailControl?.hasError('pattern')) {
       const toast = await this.toastCtrl.create({
