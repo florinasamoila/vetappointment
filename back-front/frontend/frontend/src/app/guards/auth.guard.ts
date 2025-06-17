@@ -17,10 +17,10 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(): Promise<boolean | UrlTree> {
     const loggedIn = await firstValueFrom(this.auth.isLoggedIn$);
+    console.log('🔒 AuthGuard.canActivate, loggedIn=', loggedIn);
     if (loggedIn) {
       return true;
     }
-    // Devuelves la UrlTree, no haces router.navigateByUrl aquí
     return this.router.parseUrl('/login');
   }
 }
