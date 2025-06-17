@@ -101,16 +101,20 @@ export class LoginPage {
     const { email, password } = this.loginForm.value;
 
     this.auth.login(email, password).subscribe(async (ok) => {
+      console.log('🔑 auth.login ok=', ok);
+    
       if (ok) {
-        const success = await this.toastCtrl.create({
+        console.log('✅ Login correcto, navegando a /tabs');
+        const toast = await this.toastCtrl.create({
           position: 'middle',
           message: `¡Bienvenido, ${email}!`,
           color: 'success',
           duration: 2000,
         });
-        await success.present();
+        await toast.present();
         this.navCtrl.navigateRoot('/tabs', { replaceUrl: true });
       } else {
+        console.log('❌ auth.login devolvió false');
         const error = await this.toastCtrl.create({
           message: 'Error inesperado al iniciar sesión.',
           color: 'danger',
