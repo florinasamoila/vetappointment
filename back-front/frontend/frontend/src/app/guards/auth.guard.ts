@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     if (loggedIn) {
       return true;
     }
-    // En lugar de navegar imperativamente, devolvemos la UrlTree
+    // Devuelves la UrlTree, no haces router.navigateByUrl aquí
     return this.router.parseUrl('/login');
   }
 }
