@@ -28,7 +28,7 @@ export class LoginPage {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private navCtrl: Router,
+    private router: Router,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController
   ) {
@@ -113,7 +113,9 @@ export class LoginPage {
           duration: 2000,
         });
         await toast.present();
-        this.navCtrl.navigateByUrl('/tabs', { replaceUrl: true });
+        console.log('🔀 Llamando a router.navigateByUrl(/tabs)');
+        this.router.navigateByUrl('/tabs', { replaceUrl: true });
+
       } else {
         console.log('❌ auth.login devolvió false');
         const error = await this.toastCtrl.create({
