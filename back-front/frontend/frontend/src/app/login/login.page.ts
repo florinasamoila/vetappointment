@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { ModalController } from '@ionic/angular/standalone';
 import { SupportModalComponent } from '../components/support-modal/support-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -27,7 +28,7 @@ export class LoginPage {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private navCtrl: NavController,
+    private navCtrl: Router,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController
   ) {
@@ -112,7 +113,7 @@ export class LoginPage {
           duration: 2000,
         });
         await toast.present();
-        this.navCtrl.navigateRoot('/tabs', { replaceUrl: true });
+        this.navCtrl.navigateByUrl('/tabs', { replaceUrl: true });
       } else {
         console.log('❌ auth.login devolvió false');
         const error = await this.toastCtrl.create({
