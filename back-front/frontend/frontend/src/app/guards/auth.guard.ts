@@ -1,6 +1,10 @@
 // src/app/guards/auth.guard.ts
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import {
+  CanActivate,
+  Router,
+  UrlTree
+} from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { firstValueFrom } from 'rxjs';
 
@@ -11,12 +15,12 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
 
-  async canActivate(): Promise<boolean> {
+  async canActivate(): Promise<boolean | UrlTree> {
     const loggedIn = await firstValueFrom(this.auth.isLoggedIn$);
-    if (!loggedIn) {
-      this.router.navigateByUrl('/login', { replaceUrl: true });
-      return false;
+    if (loggedIn) {
+      return true;
     }
-    return true;
+    // En lugar de navegar imperativamente, devolvemos la UrlTree
+    return this.router.parseUrl('/login');
   }
 }
