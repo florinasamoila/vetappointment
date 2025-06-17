@@ -6,10 +6,19 @@ import { setupSwagger } from './swagger-config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  const allowedOrigins = [
+    'https://tu-frontend.onrender.com',
+    // 'http://localhost:4200' // opcional para dev
+  ];
   // Habilitamos CORS
   app.enableCors({
-    origin: '*', // Ajusta a la URL de tu frontend en producción
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS policy: acceso denegado para ${origin}`));
+      }
+    }, // Ajusta a la URL de tu frontend en producción
     allowedHeaders: 'Content-Type,Authorization',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
