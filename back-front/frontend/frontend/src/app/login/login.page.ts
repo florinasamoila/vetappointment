@@ -6,11 +6,12 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { IonicModule, ToastController, NavController } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { ModalController } from '@ionic/angular/standalone';
 import { SupportModalComponent } from '../components/support-modal/support-modal.component';
+// Importa Router
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,7 +29,7 @@ export class LoginPage {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router,
+    private router: Router,           // ← aquí
     private toastCtrl: ToastController,
     private modalCtrl: ModalController
   ) {
@@ -38,7 +39,6 @@ export class LoginPage {
         [
           Validators.required,
           Validators.email,
-          // Sólo permitimos este email exacto
           Validators.pattern('^admin@vetappointment\\.com$'),
         ],
       ],
@@ -46,25 +46,16 @@ export class LoginPage {
         '',
         [
           Validators.required,
-          // Sólo permitimos esta contraseña exacta
           Validators.pattern('^vetAPPointment01$'),
         ],
       ],
     });
   }
 
-  get emailControl() {
-    return this.loginForm.get('email');
-  }
-
-  get passwordControl() {
-    return this.loginForm.get('password');
-  }
-
   async onSubmit() {
     console.log('🔔 onSubmit disparado', this.loginForm.value);
-    // Primero validamos el email
-    if (this.emailControl?.hasError('pattern')) {
+
+    if (this.loginForm.get('email')?.hasError('pattern')) {
       const toast = await this.toastCtrl.create({
         message: 'El email debe ser admin@vetappointment.com',
         color: 'warning',
@@ -74,50 +65,38 @@ export class LoginPage {
       return;
     }
 
-    // Ahora manejamos intentos de contraseña
-    if (this.passwordControl?.hasError('pattern')) {
+    if (this.loginForm.get('password')?.hasError('pattern')) {
       this.attempts++;
-      if (this.attempts >= this.maxAttempts) {
-        const toast = await this.toastCtrl.create({
-          message: 'Demasiados intentos fallidos. Contacta con soporte.',
-          color: 'danger',
-          duration: 4000,
-        });
-        await toast.present();
-        // Opcional: deshabilitar el formulario tras demasiados intentos
-        this.loginForm.disable();
-      } else {
-        const restante = this.maxAttempts - this.attempts;
-        const toast = await this.toastCtrl.create({
-          message: `Contraseña incorrecta. Te quedan ${restante} intento(s).`,
-          color: 'warning',
-          duration: 3000,
-        });
-        await toast.present();
-      }
+      const restante = this.maxAttempts - this.attempts;
+      const toast = await this.toastCtrl.create({
+        message: restante > 0
+          ? `Contraseña incorrecta. Te quedan ${restante} intento(s).`
+          : 'Demasiados intentos fallidos. Contacta con soporte.',
+        color: restante > 0 ? 'warning' : 'danger',
+        duration: 3000,
+      });
+      await toast.present();
+      if (restante <= 0) this.loginForm.disable();
       return;
     }
 
-    // Si llegamos aquí, email y contraseña cumplen patrón exacto
     const { email, password } = this.loginForm.value;
-
     this.auth.login(email, password).subscribe(async (ok) => {
       console.log('🔑 auth.login ok=', ok);
-    
       if (ok) {
         console.log('✅ Login correcto, navegando a /tabs');
-        const toast = await this.toastCtrl.create({
+        const success = await this.toastCtrl.create({
           position: 'middle',
           message: `¡Bienvenido, ${email}!`,
           color: 'success',
           duration: 2000,
         });
-        await toast.present();
+        await success.present();
+
+        // Navega con Router, no con NavController
         console.log('🔀 Llamando a router.navigateByUrl(/tabs)');
         this.router.navigateByUrl('/tabs', { replaceUrl: true });
-
       } else {
-        console.log('❌ auth.login devolvió false');
         const error = await this.toastCtrl.create({
           message: 'Error inesperado al iniciar sesión.',
           color: 'danger',
