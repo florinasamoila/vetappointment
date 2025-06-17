@@ -81,30 +81,34 @@ export class LoginPage {
     }
 
     const { email, password } = this.loginForm.value;
-    this.auth.login(email, password).subscribe(async (ok) => {
+    this.auth.login(email, password).subscribe(ok => {
       console.log('🔑 auth.login ok=', ok);
       if (ok) {
         console.log('✅ Login correcto, navegando a /tabs');
-        const success = await this.toastCtrl.create({
-          position: 'middle',
-          message: `¡Bienvenido, ${email}!`,
-          color: 'success',
-          duration: 2000,
-        });
-        await success.present();
-
-        // Navega con Router, no con NavController
+        // Navegación inmediata ANTES del toast
         console.log('🔀 Llamando a router.navigateByUrl(/tabs)');
         this.router.navigateByUrl('/tabs', { replaceUrl: true });
+    
+        // Luego mostramos el toast sin bloquear
+        this.toastCtrl
+          .create({
+            position: 'middle',
+            message: `¡Bienvenido, ${email}!`,
+            color: 'success',
+            duration: 2000,
+          })
+          .then(toast => toast.present());
       } else {
-        const error = await this.toastCtrl.create({
-          message: 'Error inesperado al iniciar sesión.',
-          color: 'danger',
-          duration: 2000,
-        });
-        await error.present();
+        this.toastCtrl
+          .create({
+            message: 'Error inesperado al iniciar sesión.',
+            color: 'danger',
+            duration: 2000,
+          })
+          .then(toast => toast.present());
       }
     });
+    
   }
 
   async openSupportModal() {
