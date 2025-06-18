@@ -12,13 +12,10 @@ async function bootstrap() {
   ];
   // Habilitamos CORS
   app.enableCors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS policy: acceso denegado para ${origin}`));
-      }
-    },
+    origin: [
+      'https://vetappointment-2.onrender.com',
+      'http://localhost:4200',
+    ],
     credentials: true,
   });
 
