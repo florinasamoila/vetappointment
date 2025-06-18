@@ -7,7 +7,7 @@ import { setupSwagger } from './swagger-config/swagger.config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const allowedOrigins = [
-    'https://vetappointment-2.onrender.com',
+    'https://vetappointment-backend.onrender.com',
     // 'http://localhost:4200' // opcional para dev
   ];
   // Habilitamos CORS
