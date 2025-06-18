@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Veterinario } from '../common/veterinario';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class VeterinarioService {
-  private baseUrl = 'http://localhost:3000/veterinaria/veterinario';
+  private baseUrl = `${environment.apiUrl}/veterinario`;
 
   constructor(private http: HttpClient) {}
 

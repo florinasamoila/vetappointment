@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cliente } from '../common/cliente';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
   private baseUrl = 'http://localhost:3000/veterinaria/clientes';
+  private baseUrlProd = `${environment.apiUrl}/clientes`;
 
   constructor(private http: HttpClient) {}
 
   buscarClientes(nombre: string) {
-    return this.http.get<Cliente[]>(`${this.baseUrl}?search=${nombre}`);
+    return this.http.get<Cliente[]>(`${this.baseUrlProd}?search=${nombre}`);
   }
 
   obtenerMascotasPorCliente(clienteId: string) {
-    return this.http.get<any[]>(`${this.baseUrl}/${clienteId}/mascotas`);
+    return this.http.get<any[]>(`${this.baseUrlProd}/${clienteId}/mascotas`);
   }
 
   /** Nuevo método para añadir una mascota a un cliente existente */
   agregarMascota(clienteId: string, mascota: any) {
-    return this.http.post<any>(`${this.baseUrl}/${clienteId}/mascota`, mascota);
+    return this.http.post<any>(`${this.baseUrlProd}/${clienteId}/mascota`, mascota);
   }
 }
