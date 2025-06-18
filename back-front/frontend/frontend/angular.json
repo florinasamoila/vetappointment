@@ -32,7 +32,7 @@
             ],
              "styles": [
                           "src/global.scss",
-                          "node_modules/bootstrap/dist/css/bootstrap.min.css"
+                          "src/theme/variables.scss"
                         ],
             "scripts": []
             
