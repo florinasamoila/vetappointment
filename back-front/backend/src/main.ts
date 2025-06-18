@@ -18,9 +18,7 @@ async function bootstrap() {
       } else {
         callback(new Error(`CORS policy: acceso denegado para ${origin}`));
       }
-    }, // Ajusta a la URL de tu frontend en producción
-    allowedHeaders: 'Content-Type,Authorization',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    },
     credentials: true,
   });
 
