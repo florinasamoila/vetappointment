@@ -19,6 +19,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, ToastController, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormularioEntradaHistorialComponent } from 'src/app/components/formulario-entrada-historial/formulario-entrada-historial.component';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-gestion-historial-medico',
@@ -55,7 +56,7 @@ export class GestionHistorialMedicoPage implements OnInit {
   editMode = false; // flag de edición
   editableEntrada: any = null;
 
-  private apiUrl = 'http://localhost:3000/veterinaria';
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,

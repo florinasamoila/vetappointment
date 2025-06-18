@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root',
 })
 export class CitaService {
-  private apiUrl = 'http://localhost:3000/veterinaria/citas';
+
   private baseUrl = `${environment.apiUrl}/citas`;
 
   constructor(private http: HttpClient) {}

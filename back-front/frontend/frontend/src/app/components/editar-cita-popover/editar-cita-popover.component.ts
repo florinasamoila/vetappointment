@@ -9,6 +9,7 @@ import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CitaService } from 'src/app/services/citas.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-editar-cita-popover',
@@ -25,6 +26,8 @@ export class EditarCitaPopoverComponent implements OnInit {
 
   veterinarios: any[] = [];
   mascotasCliente: any[] = [];
+
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private modalCtrl: ModalController,
@@ -54,7 +57,7 @@ export class EditarCitaPopoverComponent implements OnInit {
 
   cargarVeterinarios() {
     this.http
-      .get<any[]>('http://localhost:3000/veterinaria/veterinario')
+      .get<any[]>(`${this.apiUrl}/veterinario`)
       .subscribe({
         next: (data) => {
           this.veterinarios = data;
@@ -71,7 +74,7 @@ export class EditarCitaPopoverComponent implements OnInit {
     this.http
       .get<
         any[]
-      >(`http://localhost:3000/veterinaria/clientes/${clienteId}/mascotas`)
+      >(`${this.apiUrl}/clientes/${clienteId}/mascotas`)
       .subscribe({
         next: (data) => {
           this.mascotasCliente = data;

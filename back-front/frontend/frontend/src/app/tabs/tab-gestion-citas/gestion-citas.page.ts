@@ -10,6 +10,7 @@ import { Cliente } from '../../common/cliente';
 import { CitaService } from '../../services/citas.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { environment } from 'src/environments/environment.prod';
 // Removed duplicate import of IonSearchbar
 
 @Component({
@@ -44,7 +45,7 @@ export class TabGestionCitas implements OnInit {
   horariosDisponibles: string[] = [];
   servicios: any[] = [];
   veterinarios: any[] = [];
-  private apiUrl = 'http://localhost:3000/veterinaria';
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private clienteService: ClienteService,

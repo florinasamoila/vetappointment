@@ -21,6 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ResumenClienteModalComponent } from 'src/app/components/resumen-cliente-modal/resumen-cliente-modal.component';
 import { AddMorePetsModalComponent } from 'src/app/components/add-more-pets-modal/add-more-pets-modal.component';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-tab3',
@@ -43,7 +44,7 @@ export class TabRegistroCliente implements OnInit {
   clientesFiltrados: any[] = [];
   clienteSeleccionado: any = null;
   clienteForm: FormGroup;
-  apiUrl = 'http://localhost:3000/veterinaria';
+  apiUrl = environment.apiUrl;
   clienteIdParam?: string;
   mascotaIdParam?: string;
 

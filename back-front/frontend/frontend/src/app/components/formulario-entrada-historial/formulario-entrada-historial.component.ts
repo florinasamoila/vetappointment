@@ -8,6 +8,7 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-formulario-entrada-historial',
@@ -35,7 +36,7 @@ export class FormularioEntradaHistorialComponent implements OnInit {
     observaciones: '',
   };
 
-  private apiUrl = 'http://localhost:3000/veterinaria';
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private modalCtrl: ModalController,

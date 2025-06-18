@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { forkJoin, of, firstValueFrom } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-detalle-modal',
@@ -29,7 +30,7 @@ export class DetalleModalComponent implements OnInit {
   @Input() datos: any;
   @Input() coleccion!: string;
 
-  private base = 'http://localhost:3000/veterinaria';
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private modalCtrl: ModalController,
@@ -57,7 +58,7 @@ export class DetalleModalComponent implements OnInit {
 
     // Llamamos al endpoint /clientes/:id/mascotas
     this.http
-      .get<any[]>(`${this.base}/clientes/${this.datos._id}/mascotas`)
+      .get<any[]>(`${this.apiUrl}/clientes/${this.datos._id}/mascotas`)
       .subscribe({
         next: (mascotas) => (this.datos.mascotas = mascotas),
         error: () => (this.datos.mascotas = []),
@@ -67,23 +68,23 @@ export class DetalleModalComponent implements OnInit {
   private popularCita() {
     forkJoin({
       cliente: this.http
-        .get(`${this.base}/clientes/${this.datos.cliente}`)
+        .get(`${this.apiUrl}/clientes/${this.datos.cliente}`)
         .pipe(catchError(() => of(null))),
       mascota: this.http
-        .get(`${this.base}/mascotas/${this.datos.mascota}`)
+        .get(`${this.apiUrl}/mascotas/${this.datos.mascota}`)
         .pipe(catchError(() => of(null))),
       veterinario: this.http
-        .get(`${this.base}/veterinario/${this.datos.veterinario}`)
+        .get(`${this.apiUrl}/veterinario/${this.datos.veterinario}`)
         .pipe(catchError(() => of(null))),
       servicioPrestado: this.http
-        .get(`${this.base}/servicio-prestado/${this.datos.servicioPrestado}`)
+        .get(`${this.apiUrl}/servicio-prestado/${this.datos.servicioPrestado}`)
         .pipe(catchError(() => of(null))),
     }).subscribe((pop) => (this.datos = { ...this.datos, ...pop }));
   }
 
   private popularHistorial() {
     this.http
-      .get<any>(`${this.base}/historial-medico/${this.datos._id}`)
+      .get<any>(`${this.apiUrl}/historial-medico/${this.datos._id}`)
       .pipe(
         switchMap((hist) => {
           // extraemos la cadena del ID
@@ -93,7 +94,7 @@ export class DetalleModalComponent implements OnInit {
               : hist.mascotaID._id;
           // ahora sí pedimos la mascota por su _id
           return this.http
-            .get(`${this.base}/mascotas/${mascotaId}`)
+            .get(`${this.apiUrl}/mascotas/${mascotaId}`)
             .pipe(map((mascota) => ({ ...hist, mascotaID: mascota })));
         })
       )
@@ -146,7 +147,7 @@ export class DetalleModalComponent implements OnInit {
             try {
               await firstValueFrom(
                 this.http.delete(
-                  `${this.base}/historial-medico/${this.datos._id}/entrada/${entry._id}`
+                  `${this.apiUrl}/historial-medico/${this.datos._id}/entrada/${entry._id}`
                 )
               );
               this.presentToast('Entrada eliminada', 'success');

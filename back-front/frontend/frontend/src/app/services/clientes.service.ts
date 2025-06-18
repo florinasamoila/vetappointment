@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root',
 })
 export class ClienteService {
-  private baseUrl = 'http://localhost:3000/veterinaria/clientes';
+ 
   private baseUrlProd = `${environment.apiUrl}/clientes`;
 
   constructor(private http: HttpClient) {}

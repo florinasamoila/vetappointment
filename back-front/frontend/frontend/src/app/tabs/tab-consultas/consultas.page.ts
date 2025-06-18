@@ -21,6 +21,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { DetalleModalComponent } from 'src/app/components/detalle-modal/detalle-modal.component';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-consultas',
@@ -60,7 +61,7 @@ export class TabConsultas implements OnInit {
   private pageSize = 6;
   private offset = 0;
 
-  private apiUrl = 'http://localhost:3000/veterinaria';
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
