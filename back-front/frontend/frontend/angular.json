@@ -27,14 +27,12 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets"
-              }
+              { "glob": "**/*",      "input": "src/assets",   "output": "assets" },
+              { "glob": "_redirects", "input": "src",          "output": "/"      }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": "src/global.scss",
             "scripts": []
+            
           },
           "configurations": {
             "production": {
@@ -106,7 +104,7 @@
                 "output": "/"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": "src/global.scss",
             "scripts": []
           },
           "configurations": {
